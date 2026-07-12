@@ -1,0 +1,15 @@
+<h1>Templates</h1>
+
+<p *ngIf="!hasResume">
+  You don't have a resume yet. <a routerLink="/resume-builder">Create one first</a>, then come back to pick a template.
+</p>
+
+<p>{{ message }}</p>
+
+<ul>
+  <li *ngFor="let template of templateOptions">
+    {{ template.name }}
+    <span *ngIf="template.id === currentTemplateId"> (Currently selected)</span>
+    <button type="button" (click)="useTemplate(template.id)">Use Template</button>
+  </li>
+</ul>

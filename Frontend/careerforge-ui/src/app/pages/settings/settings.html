@@ -1,0 +1,17 @@
+<h1>Settings</h1>
+
+<h2>Profile</h2>
+<form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+  <input type="text" placeholder="Full Name" formControlName="fullName">
+  <input type="email" placeholder="Email" formControlName="email">
+  <button type="submit">Update Profile</button>
+  <p>{{ profileMessage }}</p>
+</form>
+
+<h2>Change Password</h2>
+<form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+  <input type="password" placeholder="Current Password" formControlName="currentPassword">
+  <input type="password" placeholder="New Password" formControlName="newPassword">
+  <button type="submit">Change Password</button>
+  <p>{{ passwordMessage }}</p>
+</form>

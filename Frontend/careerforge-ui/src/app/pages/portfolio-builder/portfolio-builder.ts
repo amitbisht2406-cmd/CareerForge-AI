@@ -1,0 +1,199 @@
+import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Portfolio } from '../../services/portfolio';
+
+@Component({
+  selector: 'app-portfolio-builder',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './portfolio-builder.html',
+  styleUrl: './portfolio-builder.css'
+})
+export class PortfolioBuilder implements OnInit {
+
+  private platformId = inject(PLATFORM_ID);
+  private portfolioService = inject(Portfolio);
+
+  currentPortfolioId: number | null = null;
+
+  portfolioForm = new FormGroup({
+
+    heroTitle: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    heroTagline: new FormControl('', { nonNullable: true }),
+    about: new FormControl('', { nonNullable: true }),
+
+    skills: new FormArray([
+      new FormControl('', { nonNullable: true })
+    ]),
+
+    projects: new FormArray([
+      new FormGroup({
+        title: new FormControl('', { nonNullable: true }),
+        description: new FormControl('', { nonNullable: true })
+      })
+    ]),
+
+    contactEmail: new FormControl('', { nonNullable: true, validators: [Validators.email] }),
+    contactPhone: new FormControl('', { nonNullable: true })
+
+  });
+
+  get skills(): FormArray {
+    return this.portfolioForm.get('skills') as FormArray;
+  }
+
+  get projects(): FormArray {
+    return this.portfolioForm.get('projects') as FormArray;
+  }
+
+  ngOnInit() {
+
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    this.portfolioService.getPortfolios().subscribe({
+
+      next: (portfolios) => {
+
+        if (portfolios.length === 0) {
+          return;
+        }
+
+        const data = portfolios[portfolios.length - 1];
+        this.currentPortfolioId = data.id;
+
+        this.portfolioForm.patchValue({
+          heroTitle: data.heroTitle,
+          heroTagline: data.heroTagline,
+          about: data.about,
+          contactEmail: data.contactEmail,
+          contactPhone: data.contactPhone
+        });
+
+        const savedSkills = this.safeParseArray(data.skills);
+        const savedProjects = this.safeParseArray(data.projects);
+
+        this.skills.clear();
+        savedSkills.forEach((skill: string) => {
+          this.skills.push(new FormControl(skill, { nonNullable: true }));
+        });
+        if (this.skills.length === 0) {
+          this.skills.push(new FormControl('', { nonNullable: true }));
+        }
+
+        this.projects.clear();
+        savedProjects.forEach((project: any) => {
+          this.projects.push(new FormGroup({
+            title: new FormControl(project.title, { nonNullable: true }),
+            description: new FormControl(project.description, { nonNullable: true })
+          }));
+        });
+        if (this.projects.length === 0) {
+          this.projects.push(new FormGroup({
+            title: new FormControl('', { nonNullable: true }),
+            description: new FormControl('', { nonNullable: true })
+          }));
+        }
+
+      },
+
+      error: (error) => {
+        console.error('Failed to load portfolio:', error);
+      }
+
+    });
+
+  }
+
+  private safeParseArray(raw: string | null | undefined): any[] {
+    if (!raw) {
+      return [];
+    }
+    try {
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.error('Failed to parse portfolio data:', error);
+      return [];
+    }
+  }
+
+  addSkill() {
+    this.skills.push(new FormControl('', { nonNullable: true }));
+  }
+
+  removeSkill(index: number) {
+    if (this.skills.length > 1) {
+      this.skills.removeAt(index);
+    }
+  }
+
+  addProject() {
+    this.projects.push(new FormGroup({
+      title: new FormControl('', { nonNullable: true }),
+      description: new FormControl('', { nonNullable: true })
+    }));
+  }
+
+  removeProject(index: number) {
+    if (this.projects.length > 1) {
+      this.projects.removeAt(index);
+    }
+  }
+
+  savePortfolio() {
+
+    if (this.portfolioForm.invalid) {
+      this.portfolioForm.markAllAsTouched();
+      return;
+    }
+
+    const formValue = this.portfolioForm.value;
+
+    const cleanSkills = (formValue.skills ?? []).filter(skill => skill?.trim());
+    const cleanProjects = (formValue.projects ?? []).filter(project =>
+      project.title?.trim() || project.description?.trim()
+    );
+
+    const data = {
+      id: this.currentPortfolioId ?? 0,
+      heroTitle: formValue.heroTitle,
+      heroTagline: formValue.heroTagline,
+      about: formValue.about,
+      skills: JSON.stringify(cleanSkills),
+      projects: JSON.stringify(cleanProjects),
+      contactEmail: formValue.contactEmail,
+      contactPhone: formValue.contactPhone
+    };
+
+    if (this.currentPortfolioId !== null) {
+
+      this.portfolioService.updatePortfolio(this.currentPortfolioId, data).subscribe({
+        next: () => alert('Portfolio updated successfully! ✅'),
+        error: (error) => {
+          console.error('Update failed:', error);
+          alert('Failed to update portfolio ❌');
+        }
+      });
+
+    } else {
+
+      this.portfolioService.createPortfolio(data).subscribe({
+        next: (response) => {
+          this.currentPortfolioId = response.id;
+          alert('Portfolio saved successfully! ✅');
+        },
+        error: (error) => {
+          console.error('Save failed:', error);
+          alert('Failed to save portfolio ❌');
+        }
+      });
+
+    }
+
+  }
+
+}

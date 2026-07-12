@@ -1,0 +1,29 @@
+<h1>Downloads</h1>
+
+<h2>Resumes</h2>
+
+<p *ngIf="isLoading">Loading...</p>
+
+<p *ngIf="!isLoading && resumes.length === 0">
+  No resumes yet. <a routerLink="/resume-builder">Create one</a>
+</p>
+
+<ul>
+  <li *ngFor="let resume of resumes">
+    {{ resume.fullName || 'Untitled Resume' }}
+    <a routerLink="/resume-builder">Open & Download</a>
+  </li>
+</ul>
+
+<h2>Portfolios</h2>
+
+<p *ngIf="portfolios.length === 0">
+  No portfolios yet. <a routerLink="/portfolio-builder">Create one</a>
+</p>
+
+<ul>
+  <li *ngFor="let portfolio of portfolios">
+    {{ portfolio.heroTitle || 'Untitled Portfolio' }}
+    <a routerLink="/portfolio-builder">Open</a>
+  </li>
+</ul>

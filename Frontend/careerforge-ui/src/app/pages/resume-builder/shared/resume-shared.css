@@ -1,0 +1,157 @@
+/* ==========================================
+   Shared: Base Inputs
+========================================== */
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: .3s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(37, 99, 235, .15);
+}
+
+textarea {
+    resize: none;
+}
+
+/* ==========================================
+   Shared: Base Buttons
+========================================== */
+
+button {
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.error {
+    color: var(--danger);
+    font-size: 13px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+/* ==========================================
+   Shared: Form Cards
+========================================== */
+
+.form-card {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.card-header {
+    margin-bottom: 25px;
+}
+
+.card-header h2 {
+    font-size: 24px;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.card-header p {
+    color: var(--text-light);
+    margin: 0;
+    font-size: 15px;
+}
+
+.form-card input,
+.form-card textarea,
+.form-card select {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    font-size: 15px;
+    transition: var(--transition);
+}
+
+.form-card input:focus,
+.form-card textarea:focus,
+.form-card select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+}
+
+/* ==========================================
+   Shared: Add / Delete Buttons
+========================================== */
+
+.add-btn {
+    width: 100%;
+    margin-top: 10px;
+    background: #16a34a;
+}
+
+.add-btn:hover {
+    background: #15803d;
+}
+
+.delete-btn {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    background: var(--danger);
+    color: white;
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+}
+
+/* ==========================================
+   Shared: Repeated Item Cards
+   (used by projects / certificates / languages)
+========================================== */
+
+.repeatable-card {
+    margin-top: 20px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: #fafafa;
+}
+
+.repeatable-card h3 {
+    margin-bottom: 18px;
+    color: var(--text);
+}
+
+.repeatable-card textarea {
+    min-height: 110px;
+}
+
+.repeatable-card .delete-btn {
+    margin-top: 10px;
+}

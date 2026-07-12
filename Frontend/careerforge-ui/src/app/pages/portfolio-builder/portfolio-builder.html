@@ -1,0 +1,33 @@
+<div [formGroup]="portfolioForm">
+
+  <h1>Portfolio Builder</h1>
+
+  <h2>Hero</h2>
+  <input type="text" placeholder="Hero Title" formControlName="heroTitle">
+  <input type="text" placeholder="Tagline" formControlName="heroTagline">
+
+  <h2>About</h2>
+  <textarea rows="4" placeholder="About you" formControlName="about"></textarea>
+
+  <h2>Skills</h2>
+  <div *ngFor="let skill of skills.controls; let i = index">
+    <input type="text" [formControl]="$any(skill)" placeholder="Skill">
+    <button type="button" *ngIf="skills.length > 1" (click)="removeSkill(i)">Remove</button>
+  </div>
+  <button type="button" (click)="addSkill()">Add Skill</button>
+
+  <h2>Projects</h2>
+  <div *ngFor="let project of projects.controls; let i = index" [formGroup]="$any(project)">
+    <input type="text" placeholder="Project Title" formControlName="title">
+    <textarea rows="3" placeholder="Project Description" formControlName="description"></textarea>
+    <button type="button" *ngIf="projects.length > 1" (click)="removeProject(i)">Remove Project</button>
+  </div>
+  <button type="button" (click)="addProject()">Add Project</button>
+
+  <h2>Contact</h2>
+  <input type="email" placeholder="Contact Email" formControlName="contactEmail">
+  <input type="text" placeholder="Contact Phone" formControlName="contactPhone">
+
+  <button type="button" (click)="savePortfolio()">Save Portfolio</button>
+
+</div>

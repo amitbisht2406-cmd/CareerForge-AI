@@ -1,0 +1,187 @@
+.resume-preview {
+    position: sticky;
+    top: 100px;
+    min-width: 0;
+}
+
+.preview-paper {
+    background: white;
+    width: 100%;
+    max-width: 800px;
+    min-height: 1000px;
+    padding: 40px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .12);
+    margin: auto;
+    overflow-wrap: anywhere;
+    transition: var(--transition);
+}
+
+.preview-paper p {
+    line-height: 1.6;
+}
+
+.preview-paper ul {
+    padding-left: 20px;
+}
+
+.preview-header {
+    text-align: center;
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 25px;
+    margin-bottom: 30px;
+}
+
+.preview-header h1 {
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.social-links a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.social-links a:hover {
+    text-decoration: underline;
+}
+
+.section-title {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+    border-left: 5px solid var(--primary);
+    padding-left: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.preview-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-chip {
+    background: #dbeafe;
+    color: var(--primary);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.preview-project {
+    margin-bottom: 18px;
+}
+
+.preview-project h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    color: var(--text);
+}
+
+.project-description {
+    margin: 0 0 5px;
+    line-height: 1.5;
+    color: #475569;
+}
+
+.project-tech {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.preview-certificate {
+    margin-bottom: 12px;
+}
+
+.preview-certificate h3 {
+    margin: 0 0 3px;
+    font-size: 15px;
+    color: var(--text);
+}
+
+.preview-certificate p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.preview-languages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.preview-language {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 10px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.language-name {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.language-level {
+    color: var(--text-light);
+}
+
+.download-btn {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.download-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+}
+
+.download-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+@media (max-width: 1000px) {
+
+    .resume-preview {
+        position: static;
+    }
+
+    .preview-paper {
+        max-width: 100%;
+    }
+
+}

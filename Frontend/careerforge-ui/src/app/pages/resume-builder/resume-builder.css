@@ -1,0 +1,37 @@
+.builder-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(350px, 0.8fr);
+    gap: 30px;
+    align-items: start;
+}
+
+.resume-container {
+    padding: 40px;
+    min-width: 0;
+}
+
+.resume-container h1 {
+    font-size: 36px;
+    color: var(--text);
+    margin-bottom: 10px;
+}
+
+.resume-container p {
+    color: var(--text-light);
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 700px;
+}
+
+@media (max-width: 1000px) {
+
+    .builder-layout {
+        grid-template-columns: 1fr;
+    }
+
+}

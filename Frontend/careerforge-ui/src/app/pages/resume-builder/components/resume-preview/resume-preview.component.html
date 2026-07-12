@@ -1,0 +1,171 @@
+<div class="resume-preview">
+
+    <h2>Live Preview 👀</h2>
+
+    <button
+        type="button"
+        class="download-btn"
+        (click)="downloadPDF()"
+        [disabled]="isGeneratingPDF || !hasResumeContent()"
+    >
+        {{ isGeneratingPDF ? 'Generating PDF...' : '⬇ Download PDF' }}
+    </button>
+
+    <div
+        class="preview-paper"
+        #previewPaper
+    >
+
+        <!-- Header -->
+        <div class="preview-header">
+
+            <h1 *ngIf="personalInfo.get('fullName')?.value">
+                {{ personalInfo.get('fullName')?.value }}
+            </h1>
+
+            <div
+                class="contact-info"
+                *ngIf="personalInfo.get('email')?.value || personalInfo.get('phone')?.value"
+            >
+
+                <span *ngIf="personalInfo.get('email')?.value">
+                    {{ personalInfo.get('email')?.value }}
+                </span>
+
+                <span *ngIf="personalInfo.get('email')?.value && personalInfo.get('phone')?.value">
+                    •
+                </span>
+
+                <span *ngIf="personalInfo.get('phone')?.value">
+                    {{ personalInfo.get('phone')?.value }}
+                </span>
+
+            </div>
+
+            <div
+                class="social-links"
+                *ngIf="personalInfo.get('github')?.value || personalInfo.get('linkedin')?.value"
+            >
+
+                <a
+                    *ngIf="personalInfo.get('github')?.value"
+                    [href]="personalInfo.get('github')?.value"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub
+                </a>
+
+                <span *ngIf="personalInfo.get('github')?.value && personalInfo.get('linkedin')?.value">
+                    •
+                </span>
+
+                <a
+                    *ngIf="personalInfo.get('linkedin')?.value"
+                    [href]="personalInfo.get('linkedin')?.value"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    LinkedIn
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Education -->
+        <div *ngIf="background.get('education')?.value">
+            <h2 class="section-title">Education</h2>
+            <p>{{ background.get('education')?.value }}</p>
+        </div>
+
+        <!-- Experience -->
+        <div *ngIf="background.get('experience')?.value">
+            <h2 class="section-title">Experience</h2>
+            <p>{{ background.get('experience')?.value }}</p>
+        </div>
+
+        <!-- Skills -->
+        <h2 class="section-title" *ngIf="hasSkills()">Skills</h2>
+
+        <div class="preview-skills">
+            <span
+                class="skill-chip"
+                *ngFor="let skill of skills.controls"
+                [hidden]="!skill.value"
+            >
+                {{ skill.value }}
+            </span>
+        </div>
+
+        <!-- Projects -->
+        <h2 class="section-title" *ngIf="hasProjects()">Projects</h2>
+
+        <div
+            class="preview-project"
+            *ngFor="let project of projects.controls"
+            [hidden]="
+                !project.get('title')?.value &&
+                !project.get('description')?.value &&
+                !project.get('technologies')?.value
+            "
+        >
+
+            <h3>{{ project.get('title')?.value }}</h3>
+
+            <p class="project-description">
+                {{ project.get('description')?.value }}
+            </p>
+
+            <p class="project-tech" *ngIf="project.get('technologies')?.value">
+                <strong>Technologies:</strong>
+                {{ project.get('technologies')?.value }}
+            </p>
+
+        </div>
+
+        <!-- Certificates -->
+        <h2 class="section-title" *ngIf="hasCertificates()">Certificates</h2>
+
+        <div
+            class="preview-certificate"
+            *ngFor="let certificate of certificates.controls"
+            [hidden]="!certificate.get('name')?.value && !certificate.get('issuer')?.value"
+        >
+            <h3>{{ certificate.get('name')?.value }}</h3>
+            <p>{{ certificate.get('issuer')?.value }}</p>
+        </div>
+
+        <!-- Languages -->
+        <h2 class="section-title" *ngIf="hasLanguages()">Languages</h2>
+
+        <div class="preview-languages">
+
+            <ng-container *ngFor="let language of languages.controls">
+
+                <div
+                    class="preview-language"
+                    *ngIf="language.get('name')?.value || language.get('proficiency')?.value"
+                >
+
+                    <span class="language-name" *ngIf="language.get('name')?.value">
+                        {{ language.get('name')?.value }}
+                    </span>
+
+                    <span *ngIf="language.get('name')?.value && language.get('proficiency')?.value">
+                        •
+                    </span>
+
+                    <span class="language-level" *ngIf="language.get('proficiency')?.value">
+                        {{ language.get('proficiency')?.value }}
+                    </span>
+
+                </div>
+
+            </ng-container>
+
+        </div>
+
+    </div>
+
+</div>

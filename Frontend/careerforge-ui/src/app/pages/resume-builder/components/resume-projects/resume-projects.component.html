@@ -1,0 +1,53 @@
+<div class="form-card">
+
+    <div class="card-header">
+        <h2>📁 Projects</h2>
+        <p>Showcase your best projects and technologies.</p>
+    </div>
+
+    <div
+        class="repeatable-card"
+        *ngFor="let project of projects.controls; let i = index"
+        [formGroup]="asFormGroup(project)"
+    >
+
+        <h3>Project {{ i + 1 }}</h3>
+
+        <input
+            type="text"
+            placeholder="Project Title"
+            formControlName="title"
+        >
+
+        <textarea
+            rows="4"
+            placeholder="Project Description"
+            formControlName="description"
+        ></textarea>
+
+        <input
+            type="text"
+            placeholder="Technologies Used"
+            formControlName="technologies"
+        >
+
+        <button
+            *ngIf="projects.length > 1"
+            type="button"
+            class="delete-btn"
+            (click)="removeProject(i)"
+        >
+            Remove Project
+        </button>
+
+    </div>
+
+    <button
+        type="button"
+        class="add-btn"
+        (click)="addProject()"
+    >
+        ➕ Add Project
+    </button>
+
+</div>

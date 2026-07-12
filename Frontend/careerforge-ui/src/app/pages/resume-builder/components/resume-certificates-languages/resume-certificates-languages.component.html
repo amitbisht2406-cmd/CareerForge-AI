@@ -1,0 +1,99 @@
+<!-- Certificates -->
+<div class="form-card">
+
+    <div class="card-header">
+        <h2>🏆 Certificates</h2>
+        <p>Add your certifications and achievements.</p>
+    </div>
+
+    <div
+        class="repeatable-card"
+        *ngFor="let certificate of certificates.controls; let i = index"
+        [formGroup]="asFormGroup(certificate)"
+    >
+
+        <h3>Certificate {{ i + 1 }}</h3>
+
+        <input
+            type="text"
+            placeholder="Certificate Name"
+            formControlName="name"
+        >
+
+        <input
+            type="text"
+            placeholder="Issuing Organization"
+            formControlName="issuer"
+        >
+
+        <button
+            *ngIf="certificates.length > 1"
+            type="button"
+            class="delete-btn"
+            (click)="removeCertificate(i)"
+        >
+            Remove Certificate
+        </button>
+
+    </div>
+
+    <button
+        type="button"
+        class="add-btn"
+        (click)="addCertificate()"
+    >
+        ➕ Add Certificate
+    </button>
+
+</div>
+
+<!-- Languages -->
+<div class="form-card">
+
+    <div class="card-header">
+        <h2>🌍 Languages</h2>
+        <p>Add the languages you know and your proficiency.</p>
+    </div>
+
+    <div
+        class="repeatable-card"
+        *ngFor="let language of languages.controls; let i = index"
+        [formGroup]="asFormGroup(language)"
+    >
+
+        <h3>Language {{ i + 1 }}</h3>
+
+        <input
+            type="text"
+            placeholder="Language"
+            formControlName="name"
+        >
+
+        <select formControlName="proficiency">
+            <option value="">Select Proficiency</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Fluent">Fluent</option>
+            <option value="Native">Native</option>
+        </select>
+
+        <button
+            *ngIf="languages.length > 1"
+            type="button"
+            class="delete-btn"
+            (click)="removeLanguage(i)"
+        >
+            Remove Language
+        </button>
+
+    </div>
+
+    <button
+        type="button"
+        class="add-btn"
+        (click)="addLanguage()"
+    >
+        ➕ Add Language
+    </button>
+
+</div>

@@ -1,0 +1,20 @@
+<h1>AI Resume Review</h1>
+
+<p *ngIf="!hasResume">
+  You don't have a resume yet. <a routerLink="/resume-builder">Create one first</a>.
+</p>
+
+<button type="button" (click)="getReview()" [disabled]="isLoading">
+  {{ isLoading ? 'Analyzing...' : 'Get AI Review' }}
+</button>
+
+<p *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<div *ngIf="review">
+  <h2>Overall Score: {{ review.overallScore }}%</h2>
+  <p>Grammar: {{ review.grammarScore }}%</p>
+  <p>ATS Compatibility: {{ review.atsScore }}%</p>
+  <p>Skills: {{ review.skillsScore }}%</p>
+  <p><strong>Feedback:</strong> {{ review.feedback }}</p>
+  <p><strong>Suggestion:</strong> {{ review.missingSkillsSuggestion }}</p>
+</div>

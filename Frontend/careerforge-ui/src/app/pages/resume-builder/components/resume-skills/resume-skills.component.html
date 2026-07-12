@@ -1,0 +1,53 @@
+<div class="form-card">
+
+    <div class="card-header">
+        <h2>🛠 Skills</h2>
+        <p>Add your technical and professional skills.</p>
+    </div>
+
+    <div class="skills">
+
+        <div
+            class="skill-row"
+            *ngFor="let skill of skills.controls; let i = index"
+        >
+
+            <div class="skill-input">
+
+                <input
+                    type="text"
+                    [formControl]="asControl(skill)"
+                    placeholder="Enter Skill"
+                >
+
+                <p
+                    class="error"
+                    *ngIf="skill.touched && skill.hasError('required')"
+                >
+                    Skill cannot be empty
+                </p>
+
+            </div>
+
+            <button
+                *ngIf="skills.length > 1"
+                type="button"
+                class="delete-btn"
+                (click)="removeSkill(i)"
+            >
+                ✖
+            </button>
+
+        </div>
+
+    </div>
+
+    <button
+        type="button"
+        class="add-btn"
+        (click)="addSkill()"
+    >
+        ➕ Add Skill
+    </button>
+
+</div>

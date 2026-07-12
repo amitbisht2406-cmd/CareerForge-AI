@@ -1,0 +1,95 @@
+<div
+    class="form-card"
+    [formGroup]="form"
+>
+
+    <div class="card-header">
+        <h2>👤 Personal Information</h2>
+        <p>Basic details about yourself.</p>
+    </div>
+
+    <!-- Full Name -->
+    <input
+        type="text"
+        placeholder="Full Name"
+        formControlName="fullName"
+    >
+
+    <p
+        class="error"
+        *ngIf="form.get('fullName')?.invalid && form.get('fullName')?.touched"
+    >
+        Full Name is required
+    </p>
+
+    <!-- Email -->
+    <input
+        type="email"
+        placeholder="Email"
+        formControlName="email"
+    >
+
+    <p
+        class="error"
+        *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')"
+    >
+        Email is required
+    </p>
+
+    <p
+        class="error"
+        *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')"
+    >
+        Enter a valid email address
+    </p>
+
+    <!-- Phone -->
+    <input
+        type="text"
+        placeholder="Phone Number"
+        formControlName="phone"
+    >
+
+    <p
+        class="error"
+        *ngIf="form.get('phone')?.touched && form.get('phone')?.hasError('required')"
+    >
+        Phone number is required
+    </p>
+
+    <p
+        class="error"
+        *ngIf="form.get('phone')?.touched && form.get('phone')?.hasError('pattern')"
+    >
+        Enter a valid 10-digit phone number
+    </p>
+
+    <!-- GitHub -->
+    <input
+        type="text"
+        placeholder="GitHub Profile URL"
+        formControlName="github"
+    >
+
+    <p
+        class="error"
+        *ngIf="form.get('github')?.touched && form.get('github')?.hasError('pattern')"
+    >
+        Enter a valid GitHub profile URL
+    </p>
+
+    <!-- LinkedIn -->
+    <input
+        type="text"
+        placeholder="LinkedIn Profile URL"
+        formControlName="linkedin"
+    >
+
+    <p
+        class="error"
+        *ngIf="form.get('linkedin')?.touched && form.get('linkedin')?.hasError('pattern')"
+    >
+        Enter a valid LinkedIn profile URL
+    </p>
+
+</div>

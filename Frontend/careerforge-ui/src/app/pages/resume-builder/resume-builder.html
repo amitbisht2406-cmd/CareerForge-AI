@@ -1,0 +1,36 @@
+<div class="builder-layout">
+
+    <div class="resume-container">
+
+        <h1>Resume Builder 📄</h1>
+        <p>Create your professional resume.</p>
+
+        <form [formGroup]="resumeForm">
+
+            <app-resume-personal [form]="personalInfo"></app-resume-personal>
+
+            <app-resume-education [form]="background"></app-resume-education>
+
+            <app-resume-skills [skills]="skills"></app-resume-skills>
+
+            <app-resume-projects [projects]="projects"></app-resume-projects>
+
+            <app-resume-certificates-languages
+                [certificates]="certificates"
+                [languages]="languages"
+            ></app-resume-certificates-languages>
+
+            <button
+                type="button"
+                (click)="saveResume()"
+            >
+                Save Resume
+            </button>
+
+        </form>
+
+    </div>
+
+    <app-resume-preview [form]="resumeForm"></app-resume-preview>
+
+</div>

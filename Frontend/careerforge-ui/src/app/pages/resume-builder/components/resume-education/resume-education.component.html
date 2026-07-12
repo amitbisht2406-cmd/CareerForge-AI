@@ -1,0 +1,46 @@
+<div
+    class="form-card"
+    [formGroup]="form"
+>
+
+    <div class="card-header">
+        <h2>🎓 Education & Experience</h2>
+        <p>Tell employers about your background.</p>
+    </div>
+
+    <!-- Education -->
+    <input
+        type="text"
+        placeholder="Education"
+        formControlName="education"
+    >
+
+    <p
+        class="error"
+        *ngIf="form.get('education')?.touched && form.get('education')?.hasError('required')"
+    >
+        Education is required
+    </p>
+
+    <!-- Experience -->
+    <textarea
+        rows="4"
+        placeholder="Experience"
+        formControlName="experience"
+    ></textarea>
+
+    <p
+        class="error"
+        *ngIf="form.get('experience')?.touched && form.get('experience')?.hasError('required')"
+    >
+        Experience is required
+    </p>
+
+    <p
+        class="error"
+        *ngIf="form.get('experience')?.touched && form.get('experience')?.hasError('minlength')"
+    >
+        Experience must be at least 20 characters
+    </p>
+
+</div>
