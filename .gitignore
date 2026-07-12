@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.angular/
+bin/
+obj/
+.vs/
+*.user
+appsettings.Development.json
