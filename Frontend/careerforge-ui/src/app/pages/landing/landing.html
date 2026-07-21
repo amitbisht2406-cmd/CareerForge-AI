@@ -1,32 +1,1500 @@
 <div class="landing">
 
+  <!-- ================= BACKGROUND VFX ================= -->
+  <div class="animated-bg">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+
+  <!-- ================= NAVBAR ================= -->
   <header class="landing-nav">
-    <div class="brand">
+
+    <a class="brand" routerLink="/">
       <span class="brand-mark">CF</span>
-      <span class="brand-name">CareerForge AI</span>
-    </div>
+
+      <div class="brand-text">
+        <span class="brand-name">CareerForge AI</span>
+        <span class="brand-subtitle">Build. Improve. Get hired.</span>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#ai-tools-showcase">AI Tools</a>
+    </nav>
+
     <div class="nav-actions">
-      <a routerLink="/login" class="link-btn">Log in</a>
-      <a routerLink="/register" class="btn-primary">Get Started</a>
+      <a routerLink="/login" class="login-btn">
+        Log in
+      </a>
+
+      <a routerLink="/register" class="btn-primary nav-cta">
+        Get Started
+        <span class="arrow">→</span>
+      </a>
     </div>
+
   </header>
 
-  <section class="hero">
-    <h1>Build your resume.<br>Create your portfolio.<br>Get AI suggestions.</h1>
-    <p>CareerForge AI helps you put your best career story forward — resume, portfolio, and AI-powered feedback in one place.</p>
-    <a routerLink="/register" class="btn-primary btn-hero">Get Started — it's free</a>
-  </section>
 
-  <section class="features">
-    <div class="feature-card card" *ngFor="let feature of features">
-      <span class="feature-icon">{{ feature.icon }}</span>
-      <h2>{{ feature.title }}</h2>
-      <p>{{ feature.desc }}</p>
+  <!-- ================= HERO ================= -->
+  <main>
+
+    <section class="hero">
+
+      <!-- LEFT SIDE -->
+      <div class="hero-left">
+
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          AI-powered career workspace
+          <span class="badge-arrow">→</span>
+        </div>
+
+
+        <h1 class="hero-title">
+          Build a career profile
+          <span class="gradient-text">
+            that gets noticed.
+          </span>
+        </h1>
+
+
+        <p class="hero-description">
+          Create professional resumes, launch beautiful portfolios,
+          and improve your applications with intelligent AI feedback —
+          all from one powerful workspace.
+        </p>
+
+
+        <div class="hero-buttons">
+
+          <a routerLink="/register"
+             class="btn-primary hero-primary-btn">
+
+            Start Building Free
+
+            <span class="arrow">
+              →
+            </span>
+
+          </a>
+
+
+          <a href="#features"
+             class="secondary-btn">
+
+            <span class="play-icon">
+              ▶
+            </span>
+
+            Explore Features
+
+          </a>
+
+        </div>
+
+
+        <!-- MINI TRUST INFO -->
+        <div class="hero-trust">
+
+          <div class="avatar-stack">
+            <span>A</span>
+            <span>R</span>
+            <span>S</span>
+            <span>+</span>
+          </div>
+
+          <div class="trust-copy">
+
+            <div class="stars">
+              ★★★★★
+            </div>
+
+            <p>
+              Built for students & job seekers
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= RIGHT PRODUCT PREVIEW ================= -->
+      <div class="hero-right">
+
+        <div class="preview-glow"></div>
+
+
+        <div class="product-preview">
+
+          <!-- TOP BAR -->
+          <div class="preview-topbar">
+
+            <div class="preview-window-buttons">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <div class="preview-title">
+              CareerForge Workspace
+            </div>
+
+            <div class="online-status">
+              <span></span>
+              Live
+            </div>
+
+          </div>
+
+
+          <!-- DASHBOARD BODY -->
+          <div class="preview-body">
+
+
+            <!-- SIDEBAR -->
+            <aside class="preview-sidebar">
+
+              <div class="mini-logo">
+                CF
+              </div>
+
+              <div class="mini-nav active">
+                <span>⌂</span>
+              </div>
+
+              <div class="mini-nav">
+                <span>▤</span>
+              </div>
+
+              <div class="mini-nav">
+                <span>◇</span>
+              </div>
+
+              <div class="mini-nav">
+                <span>✦</span>
+              </div>
+
+            </aside>
+
+
+            <!-- MAIN DASHBOARD -->
+            <div class="preview-content">
+
+
+              <div class="preview-heading">
+
+                <div>
+                  <span class="small-label">
+                    GOOD MORNING
+                  </span>
+
+                  <h3>
+                    Your career dashboard
+                  </h3>
+                </div>
+
+
+                <div class="preview-avatar">
+                  JD
+                </div>
+
+              </div>
+
+
+              <!-- STATS -->
+              <div class="preview-stats">
+
+
+                <div class="preview-stat-card">
+
+                  <div class="stat-icon">
+                    ▤
+                  </div>
+
+                  <div>
+                    <span>
+                      Resume
+                    </span>
+
+                    <strong>
+                      92%
+                    </strong>
+                  </div>
+
+                </div>
+
+
+                <div class="preview-stat-card">
+
+                  <div class="stat-icon purple">
+                    ✦
+                  </div>
+
+                  <div>
+                    <span>
+                      AI Score
+                    </span>
+
+                    <strong>
+                      96
+                    </strong>
+                  </div>
+
+                </div>
+
+
+                <div class="preview-stat-card">
+
+                  <div class="stat-icon cyan">
+                    ◇
+                  </div>
+
+                  <div>
+                    <span>
+                      Portfolio
+                    </span>
+
+                    <strong class="published">
+                      Live
+                    </strong>
+                  </div>
+
+                </div>
+
+
+              </div>
+
+
+              <!-- LOWER GRID -->
+              <div class="preview-grid">
+
+
+                <!-- PROFILE COMPLETION -->
+                <div class="preview-panel profile-panel">
+
+                  <div class="panel-heading">
+
+                    <div>
+                      <span>
+                        PROFILE STRENGTH
+                      </span>
+
+                      <h4>
+                        Looking great!
+                      </h4>
+                    </div>
+
+                    <strong>
+                      92%
+                    </strong>
+
+                  </div>
+
+
+                  <div class="progress-track">
+
+                    <div class="progress-value"></div>
+
+                  </div>
+
+
+                  <div class="check-list">
+
+                    <div>
+                      <span class="check">
+                        ✓
+                      </span>
+
+                      Personal details
+                    </div>
+
+
+                    <div>
+                      <span class="check">
+                        ✓
+                      </span>
+
+                      Work experience
+                    </div>
+
+
+                    <div>
+                      <span class="check">
+                        ✓
+                      </span>
+
+                      Skills & projects
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <!-- ATS -->
+                <div class="preview-panel ats-panel">
+
+                  <span class="panel-label">
+                    ATS SCORE
+                  </span>
+
+
+                  <div class="ats-circle">
+
+                    <div class="ats-inner">
+
+                      <strong>
+                        96
+                      </strong>
+
+                      <span>
+                        /100
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="ats-status">
+                    Excellent
+                  </div>
+
+                </div>
+
+
+              </div>
+
+
+              <!-- AI MESSAGE -->
+              <div class="ai-message">
+
+                <div class="ai-icon">
+                  ✦
+                </div>
+
+
+                <div>
+
+                  <strong>
+                    AI Career Assistant
+                  </strong>
+
+                  <p>
+                    Your resume is looking strong.
+                    I found 3 ways to make it even better.
+                  </p>
+
+                </div>
+
+
+                <button type="button">
+                  View
+                </button>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- FLOATING CARD -->
+        <div class="floating-card floating-ai">
+
+          <div class="floating-icon">
+            ✦
+          </div>
+
+          <div>
+
+            <span>
+              AI Analysis
+            </span>
+
+            <strong>
+              +12% stronger
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- SECOND FLOATING CARD -->
+        <div class="floating-card floating-success">
+
+          <div class="success-check">
+            ✓
+          </div>
+
+          <div>
+
+            <span>
+              Portfolio
+            </span>
+
+            <strong>
+              Published
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Temporary anchor for next part -->
+  <section id="features" class="features-section">
+
+  <div class="section-heading">
+    <span class="section-label">POWERFUL FEATURES</span>
+
+    <h2>
+      Everything you need to
+      <span>forge your career.</span>
+    </h2>
+
+    <p>
+      From your first resume to your personal portfolio,
+      CareerForge AI gives you the tools to build a stronger
+      professional presence.
+    </p>
+  </div>
+
+
+  <div class="bento-grid">
+
+    <!-- Resume Builder -->
+    <article class="bento-card resume-feature">
+
+      <div class="feature-top">
+        <div class="feature-symbol blue">▤</div>
+        <span class="feature-tag">RESUME</span>
+      </div>
+
+      <h3>Build resumes that stand out.</h3>
+
+      <p>
+        Create professional, ATS-friendly resumes with a simple
+        builder and live progress tracking.
+      </p>
+
+      <div class="mini-resume">
+
+        <div class="mini-resume-header">
+          <div class="mini-avatar">JD</div>
+
+          <div>
+            <strong>John Doe</strong>
+            <span>Frontend Developer</span>
+          </div>
+        </div>
+
+        <div class="resume-line long"></div>
+        <div class="resume-line medium"></div>
+
+        <span class="resume-mini-label">EXPERIENCE</span>
+
+        <div class="resume-line long"></div>
+        <div class="resume-line short"></div>
+
+        <span class="resume-mini-label">SKILLS</span>
+
+        <div class="skill-pills">
+          <span>Angular</span>
+          <span>JavaScript</span>
+          <span>UI/UX</span>
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <!-- AI -->
+    <article class="bento-card ai-feature" id="ai-tools">
+
+      <div class="feature-top">
+        <div class="feature-symbol purple">✦</div>
+        <span class="feature-tag">CAREER AI</span>
+      </div>
+
+      <h3>Improve with intelligent AI.</h3>
+
+      <p>
+        Get actionable suggestions to improve your resume,
+        skills and overall profile.
+      </p>
+
+      <div class="ai-score-widget">
+
+        <div class="score-row">
+          <span>AI Profile Score</span>
+          <strong>96/100</strong>
+        </div>
+
+        <div class="score-track">
+          <div class="score-fill"></div>
+        </div>
+
+        <div class="suggestion-item">
+          <span class="suggestion-check">✓</span>
+
+          <div>
+            <strong>Strong action verbs</strong>
+            <p>Your experience section looks great.</p>
+          </div>
+        </div>
+
+        <div class="suggestion-item">
+          <span class="suggestion-spark">✦</span>
+
+          <div>
+            <strong>Add measurable impact</strong>
+            <p>Include numbers in your project results.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <!-- Portfolio -->
+    <article class="bento-card portfolio-feature">
+
+      <div class="portfolio-copy">
+
+        <div class="feature-top">
+          <div class="feature-symbol cyan">◇</div>
+          <span class="feature-tag">PORTFOLIO</span>
+        </div>
+
+        <h3>Turn your work into your story.</h3>
+
+        <p>
+          Create a shareable portfolio that presents your
+          projects, skills and experience beautifully.
+        </p>
+
+        <a routerLink="/register" class="feature-link">
+          Build your portfolio <span>→</span>
+        </a>
+
+      </div>
+
+
+      <div class="portfolio-window">
+
+        <div class="portfolio-window-bar">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="portfolio-window-content">
+
+          <div class="portfolio-profile-circle"></div>
+
+          <div class="portfolio-text-line title"></div>
+          <div class="portfolio-text-line"></div>
+
+          <div class="portfolio-projects">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <!-- Templates -->
+    <article class="bento-card small-feature">
+
+      <div class="feature-symbol orange">▦</div>
+
+      <div>
+        <h3>Professional Templates</h3>
+        <p>
+          Choose clean layouts designed for modern applications.
+        </p>
+      </div>
+
+    </article>
+
+
+    <!-- PDF -->
+    <article class="bento-card small-feature">
+
+      <div class="feature-symbol green">↓</div>
+
+      <div>
+        <h3>One-click Export</h3>
+        <p>
+          Download your finished resume as a polished PDF.
+        </p>
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats-section">
+
+  <div class="stat-item">
+    <strong>10+</strong>
+    <span>Professional Templates</span>
+  </div>
+
+  <div class="stat-divider"></div>
+
+  <div class="stat-item">
+    <strong>96%</strong>
+    <span>Example ATS Score</span>
+  </div>
+
+  <div class="stat-divider"></div>
+
+  <div class="stat-item">
+    <strong>3-in-1</strong>
+    <span>Career Workspace</span>
+  </div>
+
+  <div class="stat-divider"></div>
+
+  <div class="stat-item">
+    <strong>1 Click</strong>
+    <span>PDF Export</span>
+  </div>
+
+</section>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section id="how-it-works" class="how-section">
+
+  <div class="section-heading">
+
+    <span class="section-label">
+      HOW IT WORKS
+    </span>
+
+    <h2>
+      From blank page to
+      <span>career ready.</span>
+    </h2>
+
+    <p>
+      Three simple steps to build and improve your
+      professional presence.
+    </p>
+
+  </div>
+
+
+  <div class="steps-grid">
+
+    <article class="step-card">
+
+      <span class="step-number">01</span>
+
+      <div class="step-icon">＋</div>
+
+      <h3>Create your profile</h3>
+
+      <p>
+        Add your education, experience, skills and projects
+        in one organized workspace.
+      </p>
+
+    </article>
+
+
+    <div class="step-arrow">→</div>
+
+
+    <article class="step-card">
+
+      <span class="step-number">02</span>
+
+      <div class="step-icon">✦</div>
+
+      <h3>Improve with AI</h3>
+
+      <p>
+        Get intelligent feedback and suggestions to strengthen
+        your resume and career profile.
+      </p>
+
+    </article>
+
+
+    <div class="step-arrow">→</div>
+
+
+    <article class="step-card">
+
+      <span class="step-number">03</span>
+
+      <div class="step-icon">↗</div>
+
+      <h3>Share & apply</h3>
+
+      <p>
+        Export your resume, publish your portfolio and start
+        applying with confidence.
+      </p>
+
+    </article>
+
+  </div>
+
+</section>
+<!-- =====================================================
+     AI TOOLS SHOWCASE
+     ===================================================== -->
+
+<section id="ai-tools-showcase" class="ai-showcase-section">
+
+  <div class="ai-showcase-glow ai-glow-one"></div>
+  <div class="ai-showcase-glow ai-glow-two"></div>
+
+
+  <!-- SECTION HEADING -->
+  <div class="section-heading ai-showcase-heading">
+
+    <span class="section-label">
+      ✦ CAREERFORGE AI
+    </span>
+
+    <h2>
+      Smarter applications.
+      <span>Powered by AI.</span>
+    </h2>
+
+    <p>
+      Turn your career profile into a stronger application with
+      intelligent resume analysis, ATS insights and personalized
+      improvement suggestions.
+    </p>
+
+  </div>
+
+
+  <!-- MAIN AI WORKSPACE -->
+  <div class="ai-workspace">
+
+
+    <!-- ==========================================
+         LEFT SIDE — RESUME ANALYSIS
+         ========================================== -->
+
+    <div class="ai-resume-panel">
+
+      <div class="ai-panel-topbar">
+
+        <div>
+          <span class="ai-mini-label">
+            RESUME ANALYSIS
+          </span>
+
+          <h3>
+            Software Developer Resume
+          </h3>
+        </div>
+
+
+        <div class="analysis-status">
+          <span></span>
+          Analysis complete
+        </div>
+
+      </div>
+
+
+      <!-- RESUME DOCUMENT -->
+
+      <div class="resume-analysis-document">
+
+        <div class="analysis-profile">
+
+          <div class="analysis-avatar">
+            JD
+          </div>
+
+          <div class="analysis-profile-info">
+
+            <div class="analysis-name-line"></div>
+
+            <div class="analysis-small-line"></div>
+
+          </div>
+
+        </div>
+
+
+        <div class="analysis-divider"></div>
+
+
+        <!-- EXPERIENCE -->
+
+        <div class="analysis-section">
+
+          <span class="analysis-section-title">
+            EXPERIENCE
+          </span>
+
+
+          <div class="analysis-content-line line-95"></div>
+
+          <div class="analysis-content-line line-82"></div>
+
+          <div class="analysis-content-line line-90"></div>
+
+          <div class="analysis-content-line line-65"></div>
+
+
+          <!-- AI HIGHLIGHT -->
+
+          <div class="ai-highlight-line">
+
+            <div class="highlight-text"></div>
+
+            <div class="highlight-badge">
+              ✦ Improve
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- PROJECTS -->
+
+        <div class="analysis-section">
+
+          <span class="analysis-section-title">
+            PROJECTS
+          </span>
+
+
+          <div class="analysis-content-line line-88"></div>
+
+          <div class="analysis-content-line line-72"></div>
+
+          <div class="analysis-content-line line-94"></div>
+
+        </div>
+
+
+        <!-- SKILLS -->
+
+        <div class="analysis-section">
+
+          <span class="analysis-section-title">
+            SKILLS
+          </span>
+
+
+          <div class="analysis-skill-list">
+
+            <span>Angular</span>
+
+            <span>JavaScript</span>
+
+            <span>TypeScript</span>
+
+            <span>SQL</span>
+
+            <span>C#</span>
+
+          </div>
+
+        </div>
+
+
+        <!-- SCANNING EFFECT -->
+
+        <div class="resume-scan-line"></div>
+
+      </div>
+
     </div>
-  </section>
 
-  <footer class="landing-footer">
-    <p>© 2026 CareerForge AI</p>
-  </footer>
+
+
+    <!-- ==========================================
+         RIGHT SIDE — AI RESULTS
+         ========================================== -->
+
+    <div class="ai-results-panel">
+
+
+      <!-- AI HEADER -->
+
+      <div class="ai-assistant-header">
+
+        <div class="ai-assistant-icon">
+          ✦
+        </div>
+
+        <div>
+
+          <span>
+            CAREERFORGE AI
+          </span>
+
+          <h3>
+            Resume Intelligence
+          </h3>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ATS SCORE -->
+
+      <div class="ai-result-card ats-result-card">
+
+        <div class="result-card-heading">
+
+          <div>
+
+            <span>
+              ATS COMPATIBILITY
+            </span>
+
+            <h4>
+              Excellent Match
+            </h4>
+
+          </div>
+
+
+          <div class="ai-ats-score">
+
+            <strong>
+              96
+            </strong>
+
+            <small>
+              /100
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <div class="ai-result-progress">
+
+          <div class="ai-result-progress-fill"></div>
+
+        </div>
+
+
+        <div class="ats-tags">
+
+          <span>
+            ✓ Formatting
+          </span>
+
+          <span>
+            ✓ Keywords
+          </span>
+
+          <span>
+            ✓ Structure
+          </span>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- AI SUGGESTION 1 -->
+
+      <div class="ai-result-card suggestion-result">
+
+        <div class="result-icon result-purple">
+          ✦
+        </div>
+
+
+        <div class="result-copy">
+
+          <span class="result-type">
+            AI SUGGESTION
+          </span>
+
+          <h4>
+            Add measurable impact
+          </h4>
+
+          <p>
+            Try adding numbers to show the impact of your
+            projects and experience.
+          </p>
+
+
+          <div class="suggestion-example">
+
+            <span>
+              Instead of
+            </span>
+
+            <p>
+              “Built a responsive web application”
+            </p>
+
+
+            <span class="better-label">
+              Better
+            </span>
+
+            <strong>
+              “Built a responsive application that improved
+              page performance by 35%.”
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- AI SUGGESTION 2 -->
+
+      <div class="ai-result-card compact-result">
+
+        <div class="result-icon result-blue">
+          ↗
+        </div>
+
+
+        <div>
+
+          <span class="result-type">
+            SKILL MATCH
+          </span>
+
+          <h4>
+            Add REST API & Git
+          </h4>
+
+          <p>
+            These skills appear frequently in similar developer roles.
+          </p>
+
+        </div>
+
+
+        <div class="match-score">
+          +8%
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ==========================================
+       SMALL AI CAPABILITIES
+       ========================================== -->
+
+  <div class="ai-capabilities">
+
+
+    <div class="ai-capability-card">
+
+      <div class="capability-icon">
+        ◎
+      </div>
+
+      <div>
+
+        <strong>
+          ATS Analysis
+        </strong>
+
+        <span>
+          Check resume compatibility
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="ai-capability-card">
+
+      <div class="capability-icon">
+        ✦
+      </div>
+
+      <div>
+
+        <strong>
+          Smart Suggestions
+        </strong>
+
+        <span>
+          Improve your resume content
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="ai-capability-card">
+
+      <div class="capability-icon">
+        ✓
+      </div>
+
+      <div>
+
+        <strong>
+          Grammar Check
+        </strong>
+
+        <span>
+          Make every sentence polished
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="ai-capability-card">
+
+      <div class="capability-icon">
+        ↗
+      </div>
+
+      <div>
+
+        <strong>
+          Skill Insights
+        </strong>
+
+        <span>
+          Discover relevant skills
+        </span>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+<!-- =====================================================
+     FINAL CTA
+     ===================================================== -->
+
+<section class="final-cta-section">
+
+  <!-- Background VFX -->
+  <div class="cta-orb cta-orb-one"></div>
+  <div class="cta-orb cta-orb-two"></div>
+
+  <div class="cta-grid-effect"></div>
+
+
+  <div class="final-cta-card">
+
+    <div class="cta-spark cta-spark-one">✦</div>
+    <div class="cta-spark cta-spark-two">✦</div>
+    <div class="cta-spark cta-spark-three">✦</div>
+
+
+    <div class="cta-badge">
+      <span class="cta-badge-dot"></span>
+      YOUR CAREER STARTS HERE
+    </div>
+
+
+    <h2>
+      Ready to forge your
+      <span>next opportunity?</span>
+    </h2>
+
+
+    <p>
+      Build a professional resume, create your portfolio and
+      improve your applications with CareerForge AI.
+    </p>
+
+
+    <div class="cta-actions">
+
+      <a
+        routerLink="/register"
+        class="cta-primary-btn"
+      >
+        Start Building Free
+
+        <span>→</span>
+      </a>
+
+
+      <a
+        routerLink="/login"
+        class="cta-secondary-btn"
+      >
+        I already have an account
+      </a>
+
+    </div>
+
+
+    <div class="cta-trust-row">
+
+      <div>
+        <span class="cta-check">✓</span>
+        Free to get started
+      </div>
+
+      <div>
+        <span class="cta-check">✓</span>
+        Easy resume builder
+      </div>
+
+      <div>
+        <span class="cta-check">✓</span>
+        AI-powered feedback
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="careerforge-footer">
+
+  <div class="footer-container">
+
+
+    <!-- ================= FOOTER TOP ================= -->
+
+    <div class="footer-main">
+
+
+      <!-- BRAND -->
+
+      <div class="footer-brand-column">
+
+        <a
+          routerLink="/"
+          class="footer-brand"
+        >
+
+          <span class="footer-brand-mark">
+            CF
+          </span>
+
+
+          <div>
+
+            <strong>
+              CareerForge AI
+            </strong>
+
+            <span>
+              Build. Improve. Get hired.
+            </span>
+
+          </div>
+
+        </a>
+
+
+        <p class="footer-description">
+          Your all-in-one career workspace for building
+          professional resumes, creating portfolios and
+          improving applications with AI.
+        </p>
+
+
+        <div class="footer-status">
+
+          <span class="footer-status-dot"></span>
+
+          All systems operational
+
+        </div>
+
+      </div>
+
+
+
+      <!-- PRODUCT -->
+
+      <div class="footer-links-column">
+
+        <h4>
+          Product
+        </h4>
+
+
+        <a href="#features">
+          Resume Builder
+        </a>
+
+
+        <a href="#features">
+          Portfolio Builder
+        </a>
+
+
+        <a href="#ai-tools-showcase">
+          AI Tools
+        </a>
+
+
+        <a href="#features">
+          Templates
+        </a>
+
+      </div>
+
+
+
+      <!-- EXPLORE -->
+
+      <div class="footer-links-column">
+
+        <h4>
+          Explore
+        </h4>
+
+
+        <a href="#features">
+          Features
+        </a>
+
+
+        <a href="#how-it-works">
+          How it works
+        </a>
+
+
+        <a href="#ai-tools-showcase">
+          AI Analysis
+        </a>
+
+
+        <a routerLink="/register">
+          Get Started
+        </a>
+
+      </div>
+
+
+
+      <!-- ACCOUNT -->
+
+      <div class="footer-links-column">
+
+        <h4>
+          Account
+        </h4>
+
+
+        <a routerLink="/login">
+          Log in
+        </a>
+
+
+        <a routerLink="/register">
+          Create account
+        </a>
+
+
+        <a routerLink="/register">
+          Start building
+        </a>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ================= FOOTER BOTTOM ================= -->
+
+    <div class="footer-bottom">
+
+      <p>
+        © 2026 CareerForge AI. Built for ambitious careers.
+      </p>
+
+
+      <div class="footer-bottom-links">
+
+        <span>
+          Made with
+          <strong>✦</strong>
+          for students & job seekers
+        </span>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</footer>
 
 </div>
