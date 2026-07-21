@@ -1,43 +1,529 @@
-<div class="auth-shell">
+<div class="login-page">
 
-  <div class="auth-card">
+  <!-- ================= BACKGROUND VFX ================= -->
 
-    <div class="brand">
-      <span class="brand-mark">CF</span>
-      <span class="brand-name">CareerForge AI</span>
-    </div>
+  <div class="auth-background">
+    <div class="auth-grid"></div>
 
-    <h1>Welcome back</h1>
-    <p class="subtitle">Log in to keep building your career story.</p>
-
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-      <label>
-        <span>Email</span>
-        <input type="email" class="field" placeholder="you@example.com" formControlName="email">
-      </label>
-      <p class="error-text" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
-        Enter a valid email
-      </p>
-
-      <label>
-        <span>Password</span>
-        <input type="password" class="field" placeholder="••••••••" formControlName="password">
-      </label>
-      <p class="error-text" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
-        Password is required
-      </p>
-
-      <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
-
-      <button type="submit" class="btn-primary btn-block" [disabled]="isLoading">
-        {{ isLoading ? 'Logging in...' : 'Log in' }}
-      </button>
-
-    </form>
-
-    <p class="switch">Don't have an account? <a routerLink="/register">Register</a></p>
-
+    <div class="auth-orb orb-one"></div>
+    <div class="auth-orb orb-two"></div>
+    <div class="auth-orb orb-three"></div>
   </div>
+
+
+  <!-- ================= BACK HOME ================= -->
+
+  <a routerLink="/" class="back-home">
+    <span>←</span>
+    Back to home
+  </a>
+
+
+  <!-- ================= MAIN CONTAINER ================= -->
+
+  <main class="login-container">
+
+
+    <!-- ==================================================
+         LEFT SHOWCASE
+         ================================================== -->
+
+    <section class="login-showcase">
+
+
+      <!-- BRAND -->
+
+      <a routerLink="/" class="auth-brand">
+
+        <span class="brand-mark">
+          CF
+        </span>
+
+        <div class="brand-copy">
+
+          <strong>
+            CareerForge AI
+          </strong>
+
+          <span>
+            Build. Improve. Get hired.
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- BADGE -->
+
+      <div class="showcase-badge">
+
+        <span class="badge-dot"></span>
+
+        WELCOME BACK TO YOUR WORKSPACE
+
+      </div>
+
+
+      <!-- TITLE -->
+
+      <h1 class="showcase-title">
+
+        Keep building
+        <span>your future.</span>
+
+      </h1>
+
+
+      <!-- DESCRIPTION -->
+
+      <p class="showcase-description">
+
+        Continue improving your resume, portfolio and career
+        profile with intelligent AI-powered tools — all from
+        one professional workspace.
+
+      </p>
+
+
+      <!-- FEATURES -->
+
+      <div class="benefit-list">
+
+
+        <div class="benefit-item">
+
+          <div class="benefit-icon">
+            ✓
+          </div>
+
+          <div>
+
+            <strong>
+              Continue your resume
+            </strong>
+
+            <span>
+              Pick up exactly where you left off.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="benefit-item">
+
+          <div class="benefit-icon">
+            ✓
+          </div>
+
+          <div>
+
+            <strong>
+              Track your progress
+            </strong>
+
+            <span>
+              Keep improving your professional profile.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="benefit-item">
+
+          <div class="benefit-icon">
+            ✓
+          </div>
+
+          <div>
+
+            <strong>
+              Get AI-powered feedback
+            </strong>
+
+            <span>
+              Receive intelligent suggestions whenever you need them.
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- ================= WORKSPACE PREVIEW ================= -->
+
+      <div class="workspace-preview">
+
+
+        <div class="mini-card resume-mini">
+
+          <div class="mini-icon blue">
+            ▤
+          </div>
+
+          <div>
+
+            <span>
+              Resume
+            </span>
+
+            <strong>
+              92%
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="mini-card ai-mini">
+
+          <div class="mini-icon purple">
+            ✦
+          </div>
+
+          <div>
+
+            <span>
+              AI Score
+            </span>
+
+            <strong>
+              96
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="mini-card portfolio-mini">
+
+          <div class="mini-icon cyan">
+            ◇
+          </div>
+
+          <div>
+
+            <span>
+              Portfolio
+            </span>
+
+            <strong class="live-text">
+              Live
+            </strong>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         RIGHT LOGIN PANEL
+         ================================================== -->
+
+    <section class="login-panel">
+
+
+      <div class="login-card">
+
+
+        <!-- MOBILE BRAND -->
+
+        <a routerLink="/" class="mobile-brand">
+
+          <span class="brand-mark">
+            CF
+          </span>
+
+          <strong>
+            CareerForge AI
+          </strong>
+
+        </a>
+
+
+        <!-- FORM BADGE -->
+
+        <div class="form-badge">
+
+          <span>✦</span>
+
+          YOUR CAREER WORKSPACE
+
+        </div>
+
+
+        <!-- HEADING -->
+
+        <div class="form-heading">
+
+          <h2>
+            Welcome back
+          </h2>
+
+          <p>
+            Log in to continue building your career story.
+          </p>
+
+        </div>
+
+
+
+        <!-- ================= LOGIN FORM ================= -->
+
+        <form
+          [formGroup]="loginForm"
+          (ngSubmit)="onSubmit()"
+        >
+
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+
+            <label for="email">
+              Email address
+            </label>
+
+
+            <div
+              class="input-wrapper"
+              [class.input-error]="
+                loginForm.get('email')?.touched &&
+                loginForm.get('email')?.invalid
+              "
+            >
+
+              <span class="input-icon">
+                @
+              </span>
+
+
+              <input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                formControlName="email"
+                autocomplete="email"
+              >
+
+            </div>
+
+
+            <p
+              class="error-text"
+              *ngIf="
+                loginForm.get('email')?.touched &&
+                loginForm.get('email')?.invalid
+              "
+            >
+              Enter a valid email address
+            </p>
+
+          </div>
+
+
+
+          <!-- PASSWORD -->
+
+          <div class="form-group">
+
+
+            <div class="password-label-row">
+
+              <label for="password">
+                Password
+              </label>
+
+              <button
+                type="button"
+                class="forgot-password"
+                (click)="onForgotPassword()"
+              >
+                Forgot password?
+              </button>
+
+            </div>
+
+
+            <div
+              class="input-wrapper"
+              [class.input-error]="
+                loginForm.get('password')?.touched &&
+                loginForm.get('password')?.invalid
+              "
+            >
+
+              <span class="input-icon">
+                ◇
+              </span>
+
+
+              <input
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                placeholder="Enter your password"
+                formControlName="password"
+                autocomplete="current-password"
+              >
+
+
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="togglePassword()"
+                [attr.aria-label]="
+                  showPassword
+                    ? 'Hide password'
+                    : 'Show password'
+                "
+              >
+
+                {{ showPassword ? '◉' : '◎' }}
+
+              </button>
+
+            </div>
+
+
+            <p
+              class="error-text"
+              *ngIf="
+                loginForm.get('password')?.touched &&
+                loginForm.get('password')?.invalid
+              "
+            >
+              Password is required
+            </p>
+
+          </div>
+
+
+
+          <!-- API ERROR -->
+
+          <div
+            class="server-error"
+            *ngIf="errorMessage"
+          >
+
+            <span>!</span>
+
+            {{ errorMessage }}
+
+          </div>
+
+
+
+          <!-- LOGIN BUTTON -->
+
+          <button
+            type="submit"
+            class="login-btn"
+            [disabled]="isLoading"
+          >
+
+
+            <span *ngIf="!isLoading">
+              Log in to CareerForge
+            </span>
+
+
+            <span
+              class="loading-content"
+              *ngIf="isLoading"
+            >
+
+              <span class="spinner"></span>
+
+              Logging in...
+
+            </span>
+
+
+            <span
+              class="button-arrow"
+              *ngIf="!isLoading"
+            >
+              →
+            </span>
+
+
+          </button>
+
+
+        </form>
+
+
+
+        <!-- ================= DIVIDER ================= -->
+
+        <div class="form-divider">
+
+          <span></span>
+
+          <p>
+            New to CareerForge?
+          </p>
+
+          <span></span>
+
+        </div>
+
+
+
+        <!-- REGISTER -->
+
+        <a
+          routerLink="/register"
+          class="register-link"
+        >
+
+          Create your free account
+
+          <span>
+            →
+          </span>
+
+        </a>
+
+
+
+        <!-- SECURITY -->
+
+        <div class="security-note">
+
+          <span>
+            ◇
+          </span>
+
+          Your information is securely protected.
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+  </main>
+
 
 </div>

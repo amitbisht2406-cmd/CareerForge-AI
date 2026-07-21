@@ -1,62 +1,631 @@
-<div class="auth-shell">
+<div class="register-page">
 
-  <div class="auth-card">
+  <!-- ================= BACKGROUND VFX ================= -->
 
-    <div class="brand">
-      <span class="brand-mark">CF</span>
-      <span class="brand-name">CareerForge AI</span>
-    </div>
+  <div class="auth-background">
 
-    <h1>Create your account</h1>
-    <p class="subtitle">Start building your resume and portfolio.</p>
+    <div class="auth-grid"></div>
 
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
-      <label>
-        <span>Full Name</span>
-        <input type="text" class="field" placeholder="Amit Bisht" formControlName="fullName">
-      </label>
-      <p class="error-text" *ngIf="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid">
-        Full name is required
-      </p>
-
-      <label>
-        <span>Email</span>
-        <input type="email" class="field" placeholder="you@example.com" formControlName="email">
-      </label>
-      <p class="error-text" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
-        Enter a valid email
-      </p>
-
-      <label>
-        <span>Password</span>
-        <input type="password" class="field" placeholder="At least 6 characters" formControlName="password">
-      </label>
-      <p class="error-text" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
-        Password must be at least 6 characters
-      </p>
-
-      <label>
-        <span>Confirm Password</span>
-        <input type="password" class="field" placeholder="Re-enter your password" formControlName="confirmPassword">
-      </label>
-      <p class="error-text" *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid">
-        Please confirm your password
-      </p>
-      <p class="error-text" *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.errors?.['passwordsMismatch'] && !registerForm.get('confirmPassword')?.invalid">
-        Passwords do not match
-      </p>
-
-      <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
-
-      <button type="submit" class="btn-primary btn-block" [disabled]="isLoading">
-        {{ isLoading ? 'Creating account...' : 'Create account' }}
-      </button>
-
-    </form>
-
-    <p class="switch">Already have an account? <a routerLink="/login">Log in</a></p>
+    <div class="auth-orb orb-one"></div>
+    <div class="auth-orb orb-two"></div>
+    <div class="auth-orb orb-three"></div>
 
   </div>
+
+
+  <!-- ================= BACK HOME ================= -->
+
+  <a routerLink="/" class="back-home">
+    <span>←</span>
+    Back to home
+  </a>
+
+
+  <!-- ================= MAIN CONTAINER ================= -->
+
+  <main class="register-container">
+
+
+    <!-- ==================================================
+         LEFT SIDE
+         ================================================== -->
+
+    <section class="register-showcase">
+
+
+      <!-- BRAND -->
+
+      <a routerLink="/" class="auth-brand">
+
+        <span class="brand-mark">
+          CF
+        </span>
+
+        <div class="brand-copy">
+
+          <strong>
+            CareerForge AI
+          </strong>
+
+          <span>
+            Build. Improve. Get hired.
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- BADGE -->
+
+      <div class="showcase-badge">
+
+        <span class="badge-dot"></span>
+
+        AI-POWERED CAREER WORKSPACE
+
+      </div>
+
+
+      <!-- HEADING -->
+
+      <h1 class="showcase-title">
+
+        Build your career
+        <span>with confidence.</span>
+
+      </h1>
+
+
+      <!-- DESCRIPTION -->
+
+      <p class="showcase-description">
+
+        Create professional resumes, showcase your work
+        and improve your applications with intelligent
+        AI-powered career tools.
+
+      </p>
+
+
+      <!-- FEATURES -->
+
+      <div class="benefit-list">
+
+
+        <div class="benefit-item">
+
+          <div class="benefit-icon">
+            ✓
+          </div>
+
+          <div>
+
+            <strong>
+              ATS-friendly resumes
+            </strong>
+
+            <span>
+              Build professional resumes designed to stand out.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="benefit-item">
+
+          <div class="benefit-icon">
+            ✓
+          </div>
+
+          <div>
+
+            <strong>
+              Beautiful portfolio
+            </strong>
+
+            <span>
+              Turn your skills and projects into your career story.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="benefit-item">
+
+          <div class="benefit-icon">
+            ✓
+          </div>
+
+          <div>
+
+            <strong>
+              Intelligent AI feedback
+            </strong>
+
+            <span>
+              Improve your profile with smart career suggestions.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= FLOATING MINI CARDS ================= -->
+
+      <div class="career-preview">
+
+
+        <div class="mini-card resume-mini">
+
+          <div class="mini-icon blue">
+            ▤
+          </div>
+
+          <div>
+
+            <span>
+              Resume Score
+            </span>
+
+            <strong>
+              96%
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="mini-card ai-mini">
+
+          <div class="mini-icon purple">
+            ✦
+          </div>
+
+          <div>
+
+            <span>
+              AI Analysis
+            </span>
+
+            <strong>
+              Excellent
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="mini-card portfolio-mini">
+
+          <div class="mini-icon cyan">
+            ◇
+          </div>
+
+          <div>
+
+            <span>
+              Portfolio
+            </span>
+
+            <strong class="live-text">
+              Live
+            </strong>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         RIGHT SIDE / REGISTER CARD
+         ================================================== -->
+
+    <section class="register-panel">
+
+
+      <div class="register-card">
+
+
+        <!-- MOBILE BRAND -->
+
+        <a routerLink="/" class="mobile-brand">
+
+          <span class="brand-mark">
+            CF
+          </span>
+
+          <strong>
+            CareerForge AI
+          </strong>
+
+        </a>
+
+
+        <!-- CARD BADGE -->
+
+        <div class="form-badge">
+
+          <span>✦</span>
+
+          CREATE YOUR WORKSPACE
+
+        </div>
+
+
+        <div class="form-heading">
+
+          <h2>
+            Create your account
+          </h2>
+
+          <p>
+            Start building your professional presence today.
+          </p>
+
+        </div>
+
+
+
+        <!-- ================= FORM ================= -->
+
+        <form
+          [formGroup]="registerForm"
+          (ngSubmit)="onSubmit()"
+        >
+
+
+          <!-- FULL NAME -->
+
+          <div class="form-group">
+
+            <label for="fullName">
+              Full Name
+            </label>
+
+            <div
+              class="input-wrapper"
+              [class.input-error]="
+                registerForm.get('fullName')?.touched &&
+                registerForm.get('fullName')?.invalid
+              "
+            >
+
+              <span class="input-icon">
+                ♙
+              </span>
+
+              <input
+                id="fullName"
+                type="text"
+                placeholder="Enter your full name"
+                formControlName="fullName"
+                autocomplete="name"
+              >
+
+            </div>
+
+
+            <p
+              class="error-text"
+              *ngIf="
+                registerForm.get('fullName')?.touched &&
+                registerForm.get('fullName')?.invalid
+              "
+            >
+              Full name is required
+            </p>
+
+          </div>
+
+
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+
+            <label for="email">
+              Email address
+            </label>
+
+            <div
+              class="input-wrapper"
+              [class.input-error]="
+                registerForm.get('email')?.touched &&
+                registerForm.get('email')?.invalid
+              "
+            >
+
+              <span class="input-icon">
+                @
+              </span>
+
+              <input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                formControlName="email"
+                autocomplete="email"
+              >
+
+            </div>
+
+
+            <p
+              class="error-text"
+              *ngIf="
+                registerForm.get('email')?.touched &&
+                registerForm.get('email')?.invalid
+              "
+            >
+              Enter a valid email address
+            </p>
+
+          </div>
+
+
+
+          <!-- PASSWORD -->
+
+          <div class="form-group">
+
+            <label for="password">
+              Password
+            </label>
+
+
+            <div
+              class="input-wrapper"
+              [class.input-error]="
+                registerForm.get('password')?.touched &&
+                registerForm.get('password')?.invalid
+              "
+            >
+
+              <span class="input-icon">
+                ◇
+              </span>
+
+
+              <input
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                placeholder="At least 6 characters"
+                formControlName="password"
+                autocomplete="new-password"
+              >
+
+
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="togglePassword()"
+                [attr.aria-label]="
+                  showPassword
+                    ? 'Hide password'
+                    : 'Show password'
+                "
+              >
+
+                {{ showPassword ? '◉' : '◎' }}
+
+              </button>
+
+            </div>
+
+
+            <p
+              class="error-text"
+              *ngIf="
+                registerForm.get('password')?.touched &&
+                registerForm.get('password')?.invalid
+              "
+            >
+              Password must be at least 6 characters
+            </p>
+
+          </div>
+
+
+
+          <!-- CONFIRM PASSWORD -->
+
+          <div class="form-group">
+
+            <label for="confirmPassword">
+              Confirm Password
+            </label>
+
+
+            <div
+              class="input-wrapper"
+              [class.input-error]="
+                registerForm.get('confirmPassword')?.touched &&
+                (
+                  registerForm.get('confirmPassword')?.invalid ||
+                  registerForm.errors?.['passwordsMismatch']
+                )
+              "
+            >
+
+              <span class="input-icon">
+                ✓
+              </span>
+
+
+              <input
+                id="confirmPassword"
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                placeholder="Re-enter your password"
+                formControlName="confirmPassword"
+                autocomplete="new-password"
+              >
+
+
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="toggleConfirmPassword()"
+                [attr.aria-label]="
+                  showConfirmPassword
+                    ? 'Hide password'
+                    : 'Show password'
+                "
+              >
+
+                {{ showConfirmPassword ? '◉' : '◎' }}
+
+              </button>
+
+            </div>
+
+
+            <p
+              class="error-text"
+              *ngIf="
+                registerForm.get('confirmPassword')?.touched &&
+                registerForm.get('confirmPassword')?.invalid
+              "
+            >
+              Please confirm your password
+            </p>
+
+
+            <p
+              class="error-text"
+              *ngIf="
+                registerForm.get('confirmPassword')?.touched &&
+                registerForm.errors?.['passwordsMismatch'] &&
+                !registerForm.get('confirmPassword')?.invalid
+              "
+            >
+              Passwords do not match
+            </p>
+
+          </div>
+
+
+
+          <!-- API ERROR -->
+
+          <div
+            class="server-error"
+            *ngIf="errorMessage"
+          >
+
+            <span>!</span>
+
+            {{ errorMessage }}
+
+          </div>
+
+
+
+          <!-- SUBMIT -->
+
+          <button
+            type="submit"
+            class="create-account-btn"
+            [disabled]="isLoading"
+          >
+
+            <span *ngIf="!isLoading">
+              Create my account
+            </span>
+
+
+            <span
+              class="loading-content"
+              *ngIf="isLoading"
+            >
+
+              <span class="spinner"></span>
+
+              Creating account...
+
+            </span>
+
+
+            <span
+              class="button-arrow"
+              *ngIf="!isLoading"
+            >
+              →
+            </span>
+
+          </button>
+
+
+        </form>
+
+
+
+        <!-- ================= DIVIDER ================= -->
+
+        <div class="form-divider">
+
+          <span></span>
+
+          <p>
+            Already part of CareerForge?
+          </p>
+
+          <span></span>
+
+        </div>
+
+
+
+        <!-- LOGIN -->
+
+        <a
+          routerLink="/login"
+          class="login-link"
+        >
+
+          Log in to your account
+
+          <span>
+            →
+          </span>
+
+        </a>
+
+
+
+        <!-- SECURITY -->
+
+        <div class="security-note">
+
+          <span>
+            ◇
+          </span>
+
+          Your information is securely protected.
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+  </main>
 
 </div>
