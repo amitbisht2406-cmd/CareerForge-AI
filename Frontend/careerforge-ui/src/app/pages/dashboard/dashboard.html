@@ -1,13 +1,54 @@
-<div class="dashboard-container">
-  <h1>Welcome back, {{ fullName }} 👋</h1>
-  <p>This is your dashboard. More sections coming soon.</p>
+<div class="dashboard">
 
-  <a routerLink="/resume-builder">Build Resume</a>
-  <a routerLink="/portfolio-builder">Build Portfolio</a>
-  <a routerLink="/settings">Settings</a>
-  <a routerLink="/downloads">Downloads</a>
-  <a routerLink="/templates">Templates</a>
-  <a routerLink="/ai-suggestions">AI Suggestions</a>
+  <div class="welcome">
+    <h1>Welcome back, {{ fullName }} 👋</h1>
+    <p>Here's where your career profile stands right now.</p>
+  </div>
 
-  <button (click)="logout()">Logout</button>
+  <div class="progress-card card">
+    <div class="progress-header">
+      <span>Profile completion</span>
+      <span class="progress-value">{{ completionPercent }}%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" [style.width.%]="completionPercent"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <a routerLink="/resume-builder" class="tile card">
+      <span class="tile-icon">📄</span>
+      <div>
+        <h2>Resume</h2>
+        <p>{{ hasResume ? 'Edit your resume' : 'Not started yet' }}</p>
+      </div>
+    </a>
+
+    <a routerLink="/portfolio-builder" class="tile card">
+      <span class="tile-icon">🌐</span>
+      <div>
+        <h2>Portfolio</h2>
+        <p>{{ hasPortfolio ? 'Edit your portfolio' : 'Not started yet' }}</p>
+      </div>
+    </a>
+
+    <a routerLink="/templates" class="tile card">
+      <span class="tile-icon">🗂️</span>
+      <div>
+        <h2>Templates</h2>
+        <p>Pick a resume layout</p>
+      </div>
+    </a>
+
+    <a routerLink="/ai-suggestions" class="tile card">
+      <span class="tile-icon">🤖</span>
+      <div>
+        <h2>AI Review</h2>
+        <p>Get feedback on your resume</p>
+      </div>
+    </a>
+
+  </div>
+
 </div>

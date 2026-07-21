@@ -1,15 +1,37 @@
-<h1>Templates</h1>
+<div class="templates">
 
-<p *ngIf="!hasResume">
-  You don't have a resume yet. <a routerLink="/resume-builder">Create one first</a>, then come back to pick a template.
-</p>
+  <h1>Templates</h1>
+  <p class="subtitle">Choose a layout for your resume.</p>
 
-<p>{{ message }}</p>
+  <div class="empty card" *ngIf="!hasResume">
+    <p>You don't have a resume yet.</p>
+    <a routerLink="/resume-builder" class="btn-primary btn-narrow">Create one first</a>
+  </div>
 
-<ul>
-  <li *ngFor="let template of templateOptions">
-    {{ template.name }}
-    <span *ngIf="template.id === currentTemplateId"> (Currently selected)</span>
-    <button type="button" (click)="useTemplate(template.id)">Use Template</button>
-  </li>
-</ul>
+  <p class="status" *ngIf="message">{{ message }}</p>
+
+  <div class="grid">
+    <div class="template-card card" *ngFor="let template of templateOptions">
+      <div class="preview-block" [ngClass]="'mock-' + template.id">
+        <div class="mock-header">
+          <div class="mock-name"></div>
+          <div class="mock-line short"></div>
+        </div>
+        <div class="mock-title"></div>
+        <div class="mock-line"></div>
+        <div class="mock-line short"></div>
+        <div class="mock-chips">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="template-footer">
+        <span>{{ template.name }}</span>
+        <span class="badge" *ngIf="template.id === currentTemplateId">Selected</span>
+      </div>
+      <button type="button" class="btn-primary btn-narrow" (click)="useTemplate(template.id)">
+        Use Template
+      </button>
+    </div>
+  </div>
+
+</div>

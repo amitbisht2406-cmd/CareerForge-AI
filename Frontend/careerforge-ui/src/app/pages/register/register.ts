@@ -1,8 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../services/auth';
+import { extractErrorMessage } from '../../shared/error-message.util';
+
+function passwordsMatchValidator(): ValidatorFn {
+  return (group: AbstractControl): ValidationErrors | null => {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { passwordsMismatch: true };
+  };
+}
 
 @Component({
   selector: 'app-register',
@@ -23,8 +32,9 @@ export class Register {
   registerForm = this.fb.group({
     fullName: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
-  });
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    confirmPassword: ['', Validators.required]
+  }, { validators: passwordsMatchValidator() });
 
   onSubmit() {
     if (this.registerForm.invalid) {
@@ -35,14 +45,16 @@ export class Register {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.authService.register(this.registerForm.value as any).subscribe({
+    const { confirmPassword, ...payload } = this.registerForm.value;
+
+    this.authService.register(payload as any).subscribe({
       next: () => {
         this.isLoading = false;
         this.router.navigate(['/login']);
       },
       error: (err) => {
         this.isLoading = false;
-        this.errorMessage = err.error || 'Registration failed. Try again.';
+        this.errorMessage = extractErrorMessage(err, 'Registration failed. Try again.');
       }
     });
   }

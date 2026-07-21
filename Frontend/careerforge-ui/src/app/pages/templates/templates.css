@@ -1,0 +1,142 @@
+.templates {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.subtitle {
+  margin-top: -14px;
+}
+
+.status {
+  font-size: 14px;
+  color: var(--success);
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 480px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: 760px;
+}
+
+.template-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.preview-block {
+  height: 140px;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.mock-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.mock-name {
+  height: 8px;
+  width: 55%;
+  border-radius: 2px;
+}
+
+.mock-line {
+  height: 4px;
+  width: 90%;
+  border-radius: 2px;
+}
+
+.mock-line.short {
+  width: 45%;
+}
+
+.mock-title {
+  height: 5px;
+  width: 30%;
+  border-radius: 2px;
+  margin-top: 4px;
+}
+
+.mock-chips {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.mock-chips span {
+  height: 10px;
+  width: 24px;
+  border-radius: 999px;
+}
+
+/* Classic — centered header, blue accents, left-border title */
+.mock-1 {
+  align-items: center;
+}
+.mock-1 .mock-header { align-items: center; }
+.mock-1 .mock-name,
+.mock-1 .mock-title { background: var(--primary); }
+.mock-1 .mock-line { background: var(--border); }
+.mock-1 .mock-chips span { background: #dbeafe; }
+
+/* Modern — dark header band, teal pill title */
+.mock-2 {
+  padding: 0;
+  background: #f8fafc;
+}
+.mock-2 .mock-header {
+  background: #0f172a;
+  padding: 12px;
+  margin-bottom: 6px;
+}
+.mock-2 .mock-name { background: #fff; }
+.mock-2 .mock-line:not(.mock-title) { background: #475569; margin: 0 12px; }
+.mock-2 .mock-title { background: #0d9488; border-radius: 999px; width: 34%; margin-left: 12px; }
+.mock-2 .mock-chips { margin-left: 12px; }
+.mock-2 .mock-chips span { background: #ccfbf1; }
+
+/* Minimal — thin grey rules, no colour */
+.mock-3 .mock-name,
+.mock-3 .mock-title { background: #18181b; }
+.mock-3 .mock-line { background: #d4d4d8; }
+.mock-3 .mock-header { border-bottom: 1px solid #d4d4d8; padding-bottom: 6px; }
+.mock-3 .mock-chips span { background: transparent; border: 1px solid #d4d4d8; border-radius: 3px; }
+
+.template-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.badge {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.btn-narrow {
+  align-self: flex-start;
+}

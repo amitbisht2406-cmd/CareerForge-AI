@@ -1,33 +1,92 @@
-<div [formGroup]="portfolioForm">
+<div class="pb-layout">
 
-  <h1>Portfolio Builder</h1>
+  <div class="pb-form" [formGroup]="portfolioForm">
 
-  <h2>Hero</h2>
-  <input type="text" placeholder="Hero Title" formControlName="heroTitle">
-  <input type="text" placeholder="Tagline" formControlName="heroTagline">
+    <h1>Portfolio Builder</h1>
+    <p class="subtitle">Build a shareable page that showcases who you are.</p>
 
-  <h2>About</h2>
-  <textarea rows="4" placeholder="About you" formControlName="about"></textarea>
+    <div class="card section">
+      <h2>Hero</h2>
+      <input type="text" class="field" placeholder="Hero Title" formControlName="heroTitle">
+      <input type="text" class="field" placeholder="Tagline" formControlName="heroTagline">
+    </div>
 
-  <h2>Skills</h2>
-  <div *ngFor="let skill of skills.controls; let i = index">
-    <input type="text" [formControl]="$any(skill)" placeholder="Skill">
-    <button type="button" *ngIf="skills.length > 1" (click)="removeSkill(i)">Remove</button>
+    <div class="card section">
+      <h2>About</h2>
+      <textarea rows="4" class="field" placeholder="About you" formControlName="about"></textarea>
+    </div>
+
+    <div class="card section">
+      <h2>Skills</h2>
+      <div class="row" *ngFor="let skill of skills.controls; let i = index">
+        <input type="text" class="field" [formControl]="$any(skill)" placeholder="Skill">
+        <button type="button" class="icon-btn" *ngIf="skills.length > 1" (click)="removeSkill(i)">✖</button>
+      </div>
+      <button type="button" class="btn-add" (click)="addSkill()">➕ Add Skill</button>
+    </div>
+
+    <div class="card section">
+      <h2>Projects</h2>
+      <div class="sub-card" *ngFor="let project of projects.controls; let i = index" [formGroup]="$any(project)">
+        <input type="text" class="field" placeholder="Project Title" formControlName="title">
+        <textarea rows="3" class="field" placeholder="Project Description" formControlName="description"></textarea>
+        <button type="button" class="text-btn" *ngIf="projects.length > 1" (click)="removeProject(i)">Remove Project</button>
+      </div>
+      <button type="button" class="btn-add" (click)="addProject()">➕ Add Project</button>
+    </div>
+
+    <div class="card section">
+      <h2>Contact</h2>
+      <input type="email" class="field" placeholder="Contact Email" formControlName="contactEmail">
+      <input type="text" class="field" placeholder="Contact Phone" formControlName="contactPhone">
+    </div>
+
+    <div class="pb-actions">
+      <button type="button" class="btn-primary btn-save" (click)="savePortfolio()">Save Portfolio</button>
+      <button type="button" class="btn-danger" *ngIf="currentPortfolioId !== null" (click)="deletePortfolio()">Delete Portfolio</button>
+    </div>
+
   </div>
-  <button type="button" (click)="addSkill()">Add Skill</button>
 
-  <h2>Projects</h2>
-  <div *ngFor="let project of projects.controls; let i = index" [formGroup]="$any(project)">
-    <input type="text" placeholder="Project Title" formControlName="title">
-    <textarea rows="3" placeholder="Project Description" formControlName="description"></textarea>
-    <button type="button" *ngIf="projects.length > 1" (click)="removeProject(i)">Remove Project</button>
+  <div class="pb-preview">
+
+    <h2 class="preview-label">Live Preview 👀</h2>
+
+    <div class="preview-paper card">
+
+      <div class="preview-hero">
+        <h1 *ngIf="portfolioForm.get('heroTitle')?.value">{{ portfolioForm.get('heroTitle')?.value }}</h1>
+        <p *ngIf="portfolioForm.get('heroTagline')?.value">{{ portfolioForm.get('heroTagline')?.value }}</p>
+      </div>
+
+      <div class="preview-block" *ngIf="portfolioForm.get('about')?.value">
+        <h3>About</h3>
+        <p>{{ portfolioForm.get('about')?.value }}</p>
+      </div>
+
+      <div class="preview-block" *ngIf="hasSkills()">
+        <h3>Skills</h3>
+        <div class="chip-row">
+          <span class="chip" *ngFor="let skill of skills.controls" [hidden]="!skill.value">{{ skill.value }}</span>
+        </div>
+      </div>
+
+      <div class="preview-block" *ngIf="hasProjects()">
+        <h3>Projects</h3>
+        <div class="preview-project" *ngFor="let project of projects.controls" [hidden]="!project.get('title')?.value && !project.get('description')?.value">
+          <strong>{{ project.get('title')?.value }}</strong>
+          <p>{{ project.get('description')?.value }}</p>
+        </div>
+      </div>
+
+      <div class="preview-block" *ngIf="portfolioForm.get('contactEmail')?.value || portfolioForm.get('contactPhone')?.value">
+        <h3>Contact</h3>
+        <p *ngIf="portfolioForm.get('contactEmail')?.value">{{ portfolioForm.get('contactEmail')?.value }}</p>
+        <p *ngIf="portfolioForm.get('contactPhone')?.value">{{ portfolioForm.get('contactPhone')?.value }}</p>
+      </div>
+
+    </div>
+
   </div>
-  <button type="button" (click)="addProject()">Add Project</button>
-
-  <h2>Contact</h2>
-  <input type="email" placeholder="Contact Email" formControlName="contactEmail">
-  <input type="text" placeholder="Contact Phone" formControlName="contactPhone">
-
-  <button type="button" (click)="savePortfolio()">Save Portfolio</button>
 
 </div>

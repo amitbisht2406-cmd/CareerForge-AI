@@ -21,4 +21,8 @@ export class Resume {
   updateResume(id: number, resumeData: any) {
     return this.http.put(`${this.apiUrl}/${id}`, resumeData);
   }
+
+  deleteResume(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

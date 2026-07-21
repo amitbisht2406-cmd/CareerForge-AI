@@ -21,4 +21,8 @@ export class Portfolio {
   updatePortfolio(id: number, data: any) {
     return this.http.put(`${this.apiUrl}/${id}`, data);
   }
+
+  deletePortfolio(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

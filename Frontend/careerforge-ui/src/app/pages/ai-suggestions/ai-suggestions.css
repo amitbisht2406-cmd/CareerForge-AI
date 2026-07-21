@@ -1,0 +1,90 @@
+.ai-page {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.subtitle {
+  margin-top: -14px;
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.overall {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 32px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: none;
+}
+
+.overall-label {
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.overall-score {
+  color: #fff;
+  font-size: 44px;
+  font-weight: 800;
+}
+
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.score-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.score-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.track {
+  height: 6px;
+  background: var(--background);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 999px;
+  transition: width .5s ease;
+}
+
+.feedback-card h2 {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.feedback-card p {
+  color: var(--text);
+  font-size: 14px;
+}

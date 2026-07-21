@@ -1,0 +1,32 @@
+<div class="landing">
+
+  <header class="landing-nav">
+    <div class="brand">
+      <span class="brand-mark">CF</span>
+      <span class="brand-name">CareerForge AI</span>
+    </div>
+    <div class="nav-actions">
+      <a routerLink="/login" class="link-btn">Log in</a>
+      <a routerLink="/register" class="btn-primary">Get Started</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Build your resume.<br>Create your portfolio.<br>Get AI suggestions.</h1>
+    <p>CareerForge AI helps you put your best career story forward — resume, portfolio, and AI-powered feedback in one place.</p>
+    <a routerLink="/register" class="btn-primary btn-hero">Get Started — it's free</a>
+  </section>
+
+  <section class="features">
+    <div class="feature-card card" *ngFor="let feature of features">
+      <span class="feature-icon">{{ feature.icon }}</span>
+      <h2>{{ feature.title }}</h2>
+      <p>{{ feature.desc }}</p>
+    </div>
+  </section>
+
+  <footer class="landing-footer">
+    <p>© 2026 CareerForge AI</p>
+  </footer>
+
+</div>

@@ -1,8 +1,10 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, inject, ChangeDetectorRef, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { Notifications } from '../../../../services/notifications';
 
 @Component({
   selector: 'app-resume-preview',
@@ -11,12 +13,23 @@ import jsPDF from 'jspdf';
   templateUrl: './resume-preview.component.html',
   styleUrls: ['./resume-preview.component.css']
 })
-export class ResumePreview {
+export class ResumePreview implements OnInit {
   @Input({ required: true }) form!: FormGroup;
+  @Input() templateId: number = 1;
 
   @ViewChild('previewPaper') previewPaperRef!: ElementRef<HTMLElement>;
 
+  private notifications = inject(Notifications);
+  private cdr = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
+
   isGeneratingPDF = false;
+
+  ngOnInit() {
+    this.form.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.cdr.markForCheck());
+  }
 
   get personalInfo(): FormGroup {
     return this.form.get('personalInfo') as FormGroup;
@@ -40,6 +53,18 @@ export class ResumePreview {
 
   get languages(): FormArray {
     return this.form.get('languages') as FormArray;
+  }
+
+  get achievements(): FormArray {
+    return this.form.get('achievements') as FormArray;
+  }
+
+  get summaryValue(): string {
+    return this.form.get('summary')?.value || '';
+  }
+
+  get photoBase64(): string {
+    return this.personalInfo.get('photoBase64')?.value || '';
   }
 
   hasSkills(): boolean {
@@ -66,6 +91,10 @@ export class ResumePreview {
       !!language.get('name')?.value ||
       !!language.get('proficiency')?.value
     );
+  }
+
+  hasAchievements(): boolean {
+    return this.achievements.controls.some(a => !!a.value);
   }
 
   hasResumeContent(): boolean {
@@ -123,6 +152,8 @@ export class ResumePreview {
       const fileName = fullName.replace(/\s+/g, '-') + '-Resume.pdf';
 
       pdf.save(fileName);
+
+      this.notifications.add('Resume PDF downloaded', '⬇️');
 
     } catch (error) {
 

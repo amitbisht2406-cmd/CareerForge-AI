@@ -24,13 +24,20 @@
 
 .preview-paper ul {
     padding-left: 20px;
+    margin: 0;
 }
+
+/* ===== Header (default / Classic) ===== */
 
 .preview-header {
     text-align: center;
     border-bottom: 3px solid var(--primary);
     padding-bottom: 25px;
     margin-bottom: 30px;
+}
+
+.preview-photo {
+    display: none;
 }
 
 .preview-header h1 {
@@ -49,6 +56,14 @@
     font-size: 14px;
 }
 
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
 .social-links a {
     color: var(--primary);
     text-decoration: none;
@@ -57,6 +72,20 @@
 
 .social-links a:hover {
     text-decoration: underline;
+}
+
+/* ===== Body layout ===== */
+
+.preview-body {
+    display: block;
+}
+
+.preview-sidebar {
+    display: none;
+}
+
+.preview-main {
+    display: block;
 }
 
 .section-title {
@@ -69,6 +98,11 @@
     padding-left: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.preview-main > div:first-child .section-title,
+.preview-main > .section-title:first-child {
+    margin-top: 0;
 }
 
 .preview-skills {
@@ -149,6 +183,14 @@
     color: var(--text-light);
 }
 
+.achievements-list li,
+.sidebar-achievements li {
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+}
+
 .download-btn {
     width: 100%;
     margin-bottom: 20px;
@@ -174,6 +216,299 @@
     transform: none;
 }
 
+/* =========================================================
+   TEMPLATE 2 — MODERN (two-column sidebar layout)
+========================================================= */
+
+.template-2.preview-paper {
+    padding: 0;
+    overflow: hidden;
+}
+
+.template-2 .preview-header {
+    background: linear-gradient(135deg, #1E2761, #2563EB);
+    padding: 36px 40px 28px;
+    border-bottom: none;
+    text-align: left;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.template-2 .preview-photo {
+    display: block;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.4);
+    flex-shrink: 0;
+}
+
+.template-2 .preview-header h1 {
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.template-2 .contact-info,
+.template-2 .social-links {
+    justify-content: flex-start;
+    color: #dce4ff;
+}
+
+.template-2 .contact-info span {
+    color: #dce4ff;
+}
+
+.template-2 .social-links a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.template-2 .preview-body {
+    display: flex;
+    align-items: stretch;
+}
+
+.template-2 .preview-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    width: 220px;
+    flex-shrink: 0;
+    background: #F1F5F9;
+    padding: 32px 22px;
+}
+
+.template-2 .sidebar-block h3 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    margin: 0 0 10px;
+}
+
+.template-2 .sidebar-block p {
+    font-size: 12.5px;
+    margin: 0 0 6px;
+    word-break: break-word;
+    color: var(--text);
+}
+
+.template-2 .sidebar-block a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.template-2 .sidebar-block .preview-skills {
+    gap: 6px;
+}
+
+.template-2 .sidebar-block .skill-chip {
+    background: #ffffff;
+    border: 1px solid #dbe3f0;
+    font-size: 11.5px;
+    padding: 5px 10px;
+}
+
+.template-2 .sidebar-block .preview-languages {
+    flex-direction: column;
+    gap: 6px;
+}
+
+.template-2 .sidebar-block .preview-language {
+    background: none;
+    padding: 0;
+    font-size: 12.5px;
+}
+
+.template-2 .sidebar-block .cert-name {
+    font-size: 12.5px;
+}
+
+.template-2 .sidebar-achievements {
+    padding-left: 16px;
+    margin: 0;
+}
+
+.template-2 .sidebar-achievements li {
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.template-2 .preview-main {
+    flex: 1;
+    padding: 32px 36px;
+    min-width: 0;
+}
+
+.template-2 .preview-main > div:first-child .section-title {
+    margin-top: 0;
+}
+
+.template-2 .main-skills-block,
+.template-2 .main-certificates-block,
+.template-2 .main-languages-block,
+.template-2 .main-achievements-block {
+    display: none;
+}
+
+.template-2 .section-title {
+    border-left: none;
+    background: rgba(37, 99, 235, 0.08);
+    padding: 6px 14px;
+    border-radius: 999px;
+    display: inline-block;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 15px;
+}
+
+/* =========================================================
+   TEMPLATE 3 — MINIMAL (elegant serif, single column)
+========================================================= */
+
+.template-3 {
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.template-3 .preview-header {
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 18px;
+}
+
+.template-3 .preview-header h1 {
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    font-size: 34px;
+}
+
+.template-3 .contact-info,
+.template-3 .social-links {
+    justify-content: flex-start;
+}
+
+.template-3 .section-title {
+    border-left: none;
+    border-bottom: 1px solid var(--text);
+    padding-left: 0;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 13px;
+    color: var(--text);
+    background: none;
+}
+
+.template-3 .skill-chip {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 3px;
+}
+
+.template-3 .preview-language {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+}
+
+/* =========================================================
+   TEMPLATE 4 — PROFESSIONAL (photo + summary, single column,
+   close to a traditional CV layout)
+========================================================= */
+
+.template-4 .preview-header {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    text-align: left;
+    border-bottom: none;
+    background: #f8fafc;
+    margin: -40px -40px 28px;
+    padding: 32px 40px;
+}
+
+.template-4 .preview-photo {
+    display: block;
+    width: 90px;
+    height: 90px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+    flex-shrink: 0;
+}
+
+.template-4 .preview-header h1 {
+    font-size: 30px;
+    letter-spacing: 0.01em;
+    margin-bottom: 8px;
+}
+
+.template-4 .contact-info,
+.template-4 .social-links {
+    justify-content: flex-start;
+}
+
+.template-4 .section-title {
+    border-left: none;
+    border-bottom: 2px solid var(--primary);
+    padding-left: 0;
+    padding-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 14px;
+    background: none;
+    color: var(--text);
+}
+
+.template-4 .main-summary-block p {
+    font-style: italic;
+    color: #475569;
+}
+
+.template-4 .preview-skills {
+    gap: 8px;
+}
+
+.template-4 .skill-chip {
+    background: var(--primary);
+    color: #fff;
+    font-size: 12px;
+}
+
+.template-4 .preview-project,
+.template-4 .preview-certificate {
+    border-left: 2px solid var(--border);
+    padding-left: 14px;
+    margin-bottom: 16px;
+}
+
+.template-4 .achievements-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.template-4 .achievements-list li {
+    padding-left: 18px;
+    position: relative;
+}
+
+.template-4 .achievements-list li::before {
+    content: "★";
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+    font-size: 12px;
+}
+
+/* =========================================================
+   Responsive
+========================================================= */
+
 @media (max-width: 1000px) {
 
     .resume-preview {
@@ -182,6 +517,26 @@
 
     .preview-paper {
         max-width: 100%;
+    }
+
+    .template-2 .preview-body {
+        flex-direction: column;
+    }
+
+    .template-2 .preview-sidebar {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .template-2 .sidebar-block {
+        flex: 1;
+        min-width: 160px;
+    }
+
+    .template-4 .preview-header {
+        margin: -20px -20px 24px;
+        padding: 24px 20px;
     }
 
 }

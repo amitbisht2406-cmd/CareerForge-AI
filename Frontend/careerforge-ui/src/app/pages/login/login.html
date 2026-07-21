@@ -1,27 +1,43 @@
-<div class="auth-container">
+<div class="auth-shell">
 
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="auth-card">
 
-    <h2>Login</h2>
+    <div class="brand">
+      <span class="brand-mark">CF</span>
+      <span class="brand-name">CareerForge AI</span>
+    </div>
 
-    <input type="email" placeholder="Email" formControlName="email">
-    <p class="error" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
-      Enter a valid email
-    </p>
+    <h1>Welcome back</h1>
+    <p class="subtitle">Log in to keep building your career story.</p>
 
-    <input type="password" placeholder="Password" formControlName="password">
-    <p class="error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
-      Password is required
-    </p>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+      <label>
+        <span>Email</span>
+        <input type="email" class="field" placeholder="you@example.com" formControlName="email">
+      </label>
+      <p class="error-text" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+        Enter a valid email
+      </p>
 
-    <button type="submit" [disabled]="isLoading">
-      {{ isLoading ? 'Logging in...' : 'Login' }}
-    </button>
+      <label>
+        <span>Password</span>
+        <input type="password" class="field" placeholder="••••••••" formControlName="password">
+      </label>
+      <p class="error-text" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+        Password is required
+      </p>
 
-    <p>Don't have an account? <a routerLink="/register">Register</a></p>
+      <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
 
-  </form>
+      <button type="submit" class="btn-primary btn-block" [disabled]="isLoading">
+        {{ isLoading ? 'Logging in...' : 'Log in' }}
+      </button>
+
+    </form>
+
+    <p class="switch">Don't have an account? <a routerLink="/register">Register</a></p>
+
+  </div>
 
 </div>

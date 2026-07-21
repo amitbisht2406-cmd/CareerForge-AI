@@ -1,8 +1,10 @@
-import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, ChangeDetectorRef, DestroyRef, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Portfolio } from '../../services/portfolio';
+import { Notifications } from '../../services/notifications';
 
 @Component({
   selector: 'app-portfolio-builder',
@@ -15,6 +17,9 @@ export class PortfolioBuilder implements OnInit {
 
   private platformId = inject(PLATFORM_ID);
   private portfolioService = inject(Portfolio);
+  private notifications = inject(Notifications);
+  private cdr = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
 
   currentPortfolioId: number | null = null;
 
@@ -48,7 +53,22 @@ export class PortfolioBuilder implements OnInit {
     return this.portfolioForm.get('projects') as FormArray;
   }
 
+  hasSkills(): boolean {
+    return this.skills.controls.some(skill => !!skill.value);
+  }
+
+  hasProjects(): boolean {
+    return this.projects.controls.some(project =>
+      !!project.get('title')?.value || !!project.get('description')?.value
+    );
+  }
+
   ngOnInit() {
+
+    // Live preview fix — force re-render on every keystroke, zone or zoneless.
+    this.portfolioForm.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.cdr.markForCheck());
 
     if (!isPlatformBrowser(this.platformId)) {
       return;
@@ -97,6 +117,8 @@ export class PortfolioBuilder implements OnInit {
             description: new FormControl('', { nonNullable: true })
           }));
         }
+
+        this.cdr.markForCheck();
 
       },
 
@@ -172,10 +194,12 @@ export class PortfolioBuilder implements OnInit {
     if (this.currentPortfolioId !== null) {
 
       this.portfolioService.updatePortfolio(this.currentPortfolioId, data).subscribe({
-        next: () => alert('Portfolio updated successfully! ✅'),
+        next: () => {
+          this.notifications.add('Portfolio updated successfully', '🌐');
+        },
         error: (error) => {
           console.error('Update failed:', error);
-          alert('Failed to update portfolio ❌');
+          this.notifications.add('Failed to update portfolio', '⚠️');
         }
       });
 
@@ -184,16 +208,45 @@ export class PortfolioBuilder implements OnInit {
       this.portfolioService.createPortfolio(data).subscribe({
         next: (response) => {
           this.currentPortfolioId = response.id;
-          alert('Portfolio saved successfully! ✅');
+          this.notifications.add('Portfolio saved successfully', '🌐');
         },
         error: (error) => {
           console.error('Save failed:', error);
-          alert('Failed to save portfolio ❌');
+          this.notifications.add('Failed to save portfolio', '⚠️');
         }
       });
 
     }
 
+  }
+
+  deletePortfolio() {
+    if (this.currentPortfolioId === null) {
+      return;
+    }
+
+    if (!confirm('Delete this portfolio? This cannot be undone.')) {
+      return;
+    }
+
+    this.portfolioService.deletePortfolio(this.currentPortfolioId).subscribe({
+      next: () => {
+        this.currentPortfolioId = null;
+        this.portfolioForm.reset();
+        this.skills.clear();
+        this.skills.push(new FormControl('', { nonNullable: true }));
+        this.projects.clear();
+        this.projects.push(new FormGroup({
+          title: new FormControl('', { nonNullable: true }),
+          description: new FormControl('', { nonNullable: true })
+        }));
+        this.notifications.add('Portfolio deleted', '🗑️');
+      },
+      error: (error) => {
+        console.error('Delete failed:', error);
+        this.notifications.add('Failed to delete portfolio', '⚠️');
+      }
+    });
   }
 
 }

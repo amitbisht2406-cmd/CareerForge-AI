@@ -1,17 +1,38 @@
-<h1>Settings</h1>
+<div class="settings">
 
-<h2>Profile</h2>
-<form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
-  <input type="text" placeholder="Full Name" formControlName="fullName">
-  <input type="email" placeholder="Email" formControlName="email">
-  <button type="submit">Update Profile</button>
-  <p>{{ profileMessage }}</p>
-</form>
+  <h1>Settings</h1>
+  <p class="subtitle">Manage your profile and account security.</p>
 
-<h2>Change Password</h2>
-<form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
-  <input type="password" placeholder="Current Password" formControlName="currentPassword">
-  <input type="password" placeholder="New Password" formControlName="newPassword">
-  <button type="submit">Change Password</button>
-  <p>{{ passwordMessage }}</p>
-</form>
+  <div class="card section">
+    <h2>Profile</h2>
+    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+      <label>
+        <span>Full Name</span>
+        <input type="text" class="field" formControlName="fullName">
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="email" class="field" formControlName="email">
+      </label>
+      <button type="submit" class="btn-primary btn-narrow">Update Profile</button>
+      <p class="status" *ngIf="profileMessage">{{ profileMessage }}</p>
+    </form>
+  </div>
+
+  <div class="card section">
+    <h2>Change Password</h2>
+    <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+      <label>
+        <span>Current Password</span>
+        <input type="password" class="field" formControlName="currentPassword">
+      </label>
+      <label>
+        <span>New Password</span>
+        <input type="password" class="field" formControlName="newPassword">
+      </label>
+      <button type="submit" class="btn-primary btn-narrow">Change Password</button>
+      <p class="status" *ngIf="passwordMessage">{{ passwordMessage }}</p>
+    </form>
+  </div>
+
+</div>

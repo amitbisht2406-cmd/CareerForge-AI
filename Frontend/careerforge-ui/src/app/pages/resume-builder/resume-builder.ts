@@ -2,6 +2,7 @@ import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { Resume } from '../../services/resume';
+import { Notifications } from '../../services/notifications';
 
 import {
   ReactiveFormsModule,
@@ -32,13 +33,26 @@ import { ResumePreview } from './components/resume-preview/resume-preview.compon
     ResumePreview
   ],
   templateUrl: './resume-builder.html',
-  styleUrl: './resume-builder.css'
+  styleUrls: ['./resume-builder.css', './shared/resume-shared.css']
 })
 export class ResumeBuilder implements OnInit {
 
   currentResumeId: number | null = null;
+  currentTemplateId = 1;
+
+  templateOptions = [
+    { id: 1, name: 'Classic' },
+    { id: 2, name: 'Modern' },
+    { id: 3, name: 'Minimal' },
+    { id: 4, name: 'Professional' }
+  ];
+
+  selectTemplate(id: number) {
+    this.currentTemplateId = id;
+  }
 
   private platformId = inject(PLATFORM_ID);
+  private notifications = inject(Notifications);
 
   constructor(private resumeService: Resume) {}
 
@@ -69,7 +83,9 @@ export class ResumeBuilder implements OnInit {
       linkedin: new FormControl('', {
         nonNullable: true,
         validators: [Validators.pattern(/^https?:\/\/(www\.)?linkedin\.com\/.+$/)]
-      })
+      }),
+
+      photoBase64: new FormControl('', { nonNullable: true })
 
     }),
 
@@ -86,6 +102,8 @@ export class ResumeBuilder implements OnInit {
       })
 
     }),
+
+    summary: new FormControl('', { nonNullable: true }),
 
     skills: new FormArray([
       new FormControl('', { nonNullable: true })
@@ -111,6 +129,10 @@ export class ResumeBuilder implements OnInit {
         name: new FormControl('', { nonNullable: true }),
         proficiency: new FormControl('', { nonNullable: true })
       })
+    ]),
+
+    achievements: new FormArray([
+      new FormControl('', { nonNullable: true })
     ])
 
   });
@@ -139,6 +161,20 @@ export class ResumeBuilder implements OnInit {
     return this.resumeForm.get('languages') as FormArray;
   }
 
+  get achievements(): FormArray {
+    return this.resumeForm.get('achievements') as FormArray;
+  }
+
+  addAchievement() {
+    this.achievements.push(new FormControl('', { nonNullable: true }));
+  }
+
+  removeAchievement(index: number) {
+    if (this.achievements.length > 1) {
+      this.achievements.removeAt(index);
+    }
+  }
+
   ngOnInit() {
 
     if (!isPlatformBrowser(this.platformId)) {
@@ -156,6 +192,7 @@ export class ResumeBuilder implements OnInit {
 
         const resumeData = resumes[resumes.length - 1];
         this.currentResumeId = resumeData.id;
+        this.currentTemplateId = resumeData.templateId ?? 1;
 
         console.log('Loading resume from database:', resumeData);
 
@@ -164,7 +201,8 @@ export class ResumeBuilder implements OnInit {
           email: resumeData.email,
           phone: resumeData.phone,
           github: resumeData.gitHub,
-          linkedin: resumeData.linkedIn
+          linkedin: resumeData.linkedIn,
+          photoBase64: resumeData.photoBase64
         });
 
         this.background.patchValue({
@@ -172,10 +210,15 @@ export class ResumeBuilder implements OnInit {
           experience: resumeData.experience
         });
 
+        this.resumeForm.patchValue({
+          summary: resumeData.summary
+        });
+
         const savedSkills = this.safeParseArray(resumeData.skills);
         const savedProjects = this.safeParseArray(resumeData.projects);
         const savedCertificates = this.safeParseArray(resumeData.certificates);
         const savedLanguages = this.safeParseArray(resumeData.languages);
+        const savedAchievements = this.safeParseArray(resumeData.achievements);
 
         this.skills.clear();
         savedSkills.forEach((skill: string) => {
@@ -237,6 +280,14 @@ export class ResumeBuilder implements OnInit {
           }));
         }
 
+        this.achievements.clear();
+        savedAchievements.forEach((item: string) => {
+          this.achievements.push(new FormControl(item, { nonNullable: true }));
+        });
+        if (this.achievements.length === 0) {
+          this.achievements.push(new FormControl('', { nonNullable: true }));
+        }
+
         console.log('Resume loaded into form successfully!');
 
       },
@@ -249,11 +300,6 @@ export class ResumeBuilder implements OnInit {
 
   }
 
-  /**
-   * Safely parses a JSON string coming from the backend into an array.
-   * Returns [] instead of throwing if the value is missing or malformed,
-   * so one corrupted record can't crash the whole form load.
-   */
   private safeParseArray(raw: string | null | undefined): any[] {
     if (!raw) {
       return [];
@@ -290,6 +336,8 @@ export class ResumeBuilder implements OnInit {
       language.name?.trim() || language.proficiency?.trim()
     );
 
+    const cleanAchievements = (formValue.achievements ?? []).filter(a => a?.trim());
+
     const resumeData = {
       id: this.currentResumeId ?? 0,
       fullName: formValue.personalInfo?.fullName,
@@ -297,13 +345,17 @@ export class ResumeBuilder implements OnInit {
       phone: formValue.personalInfo?.phone,
       gitHub: formValue.personalInfo?.github,
       linkedIn: formValue.personalInfo?.linkedin,
+      photoBase64: formValue.personalInfo?.photoBase64,
+      summary: formValue.summary,
       education: formValue.background?.education,
       experience: formValue.background?.experience,
 
       skills: JSON.stringify(cleanSkills),
       projects: JSON.stringify(cleanProjects),
       certificates: JSON.stringify(cleanCertificates),
-      languages: JSON.stringify(cleanLanguages)
+      languages: JSON.stringify(cleanLanguages),
+      achievements: JSON.stringify(cleanAchievements),
+      templateId: this.currentTemplateId
     };
 
     if (this.currentResumeId !== null) {
@@ -311,11 +363,11 @@ export class ResumeBuilder implements OnInit {
       this.resumeService.updateResume(this.currentResumeId, resumeData).subscribe({
         next: () => {
           console.log('Resume updated successfully:', this.currentResumeId);
-          alert('Resume updated successfully! ✅');
+          this.notifications.add('Resume updated successfully', '📄');
         },
         error: (error) => {
           console.error('Update failed:', error);
-          alert('Failed to update resume ❌');
+          this.notifications.add('Failed to update resume', '⚠️');
         }
       });
 
@@ -325,16 +377,59 @@ export class ResumeBuilder implements OnInit {
         next: (response) => {
           this.currentResumeId = response.id;
           console.log('New resume created:', response);
-          alert('Resume saved successfully! ✅');
+          this.notifications.add('Resume saved successfully', '📄');
         },
         error: (error) => {
           console.error('Save failed:', error);
-          alert('Failed to save resume ❌');
+          this.notifications.add('Failed to save resume', '⚠️');
         }
       });
 
     }
 
+  }
+
+  deleteResume() {
+    if (this.currentResumeId === null) {
+      return;
+    }
+
+    if (!confirm('Delete this resume? This cannot be undone.')) {
+      return;
+    }
+
+    this.resumeService.deleteResume(this.currentResumeId).subscribe({
+      next: () => {
+        this.currentResumeId = null;
+        this.resumeForm.reset();
+        this.skills.clear();
+        this.skills.push(new FormControl('', { nonNullable: true }));
+        this.projects.clear();
+        this.projects.push(new FormGroup({
+          title: new FormControl('', { nonNullable: true }),
+          description: new FormControl('', { nonNullable: true }),
+          technologies: new FormControl('', { nonNullable: true })
+        }));
+        this.certificates.clear();
+        this.certificates.push(new FormGroup({
+          name: new FormControl('', { nonNullable: true }),
+          issuer: new FormControl('', { nonNullable: true })
+        }));
+        this.languages.clear();
+        this.languages.push(new FormGroup({
+          name: new FormControl('', { nonNullable: true }),
+          proficiency: new FormControl('', { nonNullable: true })
+        }));
+        this.achievements.clear();
+        this.achievements.push(new FormControl('', { nonNullable: true }));
+        this.currentTemplateId = 1;
+        this.notifications.add('Resume deleted', '🗑️');
+      },
+      error: (error) => {
+        console.error('Delete failed:', error);
+        this.notifications.add('Failed to delete resume', '⚠️');
+      }
+    });
   }
 
 }

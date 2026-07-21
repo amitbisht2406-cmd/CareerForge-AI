@@ -8,7 +8,20 @@
         <p>Basic details about yourself.</p>
     </div>
 
-    <!-- Full Name -->
+    <div class="photo-upload-row">
+        <div class="photo-preview" [class.has-photo]="photoBase64">
+            <img *ngIf="photoBase64" [src]="photoBase64" alt="Profile photo">
+            <span *ngIf="!photoBase64">No Photo</span>
+        </div>
+        <div class="photo-actions">
+            <label class="upload-btn">
+                Upload Photo
+                <input type="file" accept="image/*" (change)="onPhotoSelected($event)" hidden>
+            </label>
+            <button type="button" class="remove-btn" *ngIf="photoBase64" (click)="removePhoto()">Remove</button>
+        </div>
+    </div>
+
     <input
         type="text"
         placeholder="Full Name"
@@ -22,7 +35,6 @@
         Full Name is required
     </p>
 
-    <!-- Email -->
     <input
         type="email"
         placeholder="Email"
@@ -43,7 +55,6 @@
         Enter a valid email address
     </p>
 
-    <!-- Phone -->
     <input
         type="text"
         placeholder="Phone Number"
@@ -64,7 +75,6 @@
         Enter a valid 10-digit phone number
     </p>
 
-    <!-- GitHub -->
     <input
         type="text"
         placeholder="GitHub Profile URL"
@@ -78,7 +88,6 @@
         Enter a valid GitHub profile URL
     </p>
 
-    <!-- LinkedIn -->
     <input
         type="text"
         placeholder="LinkedIn Profile URL"

@@ -1,0 +1,40 @@
+.settings {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.subtitle {
+  margin-top: -14px;
+}
+
+.section h2 {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.btn-narrow {
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.status {
+  font-size: 13px;
+  color: var(--success);
+}

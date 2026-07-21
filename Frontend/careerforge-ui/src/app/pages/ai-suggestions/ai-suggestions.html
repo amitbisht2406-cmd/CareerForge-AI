@@ -1,20 +1,64 @@
-<h1>AI Resume Review</h1>
+<div class="ai-page">
 
-<p *ngIf="!hasResume">
-  You don't have a resume yet. <a routerLink="/resume-builder">Create one first</a>.
-</p>
+  <h1>AI Resume Review</h1>
+  <p class="subtitle">Get instant, AI-powered feedback on your resume.</p>
 
-<button type="button" (click)="getReview()" [disabled]="isLoading">
-  {{ isLoading ? 'Analyzing...' : 'Get AI Review' }}
-</button>
+  <div class="empty card" *ngIf="!hasResume">
+    <p>You don't have a resume yet.</p>
+    <a routerLink="/resume-builder" class="btn-primary btn-narrow">Create one first</a>
+  </div>
 
-<p *ngIf="errorMessage">{{ errorMessage }}</p>
+  <button type="button" class="btn-primary btn-narrow" (click)="getReview()" [disabled]="isLoading">
+    {{ isLoading ? '✨ Analyzing your resume...' : '✨ Get AI Review' }}
+  </button>
 
-<div *ngIf="review">
-  <h2>Overall Score: {{ review.overallScore }}%</h2>
-  <p>Grammar: {{ review.grammarScore }}%</p>
-  <p>ATS Compatibility: {{ review.atsScore }}%</p>
-  <p>Skills: {{ review.skillsScore }}%</p>
-  <p><strong>Feedback:</strong> {{ review.feedback }}</p>
-  <p><strong>Suggestion:</strong> {{ review.missingSkillsSuggestion }}</p>
+  <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <div class="results" *ngIf="review">
+
+    <div class="card overall">
+      <span class="overall-label">Overall Score</span>
+      <span class="overall-score">{{ review.overallScore }}%</span>
+    </div>
+
+    <div class="score-grid">
+
+      <div class="card score-item">
+        <div class="score-header">
+          <span>Grammar</span>
+          <span>{{ review.grammarScore }}%</span>
+        </div>
+        <div class="track"><div class="fill" [style.width.%]="review.grammarScore"></div></div>
+      </div>
+
+      <div class="card score-item">
+        <div class="score-header">
+          <span>ATS Compatibility</span>
+          <span>{{ review.atsScore }}%</span>
+        </div>
+        <div class="track"><div class="fill" [style.width.%]="review.atsScore"></div></div>
+      </div>
+
+      <div class="card score-item">
+        <div class="score-header">
+          <span>Skills</span>
+          <span>{{ review.skillsScore }}%</span>
+        </div>
+        <div class="track"><div class="fill" [style.width.%]="review.skillsScore"></div></div>
+      </div>
+
+    </div>
+
+    <div class="card feedback-card">
+      <h2>Feedback</h2>
+      <p>{{ review.feedback }}</p>
+    </div>
+
+    <div class="card feedback-card">
+      <h2>Suggestion</h2>
+      <p>{{ review.missingSkillsSuggestion }}</p>
+    </div>
+
+  </div>
+
 </div>

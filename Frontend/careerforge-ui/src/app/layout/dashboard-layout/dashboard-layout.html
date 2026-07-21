@@ -1,0 +1,52 @@
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">CF</span>
+      <span class="brand-name">CareerForge</span>
+    </div>
+    <nav class="nav">
+      <a *ngFor="let item of navItems" [routerLink]="item.link" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">{{ item.icon }}</span>
+        <span>{{ item.label }}</span>
+      </a>
+    </nav>
+    <button type="button" class="logout-btn" (click)="logout()">
+      <span>↩</span> Logout
+    </button>
+  </aside>
+  <div class="main">
+   <header class="topbar">
+  <button type="button" class="theme-toggle" (click)="theme.toggle()">
+    {{ theme.isDark() ? '☀️' : '🌙' }}
+  </button>
+
+  <div class="topbar-right">
+
+    <div class="bell-wrap">
+      <button type="button" class="bell-btn" (click)="toggleNotifications()">
+        🔔
+        <span class="badge" *ngIf="notifications.unreadCount > 0">{{ notifications.unreadCount }}</span>
+      </button>
+
+      <div class="notif-dropdown" *ngIf="showNotifications">
+        <div class="notif-header">Notifications</div>
+        <p class="notif-empty" *ngIf="notifications.items().length === 0">No notifications yet.</p>
+        <div class="notif-item" *ngFor="let n of notifications.items()">
+          <span>{{ n.icon }}</span>
+          <span>{{ n.message }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="user-chip">
+      <span class="avatar">{{ initials }}</span>
+      <span class="user-name">{{ fullName }}</span>
+    </div>
+
+  </div>
+</header>
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

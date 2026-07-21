@@ -5,9 +5,34 @@
         <h1>Resume Builder 📄</h1>
         <p>Create your professional resume.</p>
 
+        <div class="template-picker">
+            <span class="template-picker-label">Template:</span>
+            <button
+                type="button"
+                *ngFor="let template of templateOptions"
+                class="template-chip"
+                [class.active]="template.id === currentTemplateId"
+                (click)="selectTemplate(template.id)"
+            >
+                {{ template.name }}
+            </button>
+        </div>
+
         <form [formGroup]="resumeForm">
 
             <app-resume-personal [form]="personalInfo"></app-resume-personal>
+
+            <div class="form-card">
+                <div class="card-header">
+                    <h2>📝 Summary</h2>
+                    <p>A short professional summary (2-3 sentences).</p>
+                </div>
+                <textarea
+                    rows="4"
+                    placeholder="e.g. Aspiring Full Stack Developer with hands-on experience building web applications using Angular, ASP.NET Core, and SQL Server..."
+                    formControlName="summary"
+                ></textarea>
+            </div>
 
             <app-resume-education [form]="background"></app-resume-education>
 
@@ -20,17 +45,61 @@
                 [languages]="languages"
             ></app-resume-certificates-languages>
 
-            <button
-                type="button"
-                (click)="saveResume()"
-            >
-                Save Resume
-            </button>
+            <div class="form-card" formArrayName="achievements">
+                <div class="card-header">
+                    <h2>🏅 Achievements</h2>
+                    <p>Competitions, awards, or notable accomplishments.</p>
+                </div>
+
+                <div
+                    class="skill-row"
+                    *ngFor="let achievement of achievements.controls; let i = index"
+                >
+                    <div class="skill-input">
+                        <input
+                            type="text"
+                            [formControlName]="i"
+                            placeholder="e.g. Competed in Techno Bid innovation competition"
+                        >
+                    </div>
+                    <button
+                        *ngIf="achievements.length > 1"
+                        type="button"
+                        class="delete-btn"
+                        (click)="removeAchievement(i)"
+                    >
+                        ✖
+                    </button>
+                </div>
+
+                <button type="button" class="add-btn" (click)="addAchievement()">
+                    ➕ Add Achievement
+                </button>
+            </div>
+
+            <div class="form-actions">
+                <button
+                    type="button"
+                    class="btn-primary"
+                    (click)="saveResume()"
+                >
+                    Save Resume
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-danger"
+                    *ngIf="currentResumeId !== null"
+                    (click)="deleteResume()"
+                >
+                    Delete Resume
+                </button>
+            </div>
 
         </form>
 
     </div>
 
-    <app-resume-preview [form]="resumeForm"></app-resume-preview>
+    <app-resume-preview [form]="resumeForm" [templateId]="currentTemplateId"></app-resume-preview>
 
 </div>

@@ -1,32 +1,62 @@
-<div class="auth-container">
+<div class="auth-shell">
 
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="auth-card">
 
-    <h2>Create Account</h2>
+    <div class="brand">
+      <span class="brand-mark">CF</span>
+      <span class="brand-name">CareerForge AI</span>
+    </div>
 
-    <input type="text" placeholder="Full Name" formControlName="fullName">
-    <p class="error" *ngIf="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid">
-      Full name is required
-    </p>
+    <h1>Create your account</h1>
+    <p class="subtitle">Start building your resume and portfolio.</p>
 
-    <input type="email" placeholder="Email" formControlName="email">
-    <p class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
-      Enter a valid email
-    </p>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-    <input type="password" placeholder="Password" formControlName="password">
-    <p class="error" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
-      Password must be at least 6 characters
-    </p>
+      <label>
+        <span>Full Name</span>
+        <input type="text" class="field" placeholder="Amit Bisht" formControlName="fullName">
+      </label>
+      <p class="error-text" *ngIf="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid">
+        Full name is required
+      </p>
 
-    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+      <label>
+        <span>Email</span>
+        <input type="email" class="field" placeholder="you@example.com" formControlName="email">
+      </label>
+      <p class="error-text" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+        Enter a valid email
+      </p>
 
-    <button type="submit" [disabled]="isLoading">
-      {{ isLoading ? 'Creating account...' : 'Register' }}
-    </button>
+      <label>
+        <span>Password</span>
+        <input type="password" class="field" placeholder="At least 6 characters" formControlName="password">
+      </label>
+      <p class="error-text" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+        Password must be at least 6 characters
+      </p>
 
-    <p>Already have an account? <a routerLink="/login">Login</a></p>
+      <label>
+        <span>Confirm Password</span>
+        <input type="password" class="field" placeholder="Re-enter your password" formControlName="confirmPassword">
+      </label>
+      <p class="error-text" *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid">
+        Please confirm your password
+      </p>
+      <p class="error-text" *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.errors?.['passwordsMismatch'] && !registerForm.get('confirmPassword')?.invalid">
+        Passwords do not match
+      </p>
 
-  </form>
+      <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <button type="submit" class="btn-primary btn-block" [disabled]="isLoading">
+        {{ isLoading ? 'Creating account...' : 'Create account' }}
+      </button>
+
+    </form>
+
+    <p class="switch">Already have an account? <a routerLink="/login">Log in</a></p>
+
+  </div>
 
 </div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../services/auth';
+import { extractErrorMessage } from '../../shared/error-message.util';
 
 @Component({
   selector: 'app-login',
@@ -43,7 +44,7 @@ export class Login {
       },
       error: (err) => {
         this.isLoading = false;
-        this.errorMessage = err.error || 'Invalid email or password.';
+        this.errorMessage = extractErrorMessage(err, 'Invalid email or password.');
       }
     });
   }
