@@ -1,105 +1,435 @@
-<div class="builder-layout">
+<div class="resume-builder-page">
 
-    <div class="resume-container">
+  <!-- ================= PAGE HEADER ================= -->
 
-        <h1>Resume Builder 📄</h1>
-        <p>Create your professional resume.</p>
+  <header class="builder-header">
 
-        <div class="template-picker">
-            <span class="template-picker-label">Template:</span>
-            <button
-                type="button"
-                *ngFor="let template of templateOptions"
-                class="template-chip"
-                [class.active]="template.id === currentTemplateId"
-                (click)="selectTemplate(template.id)"
-            >
-                {{ template.name }}
-            </button>
-        </div>
+    <div class="builder-heading">
 
-        <form [formGroup]="resumeForm">
+      <div class="builder-eyebrow">
+        <span class="eyebrow-icon">✦</span>
+        RESUME WORKSPACE
+      </div>
 
-            <app-resume-personal [form]="personalInfo"></app-resume-personal>
+      <h1>
+        Build your
+        <span>professional resume.</span>
+      </h1>
 
-            <div class="form-card">
-                <div class="card-header">
-                    <h2>📝 Summary</h2>
-                    <p>A short professional summary (2-3 sentences).</p>
-                </div>
-                <textarea
-                    rows="4"
-                    placeholder="e.g. Aspiring Full Stack Developer with hands-on experience building web applications using Angular, ASP.NET Core, and SQL Server..."
-                    formControlName="summary"
-                ></textarea>
-            </div>
-
-            <app-resume-education [form]="background"></app-resume-education>
-
-            <app-resume-skills [skills]="skills"></app-resume-skills>
-
-            <app-resume-projects [projects]="projects"></app-resume-projects>
-
-            <app-resume-certificates-languages
-                [certificates]="certificates"
-                [languages]="languages"
-            ></app-resume-certificates-languages>
-
-            <div class="form-card" formArrayName="achievements">
-                <div class="card-header">
-                    <h2>🏅 Achievements</h2>
-                    <p>Competitions, awards, or notable accomplishments.</p>
-                </div>
-
-                <div
-                    class="skill-row"
-                    *ngFor="let achievement of achievements.controls; let i = index"
-                >
-                    <div class="skill-input">
-                        <input
-                            type="text"
-                            [formControlName]="i"
-                            placeholder="e.g. Competed in Techno Bid innovation competition"
-                        >
-                    </div>
-                    <button
-                        *ngIf="achievements.length > 1"
-                        type="button"
-                        class="delete-btn"
-                        (click)="removeAchievement(i)"
-                    >
-                        ✖
-                    </button>
-                </div>
-
-                <button type="button" class="add-btn" (click)="addAchievement()">
-                    ➕ Add Achievement
-                </button>
-            </div>
-
-            <div class="form-actions">
-                <button
-                    type="button"
-                    class="btn-primary"
-                    (click)="saveResume()"
-                >
-                    Save Resume
-                </button>
-
-                <button
-                    type="button"
-                    class="btn-danger"
-                    *ngIf="currentResumeId !== null"
-                    (click)="deleteResume()"
-                >
-                    Delete Resume
-                </button>
-            </div>
-
-        </form>
+      <p>
+        Create, customize and preview your resume in real time.
+        Your changes stay connected to your CareerForge profile.
+      </p>
 
     </div>
 
-    <app-resume-preview [form]="resumeForm" [templateId]="currentTemplateId"></app-resume-preview>
+
+    <!-- SAVE STATUS -->
+
+    <div class="builder-status">
+
+      <span
+        class="status-dot"
+        [class.saved]="currentResumeId !== null"
+      ></span>
+
+      <div>
+        <strong>
+          {{ currentResumeId !== null ? 'Resume saved' : 'New resume' }}
+        </strong>
+
+        <span>
+          {{ currentResumeId !== null ? 'Ready to edit' : 'Start building' }}
+        </span>
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= TEMPLATE TOOLBAR ================= -->
+
+  <section class="template-toolbar">
+
+    <div class="template-toolbar-info">
+
+      <div class="toolbar-icon">
+        ▦
+      </div>
+
+      <div>
+        <strong>Choose template</strong>
+        <span>Select the style used in your live preview.</span>
+      </div>
+
+    </div>
+
+
+    <div class="template-picker">
+
+      <button
+        type="button"
+        *ngFor="let template of templateOptions"
+        class="template-chip"
+        [class.active]="template.id === currentTemplateId"
+        (click)="selectTemplate(template.id)"
+      >
+
+        <span class="template-check">
+          {{ template.id === currentTemplateId ? '✓' : '' }}
+        </span>
+
+        {{ template.name }}
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= MAIN BUILDER ================= -->
+
+  <div class="builder-layout">
+
+
+    <!-- ================= EDITOR ================= -->
+
+    <section class="builder-editor">
+
+      <div class="editor-heading">
+
+        <div>
+
+          <span class="section-label">
+            EDIT YOUR RESUME
+          </span>
+
+          <h2>
+            Resume information
+          </h2>
+
+        </div>
+
+        <span class="editor-hint">
+          Fields update your preview
+        </span>
+
+      </div>
+
+
+      <form [formGroup]="resumeForm">
+
+
+        <!-- PERSONAL INFORMATION -->
+
+        <app-resume-personal
+          [form]="personalInfo"
+        ></app-resume-personal>
+
+
+
+        <!-- SUMMARY -->
+
+        <div class="form-card summary-card">
+
+          <div class="card-header">
+
+            <div class="card-title-row">
+
+              <div class="section-icon summary-icon">
+                ✎
+              </div>
+
+              <div>
+
+                <h2>
+                  Professional Summary
+                </h2>
+
+                <p>
+                  Write a short introduction that highlights
+                  your strengths and career goals.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="field-wrapper">
+
+            <label for="resume-summary">
+              Summary
+            </label>
+
+            <textarea
+              id="resume-summary"
+              rows="5"
+              maxlength="600"
+              placeholder="e.g. Aspiring Full Stack Developer with hands-on experience building web applications using Angular, ASP.NET Core and SQL Server..."
+              formControlName="summary"
+            ></textarea>
+
+            <div class="field-footer">
+
+              <span>
+                Keep it concise — around 2–3 sentences works best.
+              </span>
+
+              <span class="character-count">
+                {{ resumeForm.get('summary')?.value?.length || 0 }}/600
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- EDUCATION + EXPERIENCE -->
+
+        <app-resume-education
+          [form]="background"
+        ></app-resume-education>
+
+
+
+        <!-- SKILLS -->
+
+        <app-resume-skills
+          [skills]="skills"
+        ></app-resume-skills>
+
+
+
+        <!-- PROJECTS -->
+
+        <app-resume-projects
+          [projects]="projects"
+        ></app-resume-projects>
+
+
+
+        <!-- CERTIFICATES + LANGUAGES -->
+
+        <app-resume-certificates-languages
+          [certificates]="certificates"
+          [languages]="languages"
+        ></app-resume-certificates-languages>
+
+
+
+        <!-- ================= ACHIEVEMENTS ================= -->
+
+        <div
+          class="form-card achievements-card"
+          formArrayName="achievements"
+        >
+
+          <div class="card-header">
+
+            <div class="card-title-row">
+
+              <div class="section-icon achievement-icon">
+                ★
+              </div>
+
+              <div>
+
+                <h2>
+                  Achievements
+                </h2>
+
+                <p>
+                  Add awards, competitions and accomplishments
+                  that make your profile stand out.
+                </p>
+
+              </div>
+
+            </div>
+
+            <span class="item-counter">
+              {{ achievements.length }}
+              {{ achievements.length === 1 ? 'item' : 'items' }}
+            </span>
+
+          </div>
+
+
+          <div class="achievement-list">
+
+            <div
+              class="achievement-row"
+              *ngFor="
+                let achievement of achievements.controls;
+                let i = index
+              "
+            >
+
+              <div class="achievement-number">
+                {{ i + 1 }}
+              </div>
+
+
+              <div class="achievement-input">
+
+                <label>
+                  Achievement {{ i + 1 }}
+                </label>
+
+                <input
+                  type="text"
+                  [formControlName]="i"
+                  placeholder="e.g. Competed in Techno Bid innovation competition"
+                >
+
+              </div>
+
+
+              <button
+                *ngIf="achievements.length > 1"
+                type="button"
+                class="delete-btn"
+                aria-label="Remove achievement"
+                (click)="removeAchievement(i)"
+              >
+                ×
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="add-btn"
+            (click)="addAchievement()"
+          >
+
+            <span>＋</span>
+            Add another achievement
+
+          </button>
+
+        </div>
+
+
+
+        <!-- ================= ACTIONS ================= -->
+
+        <div class="form-actions">
+
+          <div class="action-info">
+
+            <span class="action-info-icon">
+              ✓
+            </span>
+
+            <span>
+              Your information will be saved to your CareerForge account.
+            </span>
+
+          </div>
+
+
+          <div class="action-buttons">
+
+            <button
+              type="button"
+              class="btn-danger"
+              *ngIf="currentResumeId !== null"
+              (click)="deleteResume()"
+            >
+              <span>⌫</span>
+              Delete
+            </button>
+
+
+            <button
+              type="button"
+              class="save-resume-btn"
+              (click)="saveResume()"
+            >
+              <span>✓</span>
+
+              {{ currentResumeId !== null ? 'Save Changes' : 'Save Resume' }}
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+      </form>
+
+    </section>
+
+
+
+    <!-- ================= LIVE PREVIEW ================= -->
+
+    <aside class="builder-preview">
+
+      <div class="preview-header">
+
+        <div>
+
+          <span class="section-label">
+            LIVE PREVIEW
+          </span>
+
+          <h2>
+            Your resume
+          </h2>
+
+        </div>
+
+
+        <div class="live-indicator">
+
+          <span></span>
+
+          Live
+
+        </div>
+
+      </div>
+
+
+      <div class="preview-description">
+
+        <span>
+          Changes appear here automatically
+        </span>
+
+        <span class="preview-template">
+          {{ templateOptions[currentTemplateId - 1].name }}
+        </span>
+
+      </div>
+
+
+      <div class="preview-stage">
+
+        <app-resume-preview
+          [form]="resumeForm"
+          [templateId]="currentTemplateId"
+        ></app-resume-preview>
+
+      </div>
+
+    </aside>
+
+
+  </div>
 
 </div>
