@@ -2,49 +2,361 @@
 
   <div class="pb-form" [formGroup]="portfolioForm">
 
-    <h1>Portfolio Builder</h1>
-    <p class="subtitle">Build a shareable page that showcases who you are.</p>
+   <div class="pb-page-header">
 
-    <div class="card section">
-      <h2>Hero</h2>
-      <input type="text" class="field" placeholder="Hero Title" formControlName="heroTitle">
-      <input type="text" class="field" placeholder="Tagline" formControlName="heroTagline">
+  <div class="pb-header-content">
+
+    <div class="pb-eyebrow">
+      <span>✦</span>
+      PORTFOLIO WORKSPACE
     </div>
 
-    <div class="card section">
-      <h2>About</h2>
-      <textarea rows="4" class="field" placeholder="About you" formControlName="about"></textarea>
+    <h1>
+      Build your
+      <span>professional portfolio.</span>
+    </h1>
+
+    <p>
+      Create a polished portfolio that showcases your skills,
+      projects and professional identity.
+    </p>
+
+  </div>
+
+  <div
+    class="pb-status"
+    [class.saved]="currentPortfolioId !== null"
+  >
+    <span class="status-dot"></span>
+
+    <div>
+      <strong>
+        {{ currentPortfolioId !== null ? 'Portfolio saved' : 'New portfolio' }}
+      </strong>
+
+      <small>
+        {{ currentPortfolioId !== null ? 'Ready to edit' : 'Start building' }}
+      </small>
+    </div>
+  </div>
+
+</div>
+
+   <div class="card section editor-card">
+
+  <div class="section-heading">
+    <div class="section-icon hero-icon">✦</div>
+
+    <div>
+      <h2>Hero Section</h2>
+      <p>The first thing visitors will see on your portfolio.</p>
+    </div>
+  </div>
+
+  <div class="section-line"></div>
+
+  <div class="field-group">
+    <label>Display Name</label>
+
+    <input
+      type="text"
+      class="field"
+      placeholder="e.g. Ajay Sharma"
+      formControlName="heroTitle"
+    >
+  </div>
+
+  <div class="field-group">
+    <label>Professional Tagline</label>
+
+    <input
+      type="text"
+      class="field"
+      placeholder="e.g. Full Stack Developer building modern web experiences"
+      formControlName="heroTagline"
+    >
+  </div>
+
+</div>
+
+   <div class="card section editor-card">
+
+  <div class="section-heading">
+
+    <div class="section-icon about-icon">✎</div>
+
+    <div>
+      <h2>About Me</h2>
+      <p>Give visitors a quick introduction about yourself.</p>
     </div>
 
-    <div class="card section">
+  </div>
+
+  <div class="section-line"></div>
+
+  <div class="field-group">
+
+    <label>About you</label>
+
+    <textarea
+      rows="5"
+      class="field"
+      placeholder="Write a short introduction about your background, interests and career goals..."
+      formControlName="about"
+    ></textarea>
+
+  </div>
+
+</div>
+
+   <div class="card section editor-card">
+
+  <div class="section-heading">
+
+    <div class="section-icon skills-icon">⚡</div>
+
+    <div class="section-heading-text">
       <h2>Skills</h2>
-      <div class="row" *ngFor="let skill of skills.controls; let i = index">
-        <input type="text" class="field" [formControl]="$any(skill)" placeholder="Skill">
-        <button type="button" class="icon-btn" *ngIf="skills.length > 1" (click)="removeSkill(i)">✖</button>
-      </div>
-      <button type="button" class="btn-add" (click)="addSkill()">➕ Add Skill</button>
+      <p>Add the technologies and professional skills you work with.</p>
     </div>
 
-    <div class="card section">
+    <span class="item-count">
+      {{ skills.length }} {{ skills.length === 1 ? 'skill' : 'skills' }}
+    </span>
+
+  </div>
+
+  <div class="section-line"></div>
+
+  <div class="skills-list">
+
+    <div
+      class="skill-editor-row"
+      *ngFor="let skill of skills.controls; let i = index"
+    >
+
+      <div class="skill-number">
+        {{ i + 1 }}
+      </div>
+
+      <input
+        type="text"
+        class="field"
+        [formControl]="$any(skill)"
+        placeholder="e.g. Angular, ASP.NET Core, SQL Server"
+      >
+
+      <button
+        type="button"
+        class="skill-delete"
+        *ngIf="skills.length > 1"
+        (click)="removeSkill(i)"
+        title="Remove skill"
+      >
+        ✕
+      </button>
+
+    </div>
+
+  </div>
+
+  <button
+    type="button"
+    class="btn-add polished-add"
+    (click)="addSkill()"
+  >
+    <span>＋</span>
+    Add another skill
+  </button>
+
+</div>
+    <div class="card section editor-card">
+
+  <div class="section-heading">
+
+    <div class="section-icon projects-icon">◆</div>
+
+    <div class="section-heading-text">
       <h2>Projects</h2>
-      <div class="sub-card" *ngFor="let project of projects.controls; let i = index" [formGroup]="$any(project)">
-        <input type="text" class="field" placeholder="Project Title" formControlName="title">
-        <textarea rows="3" class="field" placeholder="Project Description" formControlName="description"></textarea>
-        <button type="button" class="text-btn" *ngIf="projects.length > 1" (click)="removeProject(i)">Remove Project</button>
+      <p>Showcase the projects that demonstrate your skills and experience.</p>
+    </div>
+
+    <span class="item-count">
+      {{ projects.length }} {{ projects.length === 1 ? 'project' : 'projects' }}
+    </span>
+
+  </div>
+
+  <div class="section-line"></div>
+
+  <div class="projects-list">
+
+    <div
+      class="project-editor-card"
+      *ngFor="let project of projects.controls; let i = index"
+      [formGroup]="$any(project)"
+    >
+
+      <div class="project-editor-header">
+
+        <div class="project-number">
+          {{ i + 1 }}
+        </div>
+
+        <div>
+          <strong>Project {{ i + 1 }}</strong>
+          <span>Add the project details below.</span>
+        </div>
+
+        <button
+          type="button"
+          class="project-delete"
+          *ngIf="projects.length > 1"
+          (click)="removeProject(i)"
+          title="Remove project"
+        >
+          ✕
+        </button>
+
       </div>
-      <button type="button" class="btn-add" (click)="addProject()">➕ Add Project</button>
+
+      <div class="field-group">
+        <label>Project Title</label>
+
+        <input
+          type="text"
+          class="field"
+          placeholder="e.g. CareerForge AI"
+          formControlName="title"
+        >
+      </div>
+
+      <div class="field-group">
+        <label>Description</label>
+
+        <textarea
+          rows="4"
+          class="field"
+          placeholder="Describe what the project does and what you built..."
+          formControlName="description"
+        ></textarea>
+      </div>
+
     </div>
 
-    <div class="card section">
-      <h2>Contact</h2>
-      <input type="email" class="field" placeholder="Contact Email" formControlName="contactEmail">
-      <input type="text" class="field" placeholder="Contact Phone" formControlName="contactPhone">
+  </div>
+
+  <button
+    type="button"
+    class="btn-add polished-add"
+    (click)="addProject()"
+  >
+    <span>＋</span>
+    Add another project
+  </button>
+
+</div>
+
+    <div class="card section editor-card">
+
+  <div class="section-heading">
+
+    <div class="section-icon contact-icon">✉</div>
+
+    <div class="section-heading-text">
+      <h2>Contact Information</h2>
+      <p>Help visitors and recruiters get in touch with you.</p>
     </div>
 
-    <div class="pb-actions">
-      <button type="button" class="btn-primary btn-save" (click)="savePortfolio()">Save Portfolio</button>
-      <button type="button" class="btn-danger" *ngIf="currentPortfolioId !== null" (click)="deletePortfolio()">Delete Portfolio</button>
+  </div>
+
+  <div class="section-line"></div>
+
+  <div class="contact-grid">
+
+    <div class="field-group">
+      <label>Email Address</label>
+
+      <input
+        type="email"
+        class="field"
+        placeholder="e.g. ajay@example.com"
+        formControlName="contactEmail"
+      >
+
+      <small
+        class="field-error"
+        *ngIf="
+          portfolioForm.get('contactEmail')?.touched &&
+          portfolioForm.get('contactEmail')?.invalid
+        "
+      >
+        Please enter a valid email address.
+      </small>
     </div>
+
+    <div class="field-group">
+      <label>Phone Number</label>
+
+      <input
+        type="text"
+        class="field"
+        placeholder="e.g. +91 98765 43210"
+        formControlName="contactPhone"
+      >
+    </div>
+
+  </div>
+
+</div>
+
+  <div class="portfolio-save-bar">
+
+  <div class="save-message">
+    <span class="save-check">✓</span>
+
+    <div>
+      <strong>
+        {{ currentPortfolioId !== null
+          ? 'Portfolio saved'
+          : 'Your portfolio is ready to save'
+        }}
+      </strong>
+
+      <p>
+        Save your changes to keep your CareerForge portfolio up to date.
+      </p>
+    </div>
+  </div>
+
+  <div class="save-actions">
+
+    <button
+      type="button"
+      class="portfolio-delete-btn"
+      *ngIf="currentPortfolioId !== null"
+      (click)="deletePortfolio()"
+    >
+      <span>⌫</span>
+      Delete
+    </button>
+
+    <button
+      type="button"
+      class="portfolio-save-btn"
+      (click)="savePortfolio()"
+    >
+      <span>✓</span>
+
+      {{ currentPortfolioId !== null
+        ? 'Save Changes'
+        : 'Save Portfolio'
+      }}
+    </button>
+
+  </div>
+
+</div>
 
   </div>
 

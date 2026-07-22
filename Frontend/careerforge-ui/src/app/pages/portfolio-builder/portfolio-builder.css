@@ -184,3 +184,670 @@
     position: static;
   }
 }
+/* ==========================================
+   Portfolio Page Header
+========================================== */
+
+.pb-page-header {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+
+  padding: 34px 36px;
+  margin-bottom: 4px;
+
+  border: 1px solid var(--border);
+  border-radius: 24px;
+
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(124, 58, 237, 0.10),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 10% 100%,
+      rgba(37, 99, 235, 0.08),
+      transparent 35%
+    ),
+    var(--surface);
+
+  overflow: hidden;
+}
+
+.pb-header-content {
+  max-width: 760px;
+}
+
+.pb-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 14px;
+
+  color: var(--primary);
+
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.pb-page-header h1 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.pb-page-header h1 span {
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    #7c3aed
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.pb-page-header p {
+  max-width: 650px;
+
+  margin: 16px 0 0;
+
+  color: var(--text-light);
+
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+
+/* Status */
+
+.pb-status {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 13px 16px;
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  background: var(--surface);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: #94a3b8;
+
+  box-shadow: 0 0 0 5px rgba(148, 163, 184, 0.12);
+}
+
+.pb-status.saved .status-dot {
+  background: #22c55e;
+
+  box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.12);
+}
+
+.pb-status strong,
+.pb-status small {
+  display: block;
+}
+
+.pb-status strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.pb-status small {
+  margin-top: 2px;
+
+  color: var(--text-light);
+  font-size: 11px;
+}
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+  .pb-page-header {
+    flex-direction: column;
+    padding: 26px 22px;
+  }
+
+  .pb-status {
+    width: 100%;
+  }
+
+}
+/* ==========================================
+   Portfolio Editor Cards
+========================================== */
+
+.editor-card {
+  padding: 26px;
+  gap: 20px;
+  border-radius: 20px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.section-heading h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+.section-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.hero-icon {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary);
+}
+
+.about-icon {
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+}
+
+.section-line {
+  height: 1px;
+  background: var(--border);
+  position: relative;
+}
+
+.section-line::before {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  top: -1px;
+
+  width: 52px;
+  height: 2px;
+
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.editor-card .field {
+  background: var(--background);
+}
+
+.editor-card textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+/* ==========================================
+   Skills Editor
+========================================== */
+
+.section-heading-text {
+  flex: 1;
+}
+
+.skills-icon {
+  background: rgba(6, 182, 212, 0.10);
+  color: #0891b2;
+}
+
+.item-count {
+  flex-shrink: 0;
+  padding: 6px 10px;
+
+  border-radius: 999px;
+  background: var(--background);
+
+  color: var(--text-light);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skill-editor-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px;
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  background: var(--background);
+}
+
+.skill-number {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: rgba(37, 99, 235, 0.10);
+  color: var(--primary);
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.skill-editor-row .field {
+  flex: 1;
+  border: none;
+  background: transparent;
+}
+
+.skill-editor-row .field:focus {
+  box-shadow: none;
+}
+
+.skill-delete {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 10px;
+
+  background: rgba(239, 68, 68, 0.05);
+  color: var(--danger);
+
+  font-size: 13px;
+}
+
+.skill-delete:hover {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+.polished-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  width: fit-content;
+  padding: 10px 14px;
+
+  border: 1px dashed rgba(37, 99, 235, 0.4);
+
+  background: rgba(37, 99, 235, 0.04);
+  color: var(--primary);
+}
+
+.polished-add:hover {
+  background: rgba(37, 99, 235, 0.08);
+  border-color: var(--primary);
+}
+
+.polished-add span {
+  font-size: 17px;
+  line-height: 1;
+}
+/* ==========================================
+   Projects Editor
+========================================== */
+
+.projects-icon {
+  background: rgba(124, 58, 237, 0.10);
+  color: #7c3aed;
+}
+
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.project-editor-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  padding: 18px;
+
+  border: 1px solid var(--border);
+  border-radius: 16px;
+
+  background: var(--background);
+}
+
+.project-editor-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.project-number {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: rgba(124, 58, 237, 0.10);
+  color: #7c3aed;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.project-editor-header > div:nth-child(2) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.project-editor-header strong {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.project-editor-header span {
+  color: var(--text-light);
+  font-size: 11px;
+}
+
+.project-delete {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 10px;
+
+  background: rgba(239, 68, 68, 0.05);
+  color: var(--danger);
+
+  font-size: 13px;
+}
+
+.project-delete:hover {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+.project-editor-card .field {
+  background: var(--surface);
+}
+
+.project-editor-card textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .project-editor-card {
+    padding: 14px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+  }
+
+  .item-count {
+    margin-left: auto;
+  }
+
+}
+/* ==========================================
+   Contact Section
+========================================== */
+
+.contact-icon {
+  background: rgba(16, 185, 129, 0.10);
+  color: #059669;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.contact-grid .field {
+  background: var(--background);
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   Portfolio Save Bar
+========================================== */
+
+.portfolio-save-bar {
+  position: sticky;
+  bottom: 16px;
+  z-index: 15;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 14px 16px;
+
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow:
+    0 14px 35px rgba(15, 23, 42, 0.10),
+    0 4px 10px rgba(15, 23, 42, 0.04);
+
+  backdrop-filter: blur(14px);
+}
+
+.save-message {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.save-check {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+
+  font-weight: 800;
+}
+
+.save-message strong {
+  display: block;
+
+  color: var(--text);
+  font-size: 12px;
+}
+
+.save-message p {
+  margin: 2px 0 0;
+
+  color: var(--text-light);
+  font-size: 11px;
+}
+
+.save-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.portfolio-delete-btn,
+.portfolio-save-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  min-height: 42px;
+  padding: 0 18px;
+
+  border-radius: 11px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.portfolio-delete-btn {
+  border: 1px solid rgba(239, 68, 68, 0.35);
+
+  background: transparent;
+  color: var(--danger);
+}
+
+.portfolio-delete-btn:hover {
+  border-color: var(--danger);
+  background: rgba(239, 68, 68, 0.07);
+}
+
+.portfolio-save-btn {
+  border: none;
+
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    #6d3df5
+  );
+
+  color: #fff;
+
+  box-shadow: 0 7px 18px rgba(37, 99, 235, 0.18);
+}
+
+.portfolio-save-btn:hover {
+  transform: translateY(-1px);
+
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25);
+}
+
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 700px) {
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-save-bar {
+    align-items: stretch;
+    flex-direction: column;
+    bottom: 74px;
+  }
+
+  .save-actions {
+    width: 100%;
+  }
+
+  .portfolio-delete-btn,
+  .portfolio-save-btn {
+    flex: 1;
+  }
+
+}
+
+@media (max-width: 450px) {
+
+  .save-message p {
+    display: none;
+  }
+
+}

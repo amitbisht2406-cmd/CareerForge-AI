@@ -1,37 +1,315 @@
-<div class="templates">
+<div class="templates-page">
 
-  <h1>Templates</h1>
-  <p class="subtitle">Choose a layout for your resume.</p>
+  <!-- ================= HEADER ================= -->
 
-  <div class="empty card" *ngIf="!hasResume">
-    <p>You don't have a resume yet.</p>
-    <a routerLink="/resume-builder" class="btn-primary btn-narrow">Create one first</a>
+  <header class="templates-header">
+
+    <div class="header-content">
+
+      <div class="page-eyebrow">
+        <span>✦</span>
+        RESUME STYLES
+      </div>
+
+      <h1>
+        Choose your
+        <span>resume template.</span>
+      </h1>
+
+      <p>
+        Pick a professional layout that matches your style.
+        You can switch templates anytime without losing your resume content.
+      </p>
+
+    </div>
+
+
+    <div class="template-status" *ngIf="hasResume">
+
+      <span class="status-icon">✓</span>
+
+      <div>
+        <strong>Resume connected</strong>
+        <span>Your template choice will be saved automatically.</span>
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= NO RESUME ================= -->
+
+  <section class="no-resume" *ngIf="!hasResume">
+
+    <div class="empty-icon">📄</div>
+
+    <div class="empty-content">
+      <h2>Create your resume first</h2>
+
+      <p>
+        Templates need a resume to work with.
+        Build your resume and come back here to choose a style.
+      </p>
+    </div>
+
+    <a
+      routerLink="/resume-builder"
+      class="create-resume-btn"
+    >
+      Create Resume
+      <span>→</span>
+    </a>
+
+  </section>
+
+
+  <!-- ================= MESSAGE ================= -->
+
+  <div
+    class="template-message"
+    *ngIf="message"
+  >
+    <span>✓</span>
+    {{ message }}
   </div>
 
-  <p class="status" *ngIf="message">{{ message }}</p>
 
-  <div class="grid">
-    <div class="template-card card" *ngFor="let template of templateOptions">
-      <div class="preview-block" [ngClass]="'mock-' + template.id">
-        <div class="mock-header">
-          <div class="mock-name"></div>
-          <div class="mock-line short"></div>
-        </div>
-        <div class="mock-title"></div>
-        <div class="mock-line"></div>
-        <div class="mock-line short"></div>
-        <div class="mock-chips">
-          <span></span><span></span><span></span>
-        </div>
-      </div>
-      <div class="template-footer">
-        <span>{{ template.name }}</span>
-        <span class="badge" *ngIf="template.id === currentTemplateId">Selected</span>
-      </div>
-      <button type="button" class="btn-primary btn-narrow" (click)="useTemplate(template.id)">
-        Use Template
-      </button>
+  <!-- ================= SECTION HEADER ================= -->
+
+  <div class="gallery-heading">
+
+    <div>
+      <span class="section-label">
+        TEMPLATE GALLERY
+      </span>
+
+      <h2>Professional layouts</h2>
+
+      <p>
+        Preview each style and choose the one that fits your profile.
+      </p>
     </div>
+
+
+    <span class="template-count">
+      {{ templateOptions.length }} templates
+    </span>
+
+  </div>
+
+
+  <!-- ================= TEMPLATE GRID ================= -->
+
+  <div class="template-grid">
+
+    <article
+      class="template-card"
+      *ngFor="let template of templateOptions"
+      [class.selected]="template.id === currentTemplateId"
+    >
+
+
+      <!-- SELECTED BADGE -->
+
+      <div
+        class="selected-badge"
+        *ngIf="template.id === currentTemplateId"
+      >
+        <span>✓</span>
+        Current
+      </div>
+
+
+      <!-- ================= MINI RESUME PREVIEW ================= -->
+
+      <div
+        class="resume-preview"
+        [ngClass]="'mock-' + template.id"
+      >
+
+        <div class="preview-page">
+
+
+          <!-- HEADER -->
+
+          <div class="mock-header">
+
+            <div class="mock-name"></div>
+
+            <div class="mock-contact">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+          </div>
+
+
+          <!-- SUMMARY -->
+
+          <div class="mock-section">
+
+            <div class="mock-title"></div>
+
+            <div class="mock-line full"></div>
+            <div class="mock-line"></div>
+            <div class="mock-line short"></div>
+
+          </div>
+
+
+          <!-- EDUCATION -->
+
+          <div class="mock-section">
+
+            <div class="mock-title"></div>
+
+            <div class="mock-row">
+
+              <div>
+                <div class="mock-medium"></div>
+                <div class="mock-line tiny"></div>
+              </div>
+
+              <div class="mock-date"></div>
+
+            </div>
+
+          </div>
+
+
+          <!-- SKILLS -->
+
+          <div class="mock-section">
+
+            <div class="mock-title"></div>
+
+            <div class="mock-chips">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+          </div>
+
+
+          <!-- PROJECT -->
+
+          <div class="mock-section">
+
+            <div class="mock-title"></div>
+
+            <div class="mock-medium"></div>
+            <div class="mock-line"></div>
+            <div class="mock-line short"></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= INFO ================= -->
+
+      <div class="template-info">
+
+        <div class="template-name">
+
+          <div>
+
+            <h3>{{ template.name }}</h3>
+
+            <p [ngSwitch]="template.id">
+
+              <span *ngSwitchCase="1">
+                Traditional, polished and recruiter-friendly.
+              </span>
+
+              <span *ngSwitchCase="2">
+                Bold structure with a modern professional look.
+              </span>
+
+              <span *ngSwitchCase="3">
+                Clean typography with maximum focus on content.
+              </span>
+
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="template-tags">
+
+          <ng-container [ngSwitch]="template.id">
+
+            <ng-container *ngSwitchCase="1">
+              <span>Professional</span>
+              <span>ATS Friendly</span>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="2">
+              <span>Modern</span>
+              <span>Creative</span>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="3">
+              <span>Minimal</span>
+              <span>Clean</span>
+            </ng-container>
+
+          </ng-container>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= ACTION ================= -->
+
+      <button
+        type="button"
+        class="use-template-btn"
+        [class.active]="template.id === currentTemplateId"
+        [disabled]="!hasResume || template.id === currentTemplateId"
+        (click)="useTemplate(template.id)"
+      >
+
+        <ng-container
+          *ngIf="template.id === currentTemplateId; else useTemplateText"
+        >
+          <span>✓</span>
+          Selected
+        </ng-container>
+
+
+        <ng-template #useTemplateText>
+          Use {{ template.name }}
+          <span>→</span>
+        </ng-template>
+
+      </button>
+
+    </article>
+
+  </div>
+
+
+  <!-- ================= FOOT NOTE ================= -->
+
+  <div class="template-note" *ngIf="hasResume">
+
+    <span class="note-icon">✦</span>
+
+    <p>
+      Switching templates only changes the design.
+      Your resume information stays exactly the same.
+    </p>
+
   </div>
 
 </div>

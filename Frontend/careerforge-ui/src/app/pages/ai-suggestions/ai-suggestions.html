@@ -1,62 +1,337 @@
 <div class="ai-page">
 
-  <h1>AI Resume Review</h1>
-  <p class="subtitle">Get instant, AI-powered feedback on your resume.</p>
+  <!-- =========================
+       PAGE HERO
+  ========================== -->
 
-  <div class="empty card" *ngIf="!hasResume">
-    <p>You don't have a resume yet.</p>
-    <a routerLink="/resume-builder" class="btn-primary btn-narrow">Create one first</a>
+  <div class="ai-hero">
+
+    <div class="ai-hero-content">
+
+      <div class="ai-eyebrow">
+        <span>✦</span>
+        AI CAREER ASSISTANT
+      </div>
+
+      <h1>
+        Make your resume
+        <span>stand out.</span>
+      </h1>
+
+      <p>
+        Get an intelligent review of your resume with personalized
+        feedback for grammar, ATS compatibility and skills.
+      </p>
+
+    </div>
+
+    <div class="ai-hero-badge">
+      <div class="ai-badge-icon">✦</div>
+
+      <div>
+        <strong>AI Resume Review</strong>
+        <small>Powered career insights</small>
+      </div>
+    </div>
+
   </div>
 
-  <button type="button" class="btn-primary btn-narrow" (click)="getReview()" [disabled]="isLoading">
-    {{ isLoading ? '✨ Analyzing your resume...' : '✨ Get AI Review' }}
-  </button>
 
-  <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
+  <!-- =========================
+       NO RESUME
+  ========================== -->
 
-  <div class="results" *ngIf="review">
+  <div class="empty card" *ngIf="!hasResume">
 
-    <div class="card overall">
-      <span class="overall-label">Overall Score</span>
-      <span class="overall-score">{{ review.overallScore }}%</span>
+    <div class="empty-content">
+
+      <div class="empty-icon">📄</div>
+
+      <div>
+        <h3>No resume found</h3>
+        <p>Create your resume first to unlock AI-powered feedback.</p>
+      </div>
+
     </div>
+
+    <a
+      routerLink="/resume-builder"
+      class="btn-primary btn-narrow"
+    >
+      Create Resume →
+    </a>
+
+  </div>
+
+
+  <!-- =========================
+       REVIEW ACTION
+  ========================== -->
+
+  <div class="review-panel card" *ngIf="hasResume">
+
+    <div class="review-panel-content">
+
+      <div class="review-icon">✦</div>
+
+      <div>
+        <h2>Ready for your AI review?</h2>
+
+        <p>
+          We'll analyze your latest resume and provide actionable
+          suggestions to improve it.
+        </p>
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      class="review-btn"
+      (click)="getReview()"
+      [disabled]="isLoading"
+    >
+
+      <span *ngIf="!isLoading">✦</span>
+
+      <span
+        class="loading-spinner"
+        *ngIf="isLoading"
+      ></span>
+
+      {{
+        isLoading
+          ? 'Analyzing resume...'
+          : review
+            ? 'Analyze Again'
+            : 'Analyze My Resume'
+      }}
+
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       ERROR
+  ========================== -->
+
+  <div
+    class="error-message"
+    *ngIf="errorMessage"
+  >
+    <span>⚠</span>
+    {{ errorMessage }}
+  </div>
+
+
+  <!-- =========================
+       RESULTS
+  ========================== -->
+
+  <div
+    class="results"
+    *ngIf="review"
+  >
+
+    <div class="results-heading">
+
+      <div>
+        <span class="section-eyebrow">
+          AI ANALYSIS
+        </span>
+
+        <h2>Your resume report</h2>
+
+        <p>
+          Here's how your resume performs across important hiring criteria.
+        </p>
+      </div>
+
+      <span class="analysis-complete">
+        ● Analysis complete
+      </span>
+
+    </div>
+
+
+    <!-- OVERALL SCORE -->
+
+    <div class="overall card">
+
+      <div class="overall-content">
+
+        <span class="overall-label">
+          Overall Resume Score
+        </span>
+
+        <div class="overall-score">
+          {{ review.overallScore }}
+          <small>/100</small>
+        </div>
+
+        <p>
+          Your overall resume performance based on our AI analysis.
+        </p>
+
+      </div>
+
+      <div
+        class="score-circle"
+        [style.--score]="review.overallScore"
+      >
+        <div class="score-circle-inner">
+          <strong>{{ review.overallScore }}%</strong>
+          <span>Score</span>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- SCORE CARDS -->
 
     <div class="score-grid">
 
       <div class="card score-item">
-        <div class="score-header">
-          <span>Grammar</span>
-          <span>{{ review.grammarScore }}%</span>
+
+        <div class="score-top">
+
+          <div class="score-icon grammar-icon">
+            Aa
+          </div>
+
+          <span class="score-value">
+            {{ review.grammarScore }}%
+          </span>
+
         </div>
-        <div class="track"><div class="fill" [style.width.%]="review.grammarScore"></div></div>
+
+        <h3>Grammar & Clarity</h3>
+
+        <p>
+          Writing quality and professional communication.
+        </p>
+
+        <div class="track">
+          <div
+            class="fill"
+            [style.width.%]="review.grammarScore"
+          ></div>
+        </div>
+
       </div>
 
-      <div class="card score-item">
-        <div class="score-header">
-          <span>ATS Compatibility</span>
-          <span>{{ review.atsScore }}%</span>
-        </div>
-        <div class="track"><div class="fill" [style.width.%]="review.atsScore"></div></div>
-      </div>
 
       <div class="card score-item">
-        <div class="score-header">
-          <span>Skills</span>
-          <span>{{ review.skillsScore }}%</span>
+
+        <div class="score-top">
+
+          <div class="score-icon ats-icon">
+            ✓
+          </div>
+
+          <span class="score-value">
+            {{ review.atsScore }}%
+          </span>
+
         </div>
-        <div class="track"><div class="fill" [style.width.%]="review.skillsScore"></div></div>
+
+        <h3>ATS Compatibility</h3>
+
+        <p>
+          How well your resume works with applicant tracking systems.
+        </p>
+
+        <div class="track">
+          <div
+            class="fill"
+            [style.width.%]="review.atsScore"
+          ></div>
+        </div>
+
+      </div>
+
+
+      <div class="card score-item">
+
+        <div class="score-top">
+
+          <div class="score-icon skills-icon">
+            ⚡
+          </div>
+
+          <span class="score-value">
+            {{ review.skillsScore }}%
+          </span>
+
+        </div>
+
+        <h3>Skills Strength</h3>
+
+        <p>
+          Relevance and strength of your technical and professional skills.
+        </p>
+
+        <div class="track">
+          <div
+            class="fill"
+            [style.width.%]="review.skillsScore"
+          ></div>
+        </div>
+
       </div>
 
     </div>
 
-    <div class="card feedback-card">
-      <h2>Feedback</h2>
-      <p>{{ review.feedback }}</p>
-    </div>
 
-    <div class="card feedback-card">
-      <h2>Suggestion</h2>
-      <p>{{ review.missingSkillsSuggestion }}</p>
+    <!-- FEEDBACK -->
+
+    <div class="feedback-grid">
+
+      <div class="card feedback-card">
+
+        <div class="feedback-heading">
+
+          <div class="feedback-icon">
+            ✦
+          </div>
+
+          <div>
+            <span>AI FEEDBACK</span>
+            <h2>What you're doing well</h2>
+          </div>
+
+        </div>
+
+        <p>
+          {{ review.feedback }}
+        </p>
+
+      </div>
+
+
+      <div class="card feedback-card suggestion-card">
+
+        <div class="feedback-heading">
+
+          <div class="feedback-icon suggestion-icon">
+            ↗
+          </div>
+
+          <div>
+            <span>RECOMMENDATION</span>
+            <h2>How you can improve</h2>
+          </div>
+
+        </div>
+
+        <p>
+          {{ review.missingSkillsSuggestion }}
+        </p>
+
+      </div>
+
     </div>
 
   </div>
