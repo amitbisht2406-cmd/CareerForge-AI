@@ -100,70 +100,139 @@ export class ResumePreview implements OnInit {
   hasResumeContent(): boolean {
     return !!this.personalInfo.get('fullName')?.value?.trim();
   }
+async downloadPDF() {
 
-  async downloadPDF() {
-
-    if (this.isGeneratingPDF) {
-      return;
-    }
-
-    this.isGeneratingPDF = true;
-
-    try {
-
-      const resume = this.previewPaperRef?.nativeElement;
-
-      if (!resume) {
-        return;
-      }
-
-      const canvas = await html2canvas(resume, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: '#ffffff'
-      });
-
-      const imageData = canvas.toDataURL('image/png');
-
-      const pdf = new jsPDF('p', 'mm', 'a4');
-
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-
-      const margin = 5;
-
-      const availableWidth = pageWidth - (margin * 2);
-      const availableHeight = pageHeight - (margin * 2);
-
-      const widthRatio = availableWidth / canvas.width;
-      const heightRatio = availableHeight / canvas.height;
-
-      const scaleRatio = Math.min(widthRatio, heightRatio);
-
-      const finalWidth = canvas.width * scaleRatio;
-      const finalHeight = canvas.height * scaleRatio;
-
-      const x = (pageWidth - finalWidth) / 2;
-      const y = margin;
-
-      pdf.addImage(imageData, 'PNG', x, y, finalWidth, finalHeight);
-
-      const fullName = this.personalInfo.get('fullName')?.value?.trim() || 'Resume';
-      const fileName = fullName.replace(/\s+/g, '-') + '-Resume.pdf';
-
-      pdf.save(fileName);
-
-      this.notifications.add('Resume PDF downloaded', '⬇️');
-
-    } catch (error) {
-
-      console.error('PDF generation failed:', error);
-
-    } finally {
-
-      this.isGeneratingPDF = false;
-
-    }
-
+  if (this.isGeneratingPDF) {
+    return;
   }
+
+  this.isGeneratingPDF = true;
+
+  try {
+
+    const resume = this.previewPaperRef?.nativeElement;
+
+    if (!resume) {
+      throw new Error('Resume preview not found.');
+    }
+
+    // Add PDF mode class so CSS can optimize layout during export
+    resume.classList.add('pdf-export');
+
+    // Wait for browser to apply PDF styles
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    const canvas = await html2canvas(resume, {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      logging: false,
+      windowWidth: resume.scrollWidth,
+      windowHeight: resume.scrollHeight
+    });
+
+    resume.classList.remove('pdf-export');
+
+    const imgData = canvas.toDataURL('image/jpeg', 0.98);
+
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    const pageWidth = 210;
+    const pageHeight = 297;
+
+    const margin = 8;
+
+    const usableWidth = pageWidth - margin * 2;
+    const usableHeight = pageHeight - margin * 2;
+
+    // Keep original aspect ratio
+    const imgWidth = usableWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    // If resume fits on one page
+    if (imgHeight <= usableHeight) {
+
+      pdf.addImage(
+        imgData,
+        'JPEG',
+        margin,
+        margin,
+        imgWidth,
+        imgHeight
+      );
+
+    } else {
+
+      // Multi-page support
+      let heightLeft = imgHeight;
+      let position = margin;
+
+      pdf.addImage(
+        imgData,
+        'JPEG',
+        margin,
+        position,
+        imgWidth,
+        imgHeight
+      );
+
+      heightLeft -= usableHeight;
+
+      while (heightLeft > 0) {
+
+        pdf.addPage();
+
+        position = margin - (imgHeight - heightLeft);
+
+        pdf.addImage(
+          imgData,
+          'JPEG',
+          margin,
+          position,
+          imgWidth,
+          imgHeight
+        );
+
+        heightLeft -= usableHeight;
+      }
+    }
+
+    const fullName =
+      this.personalInfo.get('fullName')?.value?.trim() || 'Resume';
+
+    const safeName = fullName
+      .replace(/[^a-zA-Z0-9\s-]/g, '')
+      .replace(/\s+/g, '-');
+
+    pdf.save(`${safeName}-Resume.pdf`);
+
+    this.notifications.add(
+      'Resume PDF downloaded successfully',
+      '⬇️'
+    );
+
+  } catch (error) {
+
+    console.error('PDF generation failed:', error);
+
+    this.notifications.add(
+      'PDF generation failed',
+      '⚠️'
+    );
+
+  } finally {
+
+    const resume = this.previewPaperRef?.nativeElement;
+
+    if (resume) {
+      resume.classList.remove('pdf-export');
+    }
+
+    this.isGeneratingPDF = false;
+  }
+}
 }

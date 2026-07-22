@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { Resume } from '../../services/resume';
 import { Notifications } from '../../services/notifications';
+import { ActivatedRoute } from '@angular/router';
 
 import {
   ReactiveFormsModule,
@@ -54,7 +55,10 @@ export class ResumeBuilder implements OnInit {
   private platformId = inject(PLATFORM_ID);
   private notifications = inject(Notifications);
 
-  constructor(private resumeService: Resume) {}
+  constructor(
+  private resumeService: Resume,
+  private route: ActivatedRoute
+) {}
 
   resumeForm = new FormGroup({
 
@@ -190,7 +194,17 @@ export class ResumeBuilder implements OnInit {
           return;
         }
 
-        const resumeData = resumes[resumes.length - 1];
+        const resumeIdParam = this.route.snapshot.queryParamMap.get('resumeId');
+
+const resumeData = resumeIdParam
+  ? resumes.find(r => r.id === Number(resumeIdParam))
+  : resumes[resumes.length - 1];
+
+if (!resumeData) {
+  console.error('Requested resume not found');
+  this.notifications.add('Resume not found', '⚠️');
+  return;
+}
         this.currentResumeId = resumeData.id;
         this.currentTemplateId = resumeData.templateId ?? 1;
 

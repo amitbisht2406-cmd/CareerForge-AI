@@ -19,12 +19,12 @@
 
         <div class="preview-header">
 
-            <img
-                *ngIf="photoBase64"
-                [src]="photoBase64"
-                alt="Profile photo"
-                class="preview-photo"
-            >
+           <img
+    *ngIf="photoBase64 && templateId === 2"
+    [src]="photoBase64"
+    alt="Profile photo"
+    class="preview-photo"
+>
 
             <div class="header-text">
 

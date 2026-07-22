@@ -540,3 +540,76 @@
     }
 
 }
+/* =========================================
+   PDF EXPORT MODE
+   ========================================= */
+
+.preview-paper.pdf-export {
+  width: 794px !important;
+  max-width: none !important;
+  min-width: 794px !important;
+
+  height: auto !important;
+  min-height: 1123px !important;
+
+  margin: 0 !important;
+
+  transform: none !important;
+
+  box-shadow: none !important;
+
+  overflow: visible !important;
+
+  background: #ffffff !important;
+}
+
+/* Prevent sections from awkwardly splitting */
+.preview-paper.pdf-export .preview-project,
+.preview-paper.pdf-export .preview-certificate,
+.preview-paper.pdf-export .sidebar-block {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Make sure links remain clean */
+.preview-paper.pdf-export a {
+  text-decoration: none;
+}
+
+/* Keep images sharp */
+.preview-paper.pdf-export img {
+  max-width: 100%;
+}
+/* ========================================
+   MODERN TEMPLATE PROFILE PHOTO
+   ======================================== */
+
+.template-2 .preview-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.template-2 .preview-photo {
+  width: 95px;
+  height: 95px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 4px solid rgba(255, 255, 255, 0.9);
+}
+
+.template-2 .header-text {
+  flex: 1;
+}
+
+/* PDF export */
+.template-2.pdf-export .preview-photo {
+  width: 95px !important;
+  height: 95px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+}

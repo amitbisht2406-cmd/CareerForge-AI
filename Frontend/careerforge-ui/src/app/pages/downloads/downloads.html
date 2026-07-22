@@ -1,36 +1,159 @@
 <div class="downloads">
 
-  <h1>Downloads</h1>
-  <p class="subtitle">Everything you've built, in one place.</p>
-
-  <div class="section">
-    <h2>Resumes</h2>
-
-    <p class="hint" *ngIf="isLoading">Loading...</p>
-
-    <div class="empty card" *ngIf="!isLoading && resumes.length === 0">
-      <p>No resumes yet.</p>
-      <a routerLink="/resume-builder" class="btn-primary btn-narrow">Create one</a>
-    </div>
-
-    <div class="item card" *ngFor="let resume of resumes">
-      <span>{{ resume.fullName || 'Untitled Resume' }}</span>
-      <a routerLink="/resume-builder">Open & Download →</a>
-    </div>
+  <!-- HEADER -->
+  <div class="downloads-header">
+    <h1>Downloads</h1>
+    <p class="subtitle">
+      Everything you've built, in one place.
+    </p>
   </div>
 
-  <div class="section">
-    <h2>Portfolios</h2>
 
-    <div class="empty card" *ngIf="portfolios.length === 0">
-      <p>No portfolios yet.</p>
-      <a routerLink="/portfolio-builder" class="btn-primary btn-narrow">Create one</a>
+  <!-- ===================== -->
+  <!-- RESUMES -->
+  <!-- ===================== -->
+
+  <section class="section">
+
+    <div class="section-header">
+      <div>
+        <h2>Resumes</h2>
+        <p class="hint">Your saved resumes are available here.</p>
+      </div>
+
+      <a
+        routerLink="/resume-builder"
+        class="btn-primary btn-narrow"
+      >
+        + Create Resume
+      </a>
     </div>
 
-    <div class="item card" *ngFor="let portfolio of portfolios">
-      <span>{{ portfolio.heroTitle || 'Untitled Portfolio' }}</span>
-      <a routerLink="/portfolio-builder">Open →</a>
+
+    <!-- Loading -->
+    <div class="empty card" *ngIf="isLoading">
+      <p>Loading resumes...</p>
     </div>
-  </div>
+
+
+    <!-- No resumes -->
+    <div
+      class="empty card"
+      *ngIf="!isLoading && resumes.length === 0"
+    >
+      <div>
+        <strong>No resumes yet</strong>
+        <p class="hint">Create your first resume to see it here.</p>
+      </div>
+
+      <a
+        routerLink="/resume-builder"
+        class="btn-primary btn-narrow"
+      >
+        Create one
+      </a>
+    </div>
+
+
+    <!-- Resume list -->
+    <div
+      class="item card"
+      *ngFor="let resume of resumes"
+    >
+
+      <div class="item-info">
+
+        <strong>
+          {{ resume.fullName || 'Untitled Resume' }}
+        </strong>
+
+        <span class="hint" *ngIf="resume.email">
+          {{ resume.email }}
+        </span>
+
+      </div>
+
+      <a
+        [routerLink]="['/resume-builder']"
+        [queryParams]="{ resumeId: resume.id }"
+        class="item-action"
+      >
+        Open & Download →
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- ===================== -->
+  <!-- PORTFOLIOS -->
+  <!-- ===================== -->
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div>
+        <h2>Portfolios</h2>
+        <p class="hint">Your saved portfolios are available here.</p>
+      </div>
+
+      <a
+        routerLink="/portfolio-builder"
+        class="btn-primary btn-narrow"
+      >
+        + Create Portfolio
+      </a>
+
+    </div>
+
+
+    <!-- No portfolios -->
+    <div
+      class="empty card"
+      *ngIf="portfolios.length === 0"
+    >
+
+      <div>
+        <strong>No portfolios yet</strong>
+        <p class="hint">Create your portfolio to see it here.</p>
+      </div>
+
+      <a
+        routerLink="/portfolio-builder"
+        class="btn-primary btn-narrow"
+      >
+        Create one
+      </a>
+
+    </div>
+
+
+    <!-- Portfolio list -->
+    <div
+      class="item card"
+      *ngFor="let portfolio of portfolios"
+    >
+
+      <div class="item-info">
+
+        <strong>
+          {{ portfolio.heroTitle || 'Untitled Portfolio' }}
+        </strong>
+
+      </div>
+
+      <a
+        [routerLink]="['/portfolio-builder']"
+        [queryParams]="{ portfolioId: portfolio.id }"
+        class="item-action"
+      >
+        Open →
+      </a>
+
+    </div>
+
+  </section>
 
 </div>

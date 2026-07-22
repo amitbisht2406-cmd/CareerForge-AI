@@ -41,3 +41,47 @@
   font-weight: 600;
   font-size: 13px;
 }
+.downloads-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.section-header h2 {
+  margin: 0;
+}
+
+.section-header .hint {
+  margin: 4px 0 0;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.item-action {
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+@media (max-width: 700px) {
+  .section-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .item {
+    gap: 15px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
