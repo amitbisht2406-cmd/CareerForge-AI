@@ -1,40 +1,237 @@
 .settings {
-  max-width: 520px;
+  width: 100%;
+  max-width: 760px;
+
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
-.subtitle {
-  margin-top: -14px;
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.settings-header {
+  margin-bottom: 4px;
 }
 
-.section h2 {
-  font-size: 16px;
-  margin-bottom: 16px;
+.settings-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-bottom: 8px;
+
+  color: var(--primary);
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }
+
+.settings-header h1 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 32px;
+  font-weight: 750;
+}
+
+.settings-header > p {
+  margin: 8px 0 0;
+
+  color: var(--text-light);
+
+  font-size: 15px;
+}
+
+
+/* =========================
+   SETTINGS CARD
+========================= */
+
+.settings-card {
+  padding: 28px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.section-icon {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: rgba(37, 99, 235, 0.1);
+
+  font-size: 19px;
+}
+
+.security-icon {
+  background: rgba(22, 163, 74, 0.1);
+}
+
+.section-heading h2 {
+  margin: 0 0 4px;
+
+  color: var(--text);
+
+  font-size: 17px;
+}
+
+.section-heading p {
+  margin: 0;
+
+  color: var(--text-light);
+
+  font-size: 13px;
+}
+
+.section-line {
+  height: 1px;
+
+  margin: 22px 0;
+
+  background: var(--border);
+}
+
+
+/* =========================
+   FORM
+========================= */
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 18px;
 }
 
-label {
+.field-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
+  gap: 7px;
 }
 
-.btn-narrow {
-  align-self: flex-start;
-  margin-top: 4px;
+.field-group label {
+  color: var(--text);
+
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.field {
+  width: 100%;
+
+  padding: 12px 14px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+
+  background: var(--surface);
+  color: var(--text);
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: var(--transition);
+}
+
+.field:focus {
+  border-color: var(--primary);
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.field-error {
+  color: var(--danger);
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   PASSWORD INFO
+========================= */
+
+.password-hint {
+  padding: 11px 13px;
+
+  border-radius: var(--radius-sm);
+
+  background: var(--background);
+
+  color: var(--text-light);
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-top: 2px;
+}
+
+.form-footer .btn-primary {
+  width: auto;
+
+  padding: 11px 20px;
+}
+
+.form-footer .btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .status {
-  font-size: 13px;
   color: var(--success);
+
+  font-size: 13px;
+  font-weight: 600;
 }
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+  .settings {
+    max-width: none;
+  }
+
+  .settings-card {
+    padding: 20px;
+  }
+
+  .settings-header h1 {
+    font-size: 28px;
+  }
+
+  .form-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+} 
