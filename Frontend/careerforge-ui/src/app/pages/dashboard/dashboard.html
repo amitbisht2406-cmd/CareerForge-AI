@@ -1,54 +1,667 @@
 <div class="dashboard">
 
-  <div class="welcome">
-    <h1>Welcome back, {{ fullName }} 👋</h1>
-    <p>Here's where your career profile stands right now.</p>
-  </div>
 
-  <div class="progress-card card">
-    <div class="progress-header">
-      <span>Profile completion</span>
-      <span class="progress-value">{{ completionPercent }}%</span>
+  <!-- ================= WELCOME ================= -->
+
+  <section class="dashboard-header">
+
+    <div class="welcome">
+
+      <div class="welcome-badge">
+        <span>✦</span>
+        YOUR CAREER WORKSPACE
+      </div>
+
+      <h1>
+        Welcome back,
+        <span>{{ fullName || 'there' }}</span>
+        👋
+      </h1>
+
+      <p>
+        Build your professional presence and keep your
+        career profile moving forward.
+      </p>
+
     </div>
-    <div class="progress-track">
-      <div class="progress-fill" [style.width.%]="completionPercent"></div>
+
+
+    <div class="header-actions">
+
+      <a
+        routerLink="/resume-builder"
+        class="header-primary-btn"
+      >
+        <span>＋</span>
+        Build Resume
+      </a>
+
     </div>
+
+  </section>
+
+
+
+  <!-- ================= PROGRESS HERO ================= -->
+
+  <section class="progress-card">
+
+    <div class="progress-decoration decoration-one"></div>
+    <div class="progress-decoration decoration-two"></div>
+
+
+    <div class="progress-content">
+
+      <div class="progress-top">
+
+        <div>
+
+          <span class="progress-eyebrow">
+            PROFILE PROGRESS
+          </span>
+
+          <h2>
+            Your career profile
+          </h2>
+
+          <p>
+            Complete your resume and portfolio to unlock
+            your full CareerForge profile.
+          </p>
+
+        </div>
+
+
+        <div class="completion-circle">
+
+          <strong>
+            {{ completionPercent }}%
+          </strong>
+
+          <span>
+            Complete
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="progress-track">
+
+        <div
+          class="progress-fill"
+          [style.width.%]="completionPercent"
+        ></div>
+
+      </div>
+
+
+      <div class="progress-steps">
+
+        <div
+          class="progress-step"
+          [class.completed]="hasResume"
+        >
+
+          <span class="step-check">
+            {{ hasResume ? '✓' : '1' }}
+          </span>
+
+          <div>
+
+            <strong>
+              Resume
+            </strong>
+
+            <span>
+              {{ hasResume ? 'Completed' : 'Create your resume' }}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="step-line"></div>
+
+
+        <div
+          class="progress-step"
+          [class.completed]="hasPortfolio"
+        >
+
+          <span class="step-check">
+            {{ hasPortfolio ? '✓' : '2' }}
+          </span>
+
+          <div>
+
+            <strong>
+              Portfolio
+            </strong>
+
+            <span>
+              {{ hasPortfolio ? 'Completed' : 'Build your portfolio' }}
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ================= SECTION HEADING ================= -->
+
+  <div class="section-heading">
+
+    <div>
+
+      <span>
+        YOUR TOOLS
+      </span>
+
+      <h2>
+        Career workspace
+      </h2>
+
+    </div>
+
+    <p>
+      Everything you need to build your professional profile.
+    </p>
+
   </div>
 
-  <div class="grid">
 
-    <a routerLink="/resume-builder" class="tile card">
-      <span class="tile-icon">📄</span>
-      <div>
-        <h2>Resume</h2>
-        <p>{{ hasResume ? 'Edit your resume' : 'Not started yet' }}</p>
+
+  <!-- ================= TOOL GRID ================= -->
+
+  <section class="tool-grid">
+
+
+    <!-- RESUME -->
+
+    <a
+      routerLink="/resume-builder"
+      class="tool-card resume-tool"
+    >
+
+      <div class="tool-card-top">
+
+        <div class="tool-icon blue">
+          ▤
+        </div>
+
+        <span
+          class="tool-status"
+          [class.ready]="hasResume"
+        >
+          {{ hasResume ? 'READY' : 'START' }}
+        </span>
+
       </div>
+
+
+      <div class="tool-content">
+
+        <h3>
+          Resume Builder
+        </h3>
+
+        <p>
+          Build a professional ATS-friendly resume with
+          an easy-to-use editor.
+        </p>
+
+      </div>
+
+
+      <div class="tool-footer">
+
+        <span>
+          {{ hasResume ? 'Continue editing' : 'Create resume' }}
+        </span>
+
+        <strong>
+          →
+        </strong>
+
+      </div>
+
     </a>
 
-    <a routerLink="/portfolio-builder" class="tile card">
-      <span class="tile-icon">🌐</span>
-      <div>
-        <h2>Portfolio</h2>
-        <p>{{ hasPortfolio ? 'Edit your portfolio' : 'Not started yet' }}</p>
+
+
+    <!-- PORTFOLIO -->
+
+    <a
+      routerLink="/portfolio-builder"
+      class="tool-card portfolio-tool"
+    >
+
+      <div class="tool-card-top">
+
+        <div class="tool-icon cyan">
+          ◇
+        </div>
+
+        <span
+          class="tool-status"
+          [class.ready]="hasPortfolio"
+        >
+          {{ hasPortfolio ? 'LIVE' : 'START' }}
+        </span>
+
       </div>
+
+
+      <div class="tool-content">
+
+        <h3>
+          Portfolio Builder
+        </h3>
+
+        <p>
+          Showcase your projects, skills and experience
+          with a professional portfolio.
+        </p>
+
+      </div>
+
+
+      <div class="tool-footer">
+
+        <span>
+          {{ hasPortfolio ? 'Manage portfolio' : 'Build portfolio' }}
+        </span>
+
+        <strong>
+          →
+        </strong>
+
+      </div>
+
     </a>
 
-    <a routerLink="/templates" class="tile card">
-      <span class="tile-icon">🗂️</span>
-      <div>
-        <h2>Templates</h2>
-        <p>Pick a resume layout</p>
+
+
+    <!-- AI -->
+
+    <a
+      routerLink="/ai-suggestions"
+      class="tool-card ai-tool"
+    >
+
+      <div class="tool-card-top">
+
+        <div class="tool-icon purple">
+          ✦
+        </div>
+
+        <span class="tool-status ai-status">
+          AI
+        </span>
+
       </div>
+
+
+      <div class="tool-content">
+
+        <h3>
+          AI Career Review
+        </h3>
+
+        <p>
+          Analyze your resume and receive intelligent
+          suggestions to improve it.
+        </p>
+
+      </div>
+
+
+      <div class="tool-footer">
+
+        <span>
+          Analyze resume
+        </span>
+
+        <strong>
+          →
+        </strong>
+
+      </div>
+
     </a>
 
-    <a routerLink="/ai-suggestions" class="tile card">
-      <span class="tile-icon">🤖</span>
-      <div>
-        <h2>AI Review</h2>
-        <p>Get feedback on your resume</p>
+
+
+    <!-- TEMPLATES -->
+
+    <a
+      routerLink="/templates"
+      class="tool-card template-tool"
+    >
+
+      <div class="tool-card-top">
+
+        <div class="tool-icon orange">
+          ▦
+        </div>
+
+        <span class="tool-status">
+          EXPLORE
+        </span>
+
       </div>
+
+
+      <div class="tool-content">
+
+        <h3>
+          Templates
+        </h3>
+
+        <p>
+          Choose a clean professional design that matches
+          your career and personality.
+        </p>
+
+      </div>
+
+
+      <div class="tool-footer">
+
+        <span>
+          Browse templates
+        </span>
+
+        <strong>
+          →
+        </strong>
+
+      </div>
+
     </a>
 
-  </div>
+
+  </section>
+
+
+
+  <!-- ================= LOWER SECTION ================= -->
+
+  <section class="dashboard-bottom">
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="quick-panel">
+
+      <div class="panel-heading">
+
+        <div>
+
+          <span>
+            QUICK ACTIONS
+          </span>
+
+          <h3>
+            Jump back in
+          </h3>
+
+        </div>
+
+      </div>
+
+
+      <div class="quick-actions">
+
+
+        <a
+          routerLink="/resume-builder"
+          class="quick-action"
+        >
+
+          <div class="quick-icon blue">
+            ＋
+          </div>
+
+          <div>
+
+            <strong>
+              {{ hasResume ? 'Edit Resume' : 'Create Resume' }}
+            </strong>
+
+            <span>
+              Update your career information
+            </span>
+
+          </div>
+
+          <span class="quick-arrow">
+            →
+          </span>
+
+        </a>
+
+
+
+        <a
+          routerLink="/portfolio-builder"
+          class="quick-action"
+        >
+
+          <div class="quick-icon cyan">
+            ◇
+          </div>
+
+          <div>
+
+            <strong>
+              {{ hasPortfolio ? 'Edit Portfolio' : 'Create Portfolio' }}
+            </strong>
+
+            <span>
+              Showcase your best work
+            </span>
+
+          </div>
+
+          <span class="quick-arrow">
+            →
+          </span>
+
+        </a>
+
+
+
+        <a
+          routerLink="/ai-suggestions"
+          class="quick-action"
+        >
+
+          <div class="quick-icon purple">
+            ✦
+          </div>
+
+          <div>
+
+            <strong>
+              Run AI Review
+            </strong>
+
+            <span>
+              Get intelligent resume feedback
+            </span>
+
+          </div>
+
+          <span class="quick-arrow">
+            →
+          </span>
+
+        </a>
+
+
+      </div>
+
+    </div>
+
+
+
+    <!-- CAREER STATUS -->
+
+    <div class="status-panel">
+
+      <div class="panel-heading">
+
+        <div>
+
+          <span>
+            PROFILE STATUS
+          </span>
+
+          <h3>
+            Career readiness
+          </h3>
+
+        </div>
+
+      </div>
+
+
+      <div class="status-list">
+
+
+        <div class="status-row">
+
+          <div class="status-info">
+
+            <span
+              class="status-dot"
+              [class.complete]="hasResume"
+            ></span>
+
+            <div>
+
+              <strong>
+                Resume
+              </strong>
+
+              <span>
+                {{ hasResume ? 'Ready to use' : 'Not completed' }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <span
+            class="status-badge"
+            [class.complete]="hasResume"
+          >
+            {{ hasResume ? 'Complete' : 'Pending' }}
+          </span>
+
+        </div>
+
+
+
+        <div class="status-row">
+
+          <div class="status-info">
+
+            <span
+              class="status-dot"
+              [class.complete]="hasPortfolio"
+            ></span>
+
+            <div>
+
+              <strong>
+                Portfolio
+              </strong>
+
+              <span>
+                {{ hasPortfolio ? 'Published profile' : 'Not completed' }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <span
+            class="status-badge"
+            [class.complete]="hasPortfolio"
+          >
+            {{ hasPortfolio ? 'Complete' : 'Pending' }}
+          </span>
+
+        </div>
+
+
+
+        <div class="status-row">
+
+          <div class="status-info">
+
+            <span class="status-dot ai"></span>
+
+            <div>
+
+              <strong>
+                AI Review
+              </strong>
+
+              <span>
+                Improve your career profile
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <a
+            routerLink="/ai-suggestions"
+            class="review-link"
+          >
+            Review →
+          </a>
+
+        </div>
+
+
+      </div>
+
+
+      <div class="status-tip">
+
+        <span>
+          ✦
+        </span>
+
+        <p>
+          Complete your career profile to get the most
+          accurate AI suggestions.
+        </p>
+
+      </div>
+
+
+    </div>
+
+
+  </section>
+
 
 </div>

@@ -146,44 +146,57 @@ export class Login implements AfterViewInit {
 
   onSubmit(): void {
 
+  if (this.loginForm.invalid) {
 
-    if (this.loginForm.invalid) {
+    this.loginForm.markAllAsTouched();
 
-      this.loginForm.markAllAsTouched();
+    return;
 
-      return;
+  }
 
-    }
+  this.isLoading = true;
+  this.errorMessage = '';
 
+  const payload = {
 
-    this.isLoading = true;
+    email: this.loginForm.value.email!,
 
-    this.errorMessage = '';
+    password: this.loginForm.value.password!
 
+  };
 
-    const payload = {
+  this.authService
+    .login(payload)
+    .subscribe({
 
-      email:
-        this.loginForm.value.email!,
+      next: () => {
 
-      password:
-        this.loginForm.value.password!
+        this.isLoading = false;
 
-    };
+        this.router.navigate(['/dashboard']);
 
+      },
 
-    this.authService
-      .login(payload)
-      .subscribe({
+      error: (err) => {
+
+        this.isLoading = false;
+
+        this.errorMessage =
+          extractErrorMessage(
+            err,
+            'Invalid email or password.'
+          );
+
+      }
+
+    });
+
+}
 
 
         /* ================= SUCCESS ================= */
 
-        next: (response: any) => {
-
-
-          this.isLoading = false;
-
+       
 
           /*
            * If your Auth service already stores the token,
@@ -191,32 +204,7 @@ export class Login implements AfterViewInit {
            */
 
 
-          this.router.navigate([
-            '/dashboard'
-          ]);
-
-        },
-
-
-        /* ================= ERROR ================= */
-
-        error: (err) => {
-
-
-          this.isLoading = false;
-
-
-          this.errorMessage =
-            extractErrorMessage(
-              err,
-              'Invalid email or password.'
-            );
-
-        }
-
-      });
-
-  }
+         
 
 
 

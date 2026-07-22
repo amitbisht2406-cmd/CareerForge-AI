@@ -1,52 +1,310 @@
 <div class="shell">
+
+  <!-- ================= SIDEBAR ================= -->
+
   <aside class="sidebar">
-    <div class="brand">
-      <span class="brand-mark">CF</span>
-      <span class="brand-name">CareerForge</span>
+
+    <!-- BRAND -->
+
+    <a routerLink="/dashboard" class="brand">
+
+      <span class="brand-mark">
+        CF
+      </span>
+
+      <div class="brand-copy">
+
+        <span class="brand-name">
+          CareerForge
+        </span>
+
+        <span class="brand-subtitle">
+          AI Career Workspace
+        </span>
+
+      </div>
+
+    </a>
+
+
+    <!-- WORKSPACE LABEL -->
+
+    <div class="nav-section-label">
+      WORKSPACE
     </div>
+
+
+    <!-- NAVIGATION -->
+
     <nav class="nav">
-      <a *ngFor="let item of navItems" [routerLink]="item.link" routerLinkActive="active" class="nav-item">
-        <span class="nav-icon">{{ item.icon }}</span>
-        <span>{{ item.label }}</span>
+
+      <a
+        *ngFor="let item of navItems"
+        [routerLink]="item.link"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="item.link === '/dashboard' ? { exact: true } : { exact: false }"
+        class="nav-item"
+      >
+
+        <span class="nav-icon">
+          {{ item.icon }}
+        </span>
+
+        <span class="nav-label">
+          {{ item.label }}
+        </span>
+
+        <span class="nav-active-dot"></span>
+
       </a>
+
     </nav>
-    <button type="button" class="logout-btn" (click)="logout()">
-      <span>↩</span> Logout
-    </button>
-  </aside>
-  <div class="main">
-   <header class="topbar">
-  <button type="button" class="theme-toggle" (click)="theme.toggle()">
-    {{ theme.isDark() ? '☀️' : '🌙' }}
-  </button>
 
-  <div class="topbar-right">
 
-    <div class="bell-wrap">
-      <button type="button" class="bell-btn" (click)="toggleNotifications()">
-        🔔
-        <span class="badge" *ngIf="notifications.unreadCount > 0">{{ notifications.unreadCount }}</span>
+    <!-- SIDEBAR BOTTOM -->
+
+    <div class="sidebar-bottom">
+
+      <div class="sidebar-upgrade">
+
+        <div class="upgrade-icon">
+          ✦
+        </div>
+
+        <div class="upgrade-content">
+
+          <strong>
+            AI Career Assistant
+          </strong>
+
+          <span>
+            Improve your profile with AI
+          </span>
+
+        </div>
+
+        <a
+          routerLink="/ai-suggestions"
+          class="upgrade-link"
+        >
+          Try AI
+          <span>→</span>
+        </a>
+
+      </div>
+
+
+      <!-- LOGOUT -->
+
+      <button
+        type="button"
+        class="logout-btn"
+        (click)="logout()"
+      >
+
+        <span class="logout-icon">
+          ↩
+        </span>
+
+        <span class="logout-text">
+          Log out
+        </span>
+
       </button>
 
-      <div class="notif-dropdown" *ngIf="showNotifications">
-        <div class="notif-header">Notifications</div>
-        <p class="notif-empty" *ngIf="notifications.items().length === 0">No notifications yet.</p>
-        <div class="notif-item" *ngFor="let n of notifications.items()">
-          <span>{{ n.icon }}</span>
-          <span>{{ n.message }}</span>
+    </div>
+
+  </aside>
+
+
+
+  <!-- ================= MAIN ================= -->
+
+  <div class="main">
+
+
+    <!-- ================= TOPBAR ================= -->
+
+    <header class="topbar">
+
+
+      <!-- LEFT -->
+
+      <div class="topbar-left">
+
+        <div class="topbar-page-info">
+
+          <span class="workspace-dot"></span>
+
+          <span>
+            Career Workspace
+          </span>
+
         </div>
+
       </div>
-    </div>
 
-    <div class="user-chip">
-      <span class="avatar">{{ initials }}</span>
-      <span class="user-name">{{ fullName }}</span>
-    </div>
 
-  </div>
-</header>
+
+      <!-- RIGHT -->
+
+      <div class="topbar-right">
+
+
+        <!-- THEME -->
+
+        <button
+          type="button"
+          class="topbar-action theme-toggle"
+          (click)="theme.toggle()"
+          [attr.aria-label]="theme.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+        >
+
+          {{ theme.isDark() ? '☀' : '☾' }}
+
+        </button>
+
+
+
+        <!-- NOTIFICATIONS -->
+
+        <div class="bell-wrap">
+
+          <button
+            type="button"
+            class="topbar-action bell-btn"
+            (click)="toggleNotifications()"
+            aria-label="Notifications"
+          >
+
+            <span class="bell-icon">
+              ♢
+            </span>
+
+            <span
+              class="badge"
+              *ngIf="notifications.unreadCount > 0"
+            >
+              {{ notifications.unreadCount }}
+            </span>
+
+          </button>
+
+
+
+          <!-- DROPDOWN -->
+
+          <div
+            class="notif-dropdown"
+            *ngIf="showNotifications"
+          >
+
+            <div class="notif-header">
+
+              <div>
+
+                <strong>
+                  Notifications
+                </strong>
+
+                <span>
+                  Your recent updates
+                </span>
+
+              </div>
+
+              <span class="notif-status">
+                {{ notifications.items().length }}
+              </span>
+
+            </div>
+
+
+            <div
+              class="notif-empty"
+              *ngIf="notifications.items().length === 0"
+            >
+
+              <div class="empty-notif-icon">
+                ✓
+              </div>
+
+              <strong>
+                You're all caught up
+              </strong>
+
+              <span>
+                No notifications right now.
+              </span>
+
+            </div>
+
+
+            <div
+              class="notif-item"
+              *ngFor="let n of notifications.items()"
+            >
+
+              <div class="notif-icon">
+                {{ n.icon }}
+              </div>
+
+              <span>
+                {{ n.message }}
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- SEPARATOR -->
+
+        <div class="topbar-separator"></div>
+
+
+
+        <!-- USER -->
+
+        <div class="user-chip">
+
+          <span class="avatar">
+            {{ initials }}
+          </span>
+
+          <div class="user-info">
+
+            <span class="user-name">
+              {{ fullName || 'CareerForge User' }}
+            </span>
+
+            <span class="user-role">
+              My workspace
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </header>
+
+
+
+    <!-- ================= PAGE CONTENT ================= -->
+
     <main class="content">
+
       <router-outlet></router-outlet>
+
     </main>
+
+
   </div>
+
 </div>
