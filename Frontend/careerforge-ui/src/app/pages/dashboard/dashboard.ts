@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+   ChangeDetectorRef,
   Component,
   OnInit,
   PLATFORM_ID,
@@ -56,7 +57,7 @@ export class Dashboard
   /* =======================================================
      DEPENDENCIES
      ======================================================= */
-
+private cdr = inject(ChangeDetectorRef);
   private platformId =
     inject(PLATFORM_ID);
 
@@ -142,49 +143,35 @@ export class Dashboard
 
     /* ================= RESUMES ================= */
 
-    this.resumeService
-      .getResumes()
-      .subscribe({
+    this.resumeService.getResumes().subscribe({
+  next: (resumes) => {
+    this.hasResume = resumes.length > 0;
+    this.cdr.detectChanges();
+  },
 
-        next: (resumes) => {
-
-          this.hasResume =
-            resumes.length > 0;
-
-        },
-
-        error: () => {
-
-          this.hasResume =
-            false;
-
-        }
-
-      });
+  error: (error) => {
+    console.error('Failed to load dashboard resumes:', error);
+    this.hasResume = false;
+    this.cdr.detectChanges();
+  }
+});
 
 
 
     /* ================= PORTFOLIOS ================= */
 
-    this.portfolioService
-      .getPortfolios()
-      .subscribe({
+  this.portfolioService.getPortfolios().subscribe({
+  next: (portfolios) => {
+    this.hasPortfolio = portfolios.length > 0;
+    this.cdr.detectChanges();
+  },
 
-        next: (portfolios) => {
-
-          this.hasPortfolio =
-            portfolios.length > 0;
-
-        },
-
-        error: () => {
-
-          this.hasPortfolio =
-            false;
-
-        }
-
-      });
+  error: (error) => {
+    console.error('Failed to load dashboard portfolios:', error);
+    this.hasPortfolio = false;
+    this.cdr.detectChanges();
+  }
+});
 
   }
 
