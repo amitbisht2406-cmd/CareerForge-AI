@@ -1,0 +1,14 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "Gemini": {
+    "ApiKey": "REPLACE_WITH_YOUR_OWN_GEMINI_API_KEY"
+  },
+  "Jwt": {
+    "Key": "REPLACE_WITH_A_RANDOM_STRING_OF_AT_LEAST_32_CHARACTERS"
+  }
+}

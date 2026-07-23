@@ -1,0 +1,17 @@
+## .NET build artifacts
+bin/
+obj/
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+
+## Secrets - NEVER commit real values in these
+appsettings.Development.json
+appsettings.Production.json
+*.pfx
+
+## OS junk
+.DS_Store
+Thumbs.db

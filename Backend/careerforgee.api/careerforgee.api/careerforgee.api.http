@@ -1,0 +1,6 @@
+@careerforgee.api_HostAddress = http://localhost:5178
+
+GET {{careerforgee.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
