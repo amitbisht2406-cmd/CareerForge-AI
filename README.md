@@ -2,8 +2,7 @@
 
 A full-stack career platform that helps job seekers build a professional resume, create a shareable portfolio, and get instant AI-powered feedback — all in one place.
 
-**Live Demo:** _add your deployed URL here once live_
-**Repository:** https://github.com/amitbisht2406-cmd/fresh
+**Repository:** https://github.com/amitbisht2406-cmd/CareerForge-AI
 
 ---
 
