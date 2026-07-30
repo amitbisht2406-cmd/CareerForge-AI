@@ -1,4 +1,4 @@
-import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, inject, ChangeDetectorRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { Resume } from '../../services/resume';
@@ -54,6 +54,7 @@ export class ResumeBuilder implements OnInit {
 
   private platformId = inject(PLATFORM_ID);
   private notifications = inject(Notifications);
+  private cdr = inject(ChangeDetectorRef);
 
   constructor(
   private resumeService: Resume,
@@ -304,10 +305,13 @@ if (!resumeData) {
 
         console.log('Resume loaded into form successfully!');
 
+        this.cdr.detectChanges();
+
       },
 
       error: (error) => {
         console.error('Failed to load resume from database:', error);
+        this.cdr.detectChanges();
       }
 
     });
@@ -378,10 +382,12 @@ if (!resumeData) {
         next: () => {
           console.log('Resume updated successfully:', this.currentResumeId);
           this.notifications.add('Resume updated successfully', '📄');
+          this.cdr.detectChanges();
         },
         error: (error) => {
           console.error('Update failed:', error);
           this.notifications.add('Failed to update resume', '⚠️');
+          this.cdr.detectChanges();
         }
       });
 
@@ -392,10 +398,12 @@ if (!resumeData) {
           this.currentResumeId = response.id;
           console.log('New resume created:', response);
           this.notifications.add('Resume saved successfully', '📄');
+          this.cdr.detectChanges();
         },
         error: (error) => {
           console.error('Save failed:', error);
           this.notifications.add('Failed to save resume', '⚠️');
+          this.cdr.detectChanges();
         }
       });
 
@@ -438,10 +446,12 @@ if (!resumeData) {
         this.achievements.push(new FormControl('', { nonNullable: true }));
         this.currentTemplateId = 1;
         this.notifications.add('Resume deleted', '🗑️');
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Delete failed:', error);
         this.notifications.add('Failed to delete resume', '⚠️');
+        this.cdr.detectChanges();
       }
     });
   }

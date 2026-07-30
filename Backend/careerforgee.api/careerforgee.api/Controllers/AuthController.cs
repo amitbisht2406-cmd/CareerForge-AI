@@ -35,6 +35,33 @@ namespace CareerForge.API.Controllers
       public string Password { get; set; } = string.Empty;
     }
 
+    // ==========================================================
+    // Shared helper: generate JWT for a given user
+    // ==========================================================
+    private string GenerateToken(User user)
+    {
+      var jwtKey = _configuration["Jwt:Key"]
+          ?? throw new InvalidOperationException("Jwt:Key is not configured.");
+
+      var tokenHandler = new JwtSecurityTokenHandler();
+      var key = Encoding.UTF8.GetBytes(jwtKey);
+
+      var tokenDescriptor = new SecurityTokenDescriptor
+      {
+        Subject = new ClaimsIdentity(new[]
+        {
+          new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+          new Claim(ClaimTypes.Email, user.Email)
+        }),
+        Expires = DateTime.UtcNow.AddDays(7),
+        SigningCredentials = new SigningCredentials(
+              new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+      };
+
+      var token = tokenHandler.CreateToken(tokenDescriptor);
+      return tokenHandler.WriteToken(token);
+    }
+
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDto dto)
     {
@@ -54,7 +81,17 @@ namespace CareerForge.API.Controllers
       _context.Users.Add(user);
       await _context.SaveChangesAsync();
 
-      return Ok(new { message = "Registered successfully" });
+      // FIX: return a token immediately, same shape as Login,
+      // so the frontend can log the user in and go straight to
+      // the dashboard instead of bouncing to /login.
+      var token = GenerateToken(user);
+
+      return Ok(new
+      {
+        token,
+        fullName = user.FullName,
+        email = user.Email
+      });
     }
 
     [HttpPost("login")]
@@ -67,29 +104,11 @@ namespace CareerForge.API.Controllers
         return Unauthorized("Invalid email or password.");
       }
 
-      var jwtKey = _configuration["Jwt:Key"]
-          ?? throw new InvalidOperationException("Jwt:Key is not configured.");
-
-      var tokenHandler = new JwtSecurityTokenHandler();
-      var key = Encoding.UTF8.GetBytes(jwtKey);
-
-      var tokenDescriptor = new SecurityTokenDescriptor
-      {
-        Subject = new ClaimsIdentity(new[]
-          {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email)
-                }),
-        Expires = DateTime.UtcNow.AddDays(7),
-        SigningCredentials = new SigningCredentials(
-              new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-      };
-
-      var token = tokenHandler.CreateToken(tokenDescriptor);
+      var token = GenerateToken(user);
 
       return Ok(new
       {
-        token = tokenHandler.WriteToken(token),
+        token,
         fullName = user.FullName,
         email = user.Email
       });

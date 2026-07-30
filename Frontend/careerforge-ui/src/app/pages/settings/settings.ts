@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user';
@@ -14,6 +14,7 @@ export class Settings implements OnInit {
 
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
+  private cdr = inject(ChangeDetectorRef);
 
   profileMessage = '';
   passwordMessage = '';
@@ -32,8 +33,12 @@ export class Settings implements OnInit {
     this.userService.getProfile().subscribe({
       next: (profile) => {
         this.profileForm.patchValue(profile);
+        this.cdr.detectChanges();
       },
-      error: (error) => console.error('Failed to load profile:', error)
+      error: (error) => {
+        console.error('Failed to load profile:', error);
+        this.cdr.detectChanges();
+      }
     });
   }
 
@@ -47,9 +52,11 @@ export class Settings implements OnInit {
       next: () => {
         this.profileMessage = 'Profile updated successfully ✅';
         localStorage.setItem('fullName', this.profileForm.value.fullName ?? '');
+        this.cdr.detectChanges();
       },
       error: () => {
         this.profileMessage = 'Failed to update profile ❌';
+        this.cdr.detectChanges();
       }
     });
   }
@@ -64,9 +71,11 @@ export class Settings implements OnInit {
       next: () => {
         this.passwordMessage = 'Password changed successfully ✅';
         this.passwordForm.reset();
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.passwordMessage = err.error || 'Failed to change password ❌';
+        this.cdr.detectChanges();
       }
     });
   }

@@ -2,7 +2,8 @@ import {
   AfterViewInit,
   Component,
   inject,
-  PLATFORM_ID
+  PLATFORM_ID,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import {
@@ -69,6 +70,9 @@ export class Login implements AfterViewInit {
 
   private platformId =
     inject(PLATFORM_ID);
+
+  private cdr =
+    inject(ChangeDetectorRef);
 
 
 
@@ -186,6 +190,8 @@ export class Login implements AfterViewInit {
             err,
             'Invalid email or password.'
           );
+
+        this.cdr.detectChanges();
 
       }
 

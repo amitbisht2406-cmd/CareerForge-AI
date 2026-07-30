@@ -32,6 +32,37 @@ namespace CareerForge.API.Controllers
       return Ok(resumes);
     }
 
+    // ==========================================================
+    // NEW: Public endpoint — no login required.
+    // Used by the public portfolio page to pull Education,
+    // Experience, Certificates, Skills and Languages from a
+    // resume the owner has explicitly linked via Portfolio.ResumeId.
+    // Deliberately excludes Email, Phone, and PhotoBase64 — those
+    // stay private even when a resume is linked to a public portfolio.
+    // ==========================================================
+    [AllowAnonymous]
+    [HttpGet("public/{id}")]
+    public async Task<IActionResult> GetPublicResume(int id)
+    {
+      var resume = await _context.Resumes
+          .FirstOrDefaultAsync(r => r.Id == id);
+
+      if (resume == null)
+      {
+        return NotFound();
+      }
+
+      return Ok(new
+      {
+        resume.Education,
+        resume.Experience,
+        resume.Skills,
+        resume.Certificates,
+        resume.Languages,
+        resume.Achievements
+      });
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateResume(Resume resume)
     {
@@ -73,7 +104,11 @@ namespace CareerForge.API.Controllers
       resume.Projects = updated.Projects;
       resume.Certificates = updated.Certificates;
       resume.Languages = updated.Languages;
+      resume.Achievements = updated.Achievements;
       resume.TemplateId = updated.TemplateId;
+
+      // FIX: was missing — photo updates were never persisted.
+      resume.PhotoBase64 = updated.PhotoBase64;
 
       await _context.SaveChangesAsync();
       return Ok(resume);

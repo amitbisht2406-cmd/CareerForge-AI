@@ -18,6 +18,10 @@ export class Portfolio {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  getPublicPortfolio(id: number) {
+    return this.http.get<any>(`${this.apiUrl}/public/${id}`);
+  }
+
   updatePortfolio(id: number, data: any) {
     return this.http.put(`${this.apiUrl}/${id}`, data);
   }

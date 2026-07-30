@@ -42,6 +42,12 @@
 
 </div>
 
+<div class="pb-share-link" *ngIf="currentPortfolioId !== null">
+  <span>🔗 Your public portfolio link:</span>
+  <a [href]="publicPortfolioLink" target="_blank">{{ publicPortfolioLink }}</a>
+  <button type="button" (click)="copyPublicLink()">Copy</button>
+</div>
+
    <div class="card section editor-card">
 
   <div class="section-heading">
@@ -242,6 +248,43 @@
         ></textarea>
       </div>
 
+      <div class="field-group">
+        <label>Tech Stack</label>
+
+        <input
+          type="text"
+          class="field"
+          placeholder="e.g. Angular, ASP.NET Core, SQL Server"
+          formControlName="techStack"
+        >
+      </div>
+
+      <div class="contact-grid">
+
+        <div class="field-group">
+          <label>Live Demo Link (optional)</label>
+
+          <input
+            type="url"
+            class="field"
+            placeholder="https://your-project.vercel.app"
+            formControlName="link"
+          >
+        </div>
+
+        <div class="field-group">
+          <label>GitHub Repository (optional)</label>
+
+          <input
+            type="url"
+            class="field"
+            placeholder="https://github.com/you/project"
+            formControlName="githubLink"
+          >
+        </div>
+
+      </div>
+
     </div>
 
   </div>
@@ -254,6 +297,71 @@
     <span>＋</span>
     Add another project
   </button>
+
+</div>
+
+    <div class="card section editor-card">
+
+  <div class="section-heading">
+
+    <div class="section-icon contact-icon">🔗</div>
+
+    <div class="section-heading-text">
+      <h2>Social &amp; Resume Link</h2>
+      <p>Shown as icons and a download button on your public portfolio.</p>
+    </div>
+
+  </div>
+
+  <div class="section-line"></div>
+
+  <div class="contact-grid">
+
+    <div class="field-group">
+      <label>GitHub Profile URL</label>
+
+      <input
+        type="url"
+        class="field"
+        placeholder="https://github.com/yourusername"
+        formControlName="githubUrl"
+      >
+    </div>
+
+    <div class="field-group">
+      <label>LinkedIn Profile URL</label>
+
+      <input
+        type="url"
+        class="field"
+        placeholder="https://linkedin.com/in/yourusername"
+        formControlName="linkedinUrl"
+      >
+    </div>
+
+  </div>
+
+  <div class="field-group">
+    <label>Link a Resume (optional)</label>
+
+    <select
+      class="field"
+      formControlName="resumeId"
+    >
+      <option [ngValue]="null">— None —</option>
+      <option
+        *ngFor="let resume of myResumes"
+        [ngValue]="resume.id"
+      >
+        {{ resume.fullName || 'Untitled Resume' }} (#{{ resume.id }})
+      </option>
+    </select>
+
+    <small>
+      Adds a "Download Resume" button, and pulls Education, Experience,
+      Certificates and Languages into your public portfolio automatically.
+    </small>
+  </div>
 
 </div>
 
@@ -388,6 +496,7 @@
         <div class="preview-project" *ngFor="let project of projects.controls" [hidden]="!project.get('title')?.value && !project.get('description')?.value">
           <strong>{{ project.get('title')?.value }}</strong>
           <p>{{ project.get('description')?.value }}</p>
+          <p *ngIf="project.get('techStack')?.value"><em>{{ project.get('techStack')?.value }}</em></p>
         </div>
       </div>
 

@@ -2,7 +2,8 @@ import {
   AfterViewInit,
   Component,
   inject,
-  PLATFORM_ID
+  PLATFORM_ID,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import {
@@ -102,6 +103,9 @@ export class Register implements AfterViewInit {
 
   private platformId =
     inject(PLATFORM_ID);
+
+  private cdr =
+    inject(ChangeDetectorRef);
 
 
 
@@ -224,12 +228,18 @@ export class Register implements AfterViewInit {
 
         /* ================= SUCCESS ================= */
 
-        next: () => {
+        next: (response: any) => {
 
           this.isLoading = false;
 
+          if (isPlatformBrowser(this.platformId)) {
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('fullName', response.fullName);
+            localStorage.setItem('email', response.email);
+          }
+
           this.router.navigate([
-            '/login'
+            '/dashboard'
           ]);
 
         },
@@ -247,6 +257,8 @@ export class Register implements AfterViewInit {
               err,
               'Registration failed. Try again.'
             );
+
+          this.cdr.detectChanges();
 
         }
 

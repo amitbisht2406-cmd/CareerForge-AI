@@ -24,5 +24,16 @@ namespace CareerForge.API.Models
 
     [MaxLength(20)]
     public string ContactPhone { get; set; } = string.Empty;
+
+    [MaxLength(255)]
+    public string GitHubUrl { get; set; } = string.Empty;
+
+    [MaxLength(255)]
+    public string LinkedInUrl { get; set; } = string.Empty;
+
+    // Optional link to one of the user's resumes, so the public
+    // portfolio page can show a "Download Resume" button and pull
+    // Education / Certificates / Languages from it.
+    public int? ResumeId { get; set; }
   }
 }

@@ -11,11 +11,13 @@ import { Templates } from './pages/templates/templates';
 import { AiSuggestions } from './pages/ai-suggestions/ai-suggestions';
 import { DashboardLayout } from './layout/dashboard-layout/dashboard-layout';
 import { authGuard } from './guards/auth-guard';
+import { PortfolioView } from './pages/portfolio-view/portfolio-view';
 
 export const routes: Routes = [
   { path: '', component: Landing },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
+  { path: 'portfolio/:id', component: PortfolioView },
   {
     path: '',
     component: DashboardLayout,

@@ -32,6 +32,41 @@ namespace CareerForge.API.Controllers
       return Ok(portfolios);
     }
 
+    // ==========================================================
+    // NEW: Public endpoint — no login required.
+    // Lets anyone with the link view the portfolio, e.g.
+    // GET /api/Portfolios/public/3
+    // Only exposes the fields needed for the public page —
+    // never the owner's UserId or anything else.
+    // ==========================================================
+    [AllowAnonymous]
+    [HttpGet("public/{id}")]
+    public async Task<IActionResult> GetPublicPortfolio(int id)
+    {
+      var portfolio = await _context.Portfolios
+          .FirstOrDefaultAsync(p => p.Id == id);
+
+      if (portfolio == null)
+      {
+        return NotFound();
+      }
+
+      return Ok(new
+      {
+        portfolio.Id,
+        portfolio.HeroTitle,
+        portfolio.HeroTagline,
+        portfolio.About,
+        portfolio.Skills,
+        portfolio.Projects,
+        portfolio.ContactEmail,
+        portfolio.ContactPhone,
+        portfolio.GitHubUrl,
+        portfolio.LinkedInUrl,
+        portfolio.ResumeId
+      });
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreatePortfolio(Portfolio portfolio)
     {
@@ -69,6 +104,9 @@ namespace CareerForge.API.Controllers
       portfolio.Projects = updated.Projects;
       portfolio.ContactEmail = updated.ContactEmail;
       portfolio.ContactPhone = updated.ContactPhone;
+      portfolio.GitHubUrl = updated.GitHubUrl;
+      portfolio.LinkedInUrl = updated.LinkedInUrl;
+      portfolio.ResumeId = updated.ResumeId;
 
       await _context.SaveChangesAsync();
       return Ok(portfolio);

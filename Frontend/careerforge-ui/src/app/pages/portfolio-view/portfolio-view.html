@@ -1,0 +1,196 @@
+<!-- ================= LOADING ================= -->
+<div class="pv-status-screen" *ngIf="isLoading">
+  <div class="pv-spinner"></div>
+  <p>Loading portfolio...</p>
+</div>
+
+<!-- ================= NOT FOUND ================= -->
+<div class="pv-status-screen" *ngIf="!isLoading && notFound">
+  <h2>Portfolio not found</h2>
+  <p>This portfolio link is invalid or no longer available.</p>
+  <a routerLink="/" class="pv-home-link">Go to CareerForge AI →</a>
+</div>
+
+<!-- ================= PORTFOLIO ================= -->
+<div class="pv-page" *ngIf="!isLoading && !notFound && portfolio">
+
+  <!-- ================= STICKY NAV ================= -->
+  <nav class="pv-nav">
+    <div class="pv-nav-inner">
+      <span class="pv-nav-brand">{{ portfolio.heroTitle }}</span>
+      <div class="pv-nav-links">
+        <button type="button" *ngIf="portfolio.about" (click)="scrollTo('pv-about')">About</button>
+        <button type="button" *ngIf="skills.length > 0" (click)="scrollTo('pv-skills')">Skills</button>
+        <button type="button" *ngIf="hasEducationOrExperience" (click)="scrollTo('pv-experience')">Experience</button>
+        <button type="button" *ngIf="projects.length > 0" (click)="scrollTo('pv-projects')">Projects</button>
+        <button type="button" *ngIf="certificates.length > 0" (click)="scrollTo('pv-certificates')">Certificates</button>
+        <button type="button" *ngIf="portfolio.contactEmail || portfolio.contactPhone" (click)="scrollTo('pv-contact')">Contact</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header class="pv-hero">
+    <div class="pv-hero-banner"></div>
+
+    <div class="pv-hero-inner">
+      <div class="pv-avatar">{{ initials }}</div>
+
+      <h1>{{ portfolio.heroTitle }}</h1>
+      <p class="pv-tagline" *ngIf="portfolio.heroTagline">{{ portfolio.heroTagline }}</p>
+
+      <div class="pv-social-row">
+
+        <a
+          *ngIf="portfolio.githubUrl"
+          [href]="portfolio.githubUrl"
+          target="_blank"
+          class="pv-icon-btn"
+        >
+          <span class="pv-icon-glyph">⌥</span> GitHub
+        </a>
+
+        <a
+          *ngIf="portfolio.linkedinUrl"
+          [href]="portfolio.linkedinUrl"
+          target="_blank"
+          class="pv-icon-btn"
+        >
+          <span class="pv-icon-glyph">in</span> LinkedIn
+        </a>
+
+        <a
+          *ngIf="portfolio.contactEmail"
+          href="mailto:{{ portfolio.contactEmail }}"
+          class="pv-icon-btn"
+        >
+          <span class="pv-icon-glyph">✉</span> Email
+        </a>
+
+        <button
+          *ngIf="portfolio.resumeId"
+          type="button"
+          class="pv-icon-btn pv-download-btn"
+          (click)="downloadResume()"
+        >
+          ⬇ Download Resume
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <div class="pv-content">
+
+    <!-- ================= ABOUT ================= -->
+    <section class="pv-section" id="pv-about" *ngIf="portfolio.about">
+      <p class="pv-eyebrow">// about</p>
+      <h2 class="pv-section-title">Who I Am</h2>
+      <p class="pv-about-text">{{ portfolio.about }}</p>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section class="pv-section pv-section-tint" id="pv-skills" *ngIf="skills.length > 0">
+      <p class="pv-eyebrow">// skills</p>
+      <h2 class="pv-section-title">What I Work With</h2>
+      <div class="pv-chip-row">
+        <span class="pv-chip" *ngFor="let skill of skills">{{ skill }}</span>
+      </div>
+    </section>
+
+    <!-- ================= EXPERIENCE & EDUCATION ================= -->
+    <section class="pv-section" id="pv-experience" *ngIf="hasEducationOrExperience">
+      <p class="pv-eyebrow">// experience</p>
+      <h2 class="pv-section-title">Experience &amp; Education</h2>
+
+      <div class="pv-two-col">
+
+        <div class="pv-info-block" *ngIf="resume?.experience">
+          <h3>Experience</h3>
+          <p>{{ resume.experience }}</p>
+        </div>
+
+        <div class="pv-info-block" *ngIf="resume?.education">
+          <h3>Education</h3>
+          <p>{{ resume.education }}</p>
+        </div>
+
+      </div>
+
+      <div class="pv-chip-row" *ngIf="languages.length > 0">
+        <span class="pv-chip pv-chip-alt" *ngFor="let lang of languages">
+          {{ lang.name }} — {{ lang.proficiency }}
+        </span>
+      </div>
+
+      <ul class="pv-achievements" *ngIf="achievements.length > 0">
+        <li *ngFor="let item of achievements">{{ item }}</li>
+      </ul>
+
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section class="pv-section pv-section-tint" id="pv-projects" *ngIf="projects.length > 0">
+      <p class="pv-eyebrow">// projects</p>
+      <h2 class="pv-section-title">Things I've Built</h2>
+
+      <div class="pv-projects-grid">
+        <div class="pv-project-card" *ngFor="let project of projects">
+
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.description }}</p>
+
+          <div class="pv-chip-row" *ngIf="project.techStack">
+            <span class="pv-chip pv-chip-mono" *ngFor="let tech of project.techStack.split(',')">
+              {{ tech.trim() }}
+            </span>
+          </div>
+
+          <div class="pv-project-links">
+            <a *ngIf="project.link" [href]="project.link" target="_blank">Live Demo →</a>
+            <a *ngIf="project.githubLink" [href]="project.githubLink" target="_blank">GitHub →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CERTIFICATES ================= -->
+    <section class="pv-section" id="pv-certificates" *ngIf="certificates.length > 0">
+      <p class="pv-eyebrow">// certificates</p>
+      <h2 class="pv-section-title">Certifications</h2>
+
+      <div class="pv-cert-grid">
+        <div class="pv-cert-card" *ngFor="let cert of certificates">
+          <strong>{{ cert.name }}</strong>
+          <span>{{ cert.issuer }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT / FOOTER ================= -->
+    <section
+      class="pv-section pv-contact-section"
+      id="pv-contact"
+      *ngIf="portfolio.contactEmail || portfolio.contactPhone"
+    >
+      <p class="pv-eyebrow">// contact</p>
+      <h2 class="pv-section-title">Let's Talk</h2>
+
+      <div class="pv-contact-row">
+        <a *ngIf="portfolio.contactEmail" href="mailto:{{ portfolio.contactEmail }}" class="pv-contact-pill">
+          ✉ {{ portfolio.contactEmail }}
+        </a>
+        <span *ngIf="portfolio.contactPhone" class="pv-contact-pill">
+          ☎ {{ portfolio.contactPhone }}
+        </span>
+      </div>
+    </section>
+
+    <footer class="pv-footer">
+      <p>Built with <a routerLink="/">CareerForge AI</a></p>
+    </footer>
+
+  </div>
+
+</div>

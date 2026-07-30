@@ -18,6 +18,10 @@ export class Resume {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  getPublicResume(id: number) {
+    return this.http.get<any>(`${this.apiUrl}/public/${id}`);
+  }
+
   updateResume(id: number, resumeData: any) {
     return this.http.put(`${this.apiUrl}/${id}`, resumeData);
   }

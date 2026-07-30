@@ -924,3 +924,39 @@
   }
 
 }
+/* =========================================================
+   PROFESSIONAL TEMPLATE (mini preview)
+========================================================= */
+
+.mock-4 .preview-page {
+  padding-top: 0;
+  overflow: hidden;
+}
+
+.mock-4 .mock-header {
+  margin: 0 -20px 14px;
+  padding: 18px 20px 14px;
+  background: #f8fafc;
+  border-bottom: 2px solid #2A5DB0;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mock-4 .mock-name {
+  background: #1f2937;
+}
+
+.mock-4 .mock-contact span {
+  background: #94a3b8;
+}
+
+.mock-4 .mock-title {
+  width: 34%;
+  border-bottom: 2px solid #2A5DB0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.mock-4 .mock-chips span {
+  background: #dce6f5;
+}

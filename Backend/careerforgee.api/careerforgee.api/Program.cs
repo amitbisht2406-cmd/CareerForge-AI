@@ -91,7 +91,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngular", policy =>
     {
         policy
-            .WithOrigins("http://localhost:4200")
+            .WithOrigins(
+                "http://localhost:4200",
+                "https://your-deployed-frontend-url.vercel.app" // TODO: replace with your real deployed URL once live
+            )
             .AllowAnyHeader()
             .AllowAnyMethod();
     });

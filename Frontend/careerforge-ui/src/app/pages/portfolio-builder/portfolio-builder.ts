@@ -3,7 +3,9 @@ import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
 import { Portfolio } from '../../services/portfolio';
+import { Resume } from '../../services/resume';
 import { Notifications } from '../../services/notifications';
 
 @Component({
@@ -17,11 +19,18 @@ export class PortfolioBuilder implements OnInit {
 
   private platformId = inject(PLATFORM_ID);
   private portfolioService = inject(Portfolio);
+  private resumeService = inject(Resume);
   private notifications = inject(Notifications);
   private cdr = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
+  private route = inject(ActivatedRoute);
 
   currentPortfolioId: number | null = null;
+
+  // List of the user's own resumes, so they can optionally link one
+  // to this portfolio (powers the public "Download Resume" button
+  // and pulls Education/Experience/Certificates into the public page).
+  myResumes: any[] = [];
 
   portfolioForm = new FormGroup({
 
@@ -36,12 +45,19 @@ export class PortfolioBuilder implements OnInit {
     projects: new FormArray([
       new FormGroup({
         title: new FormControl('', { nonNullable: true }),
-        description: new FormControl('', { nonNullable: true })
+        description: new FormControl('', { nonNullable: true }),
+        link: new FormControl('', { nonNullable: true }),
+        githubLink: new FormControl('', { nonNullable: true }),
+        techStack: new FormControl('', { nonNullable: true })
       })
     ]),
 
     contactEmail: new FormControl('', { nonNullable: true, validators: [Validators.email] }),
-    contactPhone: new FormControl('', { nonNullable: true })
+    contactPhone: new FormControl('', { nonNullable: true }),
+
+    githubUrl: new FormControl('', { nonNullable: true }),
+    linkedinUrl: new FormControl('', { nonNullable: true }),
+    resumeId: new FormControl<number | null>(null)
 
   });
 
@@ -74,6 +90,17 @@ export class PortfolioBuilder implements OnInit {
       return;
     }
 
+    // Load the user's resumes for the "link a resume" dropdown.
+    this.resumeService.getResumes().subscribe({
+      next: (resumes) => {
+        this.myResumes = resumes ?? [];
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Failed to load resumes for linking:', error);
+      }
+    });
+
     this.portfolioService.getPortfolios().subscribe({
 
       next: (portfolios) => {
@@ -82,7 +109,11 @@ export class PortfolioBuilder implements OnInit {
           return;
         }
 
-        const data = portfolios[portfolios.length - 1];
+        const portfolioIdParam = this.route.snapshot.queryParamMap.get('portfolioId');
+        const data = portfolioIdParam
+          ? portfolios.find(p => p.id === Number(portfolioIdParam)) ?? portfolios[portfolios.length - 1]
+          : portfolios[portfolios.length - 1];
+
         this.currentPortfolioId = data.id;
 
         this.portfolioForm.patchValue({
@@ -90,7 +121,10 @@ export class PortfolioBuilder implements OnInit {
           heroTagline: data.heroTagline,
           about: data.about,
           contactEmail: data.contactEmail,
-          contactPhone: data.contactPhone
+          contactPhone: data.contactPhone,
+          githubUrl: data.githubUrl,
+          linkedinUrl: data.linkedinUrl,
+          resumeId: data.resumeId ?? null
         });
 
         const savedSkills = this.safeParseArray(data.skills);
@@ -107,14 +141,20 @@ export class PortfolioBuilder implements OnInit {
         this.projects.clear();
         savedProjects.forEach((project: any) => {
           this.projects.push(new FormGroup({
-            title: new FormControl(project.title, { nonNullable: true }),
-            description: new FormControl(project.description, { nonNullable: true })
+            title: new FormControl(project.title ?? '', { nonNullable: true }),
+            description: new FormControl(project.description ?? '', { nonNullable: true }),
+            link: new FormControl(project.link ?? '', { nonNullable: true }),
+            githubLink: new FormControl(project.githubLink ?? '', { nonNullable: true }),
+            techStack: new FormControl(project.techStack ?? '', { nonNullable: true })
           }));
         });
         if (this.projects.length === 0) {
           this.projects.push(new FormGroup({
             title: new FormControl('', { nonNullable: true }),
-            description: new FormControl('', { nonNullable: true })
+            description: new FormControl('', { nonNullable: true }),
+            link: new FormControl('', { nonNullable: true }),
+            githubLink: new FormControl('', { nonNullable: true }),
+            techStack: new FormControl('', { nonNullable: true })
           }));
         }
 
@@ -143,6 +183,21 @@ export class PortfolioBuilder implements OnInit {
     }
   }
 
+  get publicPortfolioLink(): string {
+    if (this.currentPortfolioId === null || typeof window === 'undefined') {
+      return '';
+    }
+    return `${window.location.origin}/portfolio/${this.currentPortfolioId}`;
+  }
+
+  copyPublicLink(): void {
+    if (!this.publicPortfolioLink) {
+      return;
+    }
+    navigator.clipboard.writeText(this.publicPortfolioLink);
+    this.notifications.add('Portfolio link copied!', '🔗');
+  }
+
   addSkill() {
     this.skills.push(new FormControl('', { nonNullable: true }));
   }
@@ -156,7 +211,10 @@ export class PortfolioBuilder implements OnInit {
   addProject() {
     this.projects.push(new FormGroup({
       title: new FormControl('', { nonNullable: true }),
-      description: new FormControl('', { nonNullable: true })
+      description: new FormControl('', { nonNullable: true }),
+      link: new FormControl('', { nonNullable: true }),
+      githubLink: new FormControl('', { nonNullable: true }),
+      techStack: new FormControl('', { nonNullable: true })
     }));
   }
 
@@ -188,7 +246,10 @@ export class PortfolioBuilder implements OnInit {
       skills: JSON.stringify(cleanSkills),
       projects: JSON.stringify(cleanProjects),
       contactEmail: formValue.contactEmail,
-      contactPhone: formValue.contactPhone
+      contactPhone: formValue.contactPhone,
+      githubUrl: formValue.githubUrl,
+      linkedinUrl: formValue.linkedinUrl,
+      resumeId: formValue.resumeId ?? null
     };
 
     if (this.currentPortfolioId !== null) {
@@ -238,7 +299,10 @@ export class PortfolioBuilder implements OnInit {
         this.projects.clear();
         this.projects.push(new FormGroup({
           title: new FormControl('', { nonNullable: true }),
-          description: new FormControl('', { nonNullable: true })
+          description: new FormControl('', { nonNullable: true }),
+          link: new FormControl('', { nonNullable: true }),
+          githubLink: new FormControl('', { nonNullable: true }),
+          techStack: new FormControl('', { nonNullable: true })
         }));
         this.notifications.add('Portfolio deleted', '🗑️');
       },
