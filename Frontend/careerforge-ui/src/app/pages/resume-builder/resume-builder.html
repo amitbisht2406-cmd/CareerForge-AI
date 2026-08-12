@@ -344,6 +344,15 @@
 
             <button
               type="button"
+              class="btn-secondary"
+              (click)="startNewResume()"
+            >
+              <span>+</span>
+              New Resume
+            </button>
+
+            <button
+              type="button"
               class="btn-danger"
               *ngIf="currentResumeId !== null"
               (click)="deleteResume()"

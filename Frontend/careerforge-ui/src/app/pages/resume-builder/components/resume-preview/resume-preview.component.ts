@@ -167,38 +167,56 @@ async downloadPDF() {
 
     } else {
 
-      // Multi-page support
-      let heightLeft = imgHeight;
-      let position = margin;
+      // FIX: the old approach re-drew the FULL image on every page at a
+      // shifted negative offset. Because jsPDF clips to the full page
+      // (0–297mm), not to our margin box, that math drifted after the
+      // first page, causing content to repeat or get cut off between
+      // pages. Slicing the source canvas itself into exact per-page
+      // pixel chunks avoids any drift — each page gets a clean,
+      // non-overlapping piece of the resume.
 
-      pdf.addImage(
-        imgData,
-        'JPEG',
-        margin,
-        position,
-        imgWidth,
-        imgHeight
-      );
+      const pxPerMm = canvas.width / imgWidth;
+      const pageSlicePx = Math.floor(usableHeight * pxPerMm);
 
-      heightLeft -= usableHeight;
+      let renderedHeightPx = 0;
 
-      while (heightLeft > 0) {
+      while (renderedHeightPx < canvas.height) {
 
-        pdf.addPage();
-
-        position = margin - (imgHeight - heightLeft);
-
-        pdf.addImage(
-          imgData,
-          'JPEG',
-          margin,
-          position,
-          imgWidth,
-          imgHeight
+        const sliceHeightPx = Math.min(
+          pageSlicePx,
+          canvas.height - renderedHeightPx
         );
 
-        heightLeft -= usableHeight;
+        const sliceCanvas = document.createElement('canvas');
+        sliceCanvas.width = canvas.width;
+        sliceCanvas.height = sliceHeightPx;
+
+        const ctx = sliceCanvas.getContext('2d');
+        ctx?.drawImage(
+          canvas,
+          0, renderedHeightPx, canvas.width, sliceHeightPx,
+          0, 0, canvas.width, sliceHeightPx
+        );
+
+        const sliceImgData = sliceCanvas.toDataURL('image/jpeg', 0.98);
+        const sliceImgHeightMm = sliceHeightPx / pxPerMm;
+
+        if (renderedHeightPx > 0) {
+          pdf.addPage();
+        }
+
+        pdf.addImage(
+          sliceImgData,
+          'JPEG',
+          margin,
+          margin,
+          imgWidth,
+          sliceImgHeightMm
+        );
+
+        renderedHeightPx += sliceHeightPx;
       }
+
     }
 
     const fullName =

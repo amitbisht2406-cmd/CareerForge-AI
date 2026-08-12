@@ -77,6 +77,41 @@ export class Auth {
 
 
   // =========================
+  // GOOGLE LOGIN
+  // =========================
+
+  googleLogin(idToken: string) {
+
+    return this.http.post<LoginResponse>(
+      `${this.apiUrl}/google`,
+      { idToken }
+    ).pipe(
+
+      tap((response) => {
+
+        localStorage.setItem(
+          'token',
+          response.token
+        );
+
+        localStorage.setItem(
+          'fullName',
+          response.fullName
+        );
+
+        localStorage.setItem(
+          'email',
+          response.email
+        );
+
+      })
+
+    );
+
+  }
+
+
+  // =========================
   // GET TOKEN
   // =========================
 

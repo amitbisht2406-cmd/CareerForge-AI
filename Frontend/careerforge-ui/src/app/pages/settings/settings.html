@@ -112,8 +112,9 @@
       <div class="section-icon security-icon">🔒</div>
 
       <div>
-        <h2>Password & Security</h2>
-        <p>Choose a strong password to protect your account.</p>
+        <h2>{{ hasPassword ? 'Password & Security' : 'Set a Password' }}</h2>
+        <p *ngIf="hasPassword">Choose a strong password to protect your account.</p>
+        <p *ngIf="!hasPassword">You signed up with Google. Set a password to also be able to log in with your email.</p>
       </div>
 
     </div>
@@ -125,7 +126,7 @@
       (ngSubmit)="changePassword()"
     >
 
-      <div class="field-group">
+      <div class="field-group" *ngIf="hasPassword">
 
         <label for="currentPassword">
           Current Password
@@ -155,7 +156,7 @@
       <div class="field-group">
 
         <label for="newPassword">
-          New Password
+          {{ hasPassword ? 'New Password' : 'Password' }}
         </label>
 
         <input
@@ -191,7 +192,7 @@
           class="btn-primary"
           [disabled]="passwordForm.invalid"
         >
-          Update Password
+          {{ hasPassword ? 'Update Password' : 'Set Password' }}
         </button>
 
         <span

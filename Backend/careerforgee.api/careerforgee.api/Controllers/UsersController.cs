@@ -43,7 +43,7 @@ namespace CareerForge.API.Controllers
         return NotFound();
       }
 
-      return Ok(new { user.FullName, user.Email });
+      return Ok(new { user.FullName, user.Email, hasPassword = user.PasswordHash != null });
     }
 
     [HttpPut("me")]
@@ -74,9 +74,15 @@ namespace CareerForge.API.Controllers
         return NotFound();
       }
 
-      if (!BCrypt.Net.BCrypt.Verify(dto.CurrentPassword, user.PasswordHash))
+      // Accounts created via Google have no password yet. In that
+      // case this is a "set password" flow - there's nothing to
+      // verify against, so skip straight to saving the new one.
+      if (user.PasswordHash != null)
       {
-        return BadRequest("Current password is incorrect.");
+        if (!BCrypt.Net.BCrypt.Verify(dto.CurrentPassword, user.PasswordHash))
+        {
+          return BadRequest("Current password is incorrect.");
+        }
       }
 
       user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);

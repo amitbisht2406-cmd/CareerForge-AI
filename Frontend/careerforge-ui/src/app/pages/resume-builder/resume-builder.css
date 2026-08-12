@@ -701,6 +701,7 @@
 }
 
 .btn-danger,
+.btn-secondary,
 .save-resume-btn {
   display: inline-flex;
   align-items: center;
@@ -717,6 +718,18 @@
   white-space: nowrap;
 
   transition: .2s ease;
+}
+
+.btn-secondary {
+  border: 1px solid var(--primary, #2A5DB0);
+  background: transparent;
+  color: var(--primary, #2A5DB0);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  background: var(--primary, #2A5DB0);
+  color: #fff;
 }
 
 .btn-danger {

@@ -18,6 +18,7 @@ export class Settings implements OnInit {
 
   profileMessage = '';
   passwordMessage = '';
+  hasPassword = true;
 
   profileForm = this.fb.group({
     fullName: ['', Validators.required],
@@ -31,8 +32,20 @@ export class Settings implements OnInit {
 
   ngOnInit() {
     this.userService.getProfile().subscribe({
-      next: (profile) => {
+      next: (profile: any) => {
         this.profileForm.patchValue(profile);
+
+        this.hasPassword = profile.hasPassword ?? true;
+
+        // Accounts created via Google have no password yet -
+        // there's nothing to verify, so drop the requirement on
+        // that field instead of asking for a password that
+        // doesn't exist.
+        if (!this.hasPassword) {
+          this.passwordForm.get('currentPassword')?.clearValidators();
+          this.passwordForm.get('currentPassword')?.updateValueAndValidity();
+        }
+
         this.cdr.detectChanges();
       },
       error: (error) => {
@@ -69,7 +82,11 @@ export class Settings implements OnInit {
 
     this.userService.changePassword(this.passwordForm.value as any).subscribe({
       next: () => {
-        this.passwordMessage = 'Password changed successfully ✅';
+        this.passwordMessage = this.hasPassword
+          ? 'Password changed successfully ✅'
+          : 'Password set successfully ✅ You can now log in with your email and password too.';
+
+        this.hasPassword = true;
         this.passwordForm.reset();
         this.cdr.detectChanges();
       },

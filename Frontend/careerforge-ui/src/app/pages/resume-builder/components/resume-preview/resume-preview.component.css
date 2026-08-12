@@ -580,6 +580,79 @@
 .preview-paper.pdf-export img {
   max-width: 100%;
 }
+
+/* =========================================
+   PDF EXPORT — COMPACT SPACING
+   Tightens spacing (export only, live builder
+   preview is untouched) so realistic resume
+   content fits on a single page instead of
+   spilling a few lines onto a near-empty
+   second page.
+   ========================================= */
+
+.preview-paper.pdf-export {
+  padding: 26px 34px !important;
+}
+
+.preview-paper.pdf-export p {
+  line-height: 1.42 !important;
+}
+
+.preview-paper.pdf-export .preview-header {
+  padding-bottom: 14px !important;
+  margin-bottom: 16px !important;
+}
+
+.preview-paper.pdf-export .preview-header h1 {
+  font-size: 30px !important;
+  margin-bottom: 6px !important;
+}
+
+.preview-paper.pdf-export .contact-info {
+  font-size: 12px !important;
+  gap: 8px !important;
+}
+
+.preview-paper.pdf-export .social-links {
+  margin-top: 4px !important;
+  gap: 8px !important;
+}
+
+.preview-paper.pdf-export .section-title {
+  margin-top: 14px !important;
+  margin-bottom: 8px !important;
+  font-size: 16px !important;
+  padding-left: 9px !important;
+  border-left-width: 4px !important;
+}
+
+.preview-paper.pdf-export .preview-main > div:first-child .section-title,
+.preview-paper.pdf-export .preview-main > .section-title:first-child {
+  margin-top: 0 !important;
+}
+
+.preview-paper.pdf-export .preview-skills {
+  gap: 6px !important;
+}
+
+.preview-paper.pdf-export .skill-chip {
+  padding: 5px 11px !important;
+  font-size: 11.5px !important;
+}
+
+.preview-paper.pdf-export .preview-project,
+.preview-paper.pdf-export .preview-certificate,
+.preview-paper.pdf-export .sidebar-block {
+  margin-bottom: 10px !important;
+}
+
+.preview-paper.pdf-export ul {
+  padding-left: 16px !important;
+}
+
+.preview-paper.pdf-export ul li {
+  margin-bottom: 3px !important;
+}
 /* ========================================
    MODERN TEMPLATE PROFILE PHOTO
    ======================================== */

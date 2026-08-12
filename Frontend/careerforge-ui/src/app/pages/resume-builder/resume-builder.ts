@@ -335,6 +335,22 @@ if (!resumeData) {
 
     if (this.resumeForm.invalid) {
       this.resumeForm.markAllAsTouched();
+
+      const missing: string[] = [];
+
+      if (this.resumeForm.get('personalInfo.fullName')?.invalid) missing.push('Full Name');
+      if (this.resumeForm.get('personalInfo.email')?.invalid) missing.push('Email');
+      if (this.resumeForm.get('personalInfo.phone')?.invalid) missing.push('Phone (must be 10 digits)');
+      if (this.resumeForm.get('background.education')?.invalid) missing.push('Education');
+      if (this.resumeForm.get('background.experience')?.invalid) missing.push('Experience (min. 20 characters)');
+
+      const message = missing.length
+        ? `Please complete: ${missing.join(', ')}`
+        : 'Please fill in all required fields before saving.';
+
+      this.notifications.add(message, '⚠️');
+      this.cdr.detectChanges();
+
       return;
     }
 
@@ -409,6 +425,47 @@ if (!resumeData) {
 
     }
 
+  }
+
+  startNewResume() {
+
+    if (this.resumeForm.dirty || this.currentResumeId !== null) {
+      if (!confirm('Start a new resume? Any unsaved changes on the current one will be lost.')) {
+        return;
+      }
+    }
+
+    this.currentResumeId = null;
+    this.resumeForm.reset();
+
+    this.skills.clear();
+    this.skills.push(new FormControl('', { nonNullable: true }));
+
+    this.projects.clear();
+    this.projects.push(new FormGroup({
+      title: new FormControl('', { nonNullable: true }),
+      description: new FormControl('', { nonNullable: true }),
+      technologies: new FormControl('', { nonNullable: true })
+    }));
+
+    this.certificates.clear();
+    this.certificates.push(new FormGroup({
+      name: new FormControl('', { nonNullable: true }),
+      issuer: new FormControl('', { nonNullable: true })
+    }));
+
+    this.languages.clear();
+    this.languages.push(new FormGroup({
+      name: new FormControl('', { nonNullable: true }),
+      proficiency: new FormControl('', { nonNullable: true })
+    }));
+
+    this.achievements.clear();
+    this.achievements.push(new FormControl('', { nonNullable: true }));
+
+    this.currentTemplateId = 1;
+    this.notifications.add('Started a new resume', '📄');
+    this.cdr.detectChanges();
   }
 
   deleteResume() {

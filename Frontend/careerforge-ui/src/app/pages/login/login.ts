@@ -28,6 +28,8 @@ import {
   extractErrorMessage
 } from '../../shared/error-message.util';
 
+import { environment } from '../../../environments/environment';
+
 import { gsap } from 'gsap';
 
 
@@ -215,6 +217,80 @@ export class Login implements AfterViewInit {
 
 
   /* =======================================================
+     GOOGLE SIGN-IN
+     ======================================================= */
+
+  private initGoogleSignIn(): void {
+
+    if (!window.google) {
+
+      // Script may still be loading (it's async/defer); retry shortly.
+      setTimeout(() => this.initGoogleSignIn(), 300);
+      return;
+
+    }
+
+    window.google.accounts.id.initialize({
+      client_id: environment.googleClientId,
+      callback: (response) => this.handleGoogleCredential(response.credential)
+    });
+
+    const container = document.getElementById('google-signin-button');
+
+    if (container) {
+
+      window.google.accounts.id.renderButton(container, {
+        type: 'standard',
+        theme: 'outline',
+        size: 'large',
+        text: 'signin_with',
+        shape: 'rectangular',
+        width: 320
+      });
+
+    }
+
+  }
+
+
+  private handleGoogleCredential(idToken: string): void {
+
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.authService
+      .googleLogin(idToken)
+      .subscribe({
+
+        next: () => {
+
+          this.isLoading = false;
+
+          this.router.navigate(['/dashboard']);
+
+        },
+
+        error: (err) => {
+
+          this.isLoading = false;
+
+          this.errorMessage =
+            extractErrorMessage(
+              err,
+              'Google sign-in failed. Please try again.'
+            );
+
+          this.cdr.detectChanges();
+
+        }
+
+      });
+
+  }
+
+
+
+  /* =======================================================
      GSAP
      ======================================================= */
 
@@ -232,6 +308,8 @@ export class Login implements AfterViewInit {
       return;
 
     }
+
+    this.initGoogleSignIn();
 
 
 
